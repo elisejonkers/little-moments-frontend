@@ -1,13 +1,14 @@
-function NavBar () {
-    return (
-        <div className="navbar-test">
-        <p>Little Moments</p>
-        <p>My albums</p>
-        <p>Log in</p>
-        <p>Sign up</p>
-        </div>
-    )
+import { Link } from "react-router-dom";
 
+function NavBar() {
+  return (
+    <div className="navbar-test">
+      <Link to={"/"}>Little Moments</Link>
+      <p>My albums</p>
+      <Link to={"/login"}>Log in</Link>
+      <Link to={"/signup"}>Sign up</Link>
+    </div>
+  );
 }
 
-export default NavBar
+export default NavBar;
