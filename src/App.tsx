@@ -7,6 +7,7 @@ import LogIn from './components/LogIn';
 import HomePage from './pages/HomePage';
 import IsAnon from './components/IsAnon';
 import IsPrivate from './components/IsPrivate';
+import DashBoardPage from './pages/DashboardPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/" element={<HomePage/>}/>
       <Route path="/signup" element={<IsAnon><SignUp/></IsAnon>}/>
       <Route path="/login" element={<IsAnon><LogIn/></IsAnon>}/>
+      <Route path="/dashboard" element={<IsPrivate><DashBoardPage/></IsPrivate>}/>
     </Routes>
     </>
   );
