@@ -12,14 +12,14 @@ interface AuthResponseData {
     authToken: string
 }
 
-interface AuthResponse {
-    data: {
-        authToken: string,
-    },
-    status: number,
-    statusText: string,
-    headers: AxiosHeaders
-}
+// interface AuthResponse {
+//     data: {
+//         authToken: string,
+//     },
+//     status: number,
+//     statusText: string,
+//     headers: AxiosHeaders
+// }
 
 interface ErrorResponse {
     message: string

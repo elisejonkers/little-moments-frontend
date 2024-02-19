@@ -1,14 +1,28 @@
-import axios from "axios"
+import axios, { AxiosHeaders, AxiosResponse } from "axios"
 import { Sign } from "crypto"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import config from "../config"
-
+import { useNavigate } from "react-router-dom"
+import { AuthContext } from "../context/auth.context"
 
 interface SignUpState {
     email: string,
     password: string,
     firstName: string
 }
+
+interface AuthResponseData {
+    authToken: string
+}
+
+// interface AuthResponse {
+//     data: {
+//         authToken: string,
+//     },
+//     status: number,
+//     statusText: string,
+//     headers: AxiosHeaders
+// }
 
 // interface ImportMetaEnv {
 //     VITE_API_URL: string
@@ -23,6 +37,8 @@ const SignUp: React.FC = () => {
         firstName: ""
     })
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
+    const navigate = useNavigate()
+    const { storeToken, authenticateUser } = useContext(AuthContext)
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
@@ -35,8 +51,22 @@ const SignUp: React.FC = () => {
         axios
             .post(`http://localhost:5005/auth/signup`, signUp)
             .then((response) => {
-                console.log("Sign up approved")
+                console.log("sign up approved")
+                navigate("/login")
             })
+            // .then((response) => {
+            //     console.log("Sign up approved")
+            //     return axios.post(`http://localhost:5005/auth/login`, {
+            //         email: signUp.email,
+            //         password: signUp.password
+            //     })
+            // })
+            // .then((response: AxiosResponse<AuthResponseData>) => {
+            //     console.log("this is login")
+            //     // storeToken(response.data.authToken)
+            //     // authenticateUser()
+            //     // navigate("/dashboard")
+            // })
             .catch((error)  => {
                 console.log(error)
                 const errorDescription = error.response.data.message
