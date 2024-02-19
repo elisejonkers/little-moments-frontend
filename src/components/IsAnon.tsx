@@ -13,7 +13,7 @@ function IsAnon( { children }: IsAnonProps ) {
   if (isLoading) return <p>Loading ...</p>;
 
   if (isLoggedIn) {    
-    return <Navigate to="/" />;
+    return <Navigate to="/dashboard" />;
   } else {
     return <>{children}</>
   }
