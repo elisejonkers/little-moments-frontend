@@ -1,4 +1,16 @@
-function LogIn () {
+import { useState } from "react"
+
+interface LoginState {
+    email: string,
+    password: string
+}
+
+const LogIn: React.FC = () => {
+    const [logIn, setLogIn] = useState<LoginState>({
+        email: "",
+        password: ""
+    })
+
     return (
         <div>
             <h1>Log In</h1>
