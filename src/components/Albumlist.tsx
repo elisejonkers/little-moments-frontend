@@ -15,11 +15,11 @@ interface Album {
 }
 
 const AlbumList: React.FC = () => {
-    const [albums, setAlbums] = useState<Album[]>([])
     const storedToken = localStorage.getItem("authToken");
-
+    const [albums, setAlbums] = useState<Album[]>([])
+    
     const loadAlbums = () => {
-        storedToken
+        //storedToken
         axios
             .get("http://localhost:5005/api/albums", 
             {headers: { Authorization: `Bearer ${storedToken}`},
