@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { ObjectId } from "mongodb"
+import { Link } from "react-router-dom";
+
 
 const storedToken = localStorage.getItem("authToken");
 //Go to the Ironhack explanation to set the token in the Headers
@@ -8,7 +10,7 @@ const storedToken = localStorage.getItem("authToken");
 interface Album {
     _id: ObjectId,
     name: string,
-    placeOfBirth: Date,
+    dateOfBirth: Date,
     place: string,
     length: number,
     weight: number
@@ -41,8 +43,7 @@ const AlbumList: React.FC = () => {
         <>
         <h3>This is albums</h3>
         {albums.map((album, index) => {
-            return <h4 key={index}>{album.name}</h4>
-
+            return <h4 key={index}><Link to={`/albums/${album._id}`}>{album.name}</Link></h4>
         })}
         </>
     )

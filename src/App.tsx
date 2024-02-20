@@ -9,6 +9,8 @@ import IsAnon from './components/IsAnon';
 import IsPrivate from './components/IsPrivate';
 import DashBoardPage from './pages/DashboardPage';
 import AddAlbumForm from './components/AddAlbumForm';
+import AlbumDetails from './components/AlbumDetails';
+import AddEventForm from './components/AddEventForm';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
       <Route path="/login" element={<IsAnon><LogIn/></IsAnon>}/>
       <Route path="/dashboard" element={<IsPrivate><DashBoardPage/></IsPrivate>}/>
       <Route path="/albumform" element={<IsPrivate><AddAlbumForm/></IsPrivate>}/>
+      <Route path="/albums/:albumId" element={<IsPrivate><AlbumDetails/></IsPrivate>}/>
+      <Route path="/eventform" element={<IsPrivate><AddEventForm/></IsPrivate>}/>
     </Routes>
     </>
   );
