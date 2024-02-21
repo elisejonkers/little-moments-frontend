@@ -11,6 +11,7 @@ import DashBoardPage from './pages/DashboardPage';
 import AddAlbumForm from './components/AddAlbumForm';
 import AlbumDetails from './components/AlbumDetails';
 import AddEventForm from './components/AddEventForm';
+import AlbumEdit from './components/AlbumEdit';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/albumform" element={<IsPrivate><AddAlbumForm/></IsPrivate>}/>
       <Route path="/albums/:albumId" element={<IsPrivate><AlbumDetails/></IsPrivate>}/>
       <Route path="/eventform" element={<IsPrivate><AddEventForm/></IsPrivate>}/>
+      <Route path="/albumedit/:albumId" element={<IsPrivate><AlbumEdit/></IsPrivate>}/>
     </Routes>
     </>
   );

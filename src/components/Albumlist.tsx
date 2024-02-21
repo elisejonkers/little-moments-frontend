@@ -43,7 +43,11 @@ const AlbumList: React.FC = () => {
         <>
         <h3>This is albums</h3>
         {albums.map((album, index) => {
-            return <h4 key={index}><Link to={`/albums/${album._id}`}>{album.name}</Link></h4>
+            return (
+                <div>
+            <h4 key={index}><Link to={`/albums/${album._id}`}>{album.name}</Link></h4>
+            </div>
+            )
         })}
         </>
     )

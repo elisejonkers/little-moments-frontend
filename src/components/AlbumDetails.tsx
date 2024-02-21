@@ -1,9 +1,9 @@
 import axios, { AxiosResponse, AxiosError } from "axios"
-import { ObjectId } from "mongodb"
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import AddEventForm from "./AddEventForm"
 import EventsList from "./EventsList"
+import AlbumEdit from "./AlbumEdit"
 
 interface Album {
     //_id: ObjectId,
@@ -70,6 +70,7 @@ const AlbumDetails: React.FC = () => {
             <p>{albumDetails.place}</p>
             <p>{albumDetails.length}</p>
             <p>{albumDetails.weight}</p>
+            <Link to={(`/albumedit/${albumId}`)}><button>Edit</button></Link>
             </div>
             {/* <div>
                 <button onClick={handleButtonClick}>Create new event</button>
