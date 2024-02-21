@@ -63,7 +63,6 @@ const AddAlbumForm: React.FC = () => {
                 <input
                     type="date"
                     name="dateOfBirth"
-                    placeholder="Date of birth"
                     required={true}
                     value={formData.dateOfBirth.toISOString().split('T')[0]}
                     onChange={handleInputChange}

@@ -2,6 +2,8 @@ import axios, { AxiosResponse, AxiosError } from "axios"
 import { ObjectId } from "mongodb"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import AddEventForm from "./AddEventForm"
+import EventsList from "./EventsList"
 
 interface Album {
     //_id: ObjectId,
@@ -23,6 +25,7 @@ const initialAlbumDetails: Album = {
 const AlbumDetails: React.FC = () => {
     const storedToken = localStorage.getItem("authToken");
     const [albumDetails, setAlbumDetails] = useState<Album>(initialAlbumDetails)
+    const [isAddEventFormVisible, setIsEventFormVisible] = useState<boolean>(false)
     const { albumId } = useParams()
     const navigate = useNavigate()
 
@@ -41,8 +44,12 @@ const AlbumDetails: React.FC = () => {
             })
     }
 
-    const handleButtonClick = () => {
-        navigate("/eventform")
+    // const handleButtonClick = () => {
+    //     navigate("/eventform")
+    // }
+
+    const handleAddEventForm = () => {
+        setIsEventFormVisible(true)
     }
 
     useEffect(() => {
@@ -53,7 +60,6 @@ const AlbumDetails: React.FC = () => {
         <div>
             <div>
             <p>{albumDetails.name}</p>
-            {/* <p>{albumDetails.dateOfBirth instanceof Date ? albumDetails.dateOfBirth.toLocaleDateString('en-US') : albumDetails.dateOfBirth}</p> */}
             <p>
                 {new Intl.DateTimeFormat('en-US', {
                     year: 'numeric',
@@ -65,8 +71,17 @@ const AlbumDetails: React.FC = () => {
             <p>{albumDetails.length}</p>
             <p>{albumDetails.weight}</p>
             </div>
-            <div>
+            {/* <div>
                 <button onClick={handleButtonClick}>Create new event</button>
+            </div> */}
+            <div>
+                <button onClick={handleAddEventForm}>Add new event</button>
+                {isAddEventFormVisible && (
+                    <AddEventForm albumId={albumId} isAddEventFormVisible={isAddEventFormVisible} loadAlbumDetails={loadAlbumDetails}/>
+                )}
+            </div>
+            <div>
+                <EventsList albumId={albumId}/>
             </div>
         </div>
     )
