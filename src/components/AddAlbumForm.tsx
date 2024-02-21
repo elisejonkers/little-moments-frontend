@@ -3,7 +3,6 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 
 interface Album {
-    //_id: ObjectId,
     name: string,
     dateOfBirth: Date,
     place: string,
