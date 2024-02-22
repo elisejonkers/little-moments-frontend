@@ -12,6 +12,7 @@ import AddAlbumForm from './components/AddAlbumForm';
 import AlbumDetails from './components/AlbumDetails';
 import AddEventForm from './components/AddEventForm';
 import AlbumEdit from './components/AlbumEdit';
+import EventEdit from './components/EventEdit';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       <Route path="/albums/:albumId" element={<IsPrivate><AlbumDetails/></IsPrivate>}/>
       <Route path="/eventform" element={<IsPrivate><AddEventForm/></IsPrivate>}/>
       <Route path="/albumedit/:albumId" element={<IsPrivate><AlbumEdit/></IsPrivate>}/>
+      <Route path="/albums/:albumId/eventedit/:eventId" element={<IsPrivate><EventEdit/></IsPrivate>}/>
     </Routes>
     </>
   );

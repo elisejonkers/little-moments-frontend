@@ -1,6 +1,6 @@
 import axios, { AxiosResponse, AxiosError } from "axios"
-import { setFips } from "crypto"
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 
 interface Event {
     category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other",
@@ -8,6 +8,7 @@ interface Event {
     date: Date,
     description: string,
     albumID: string | undefined
+    _id: string
 }
 
 interface EventsListProps {
@@ -53,6 +54,10 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
                             }).format(new Date(event.date))}
                         </p>
                         <p>{event.description}</p>
+                        <div>
+                            <Link to={(`/albums/${albumId}/eventedit/${event._id}`)}><button>Edit</button></Link>
+                            <button>Delete</button>
+                        </div>
                         <br />
                     </div>
                 )
