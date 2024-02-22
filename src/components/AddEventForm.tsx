@@ -1,4 +1,4 @@
-import axios, {AxiosResponse, AxiosError} from "axios";
+import axios, { AxiosResponse, AxiosError } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -7,7 +7,7 @@ interface Event {
     title: string,
     date: Date,
     description: string,
-    albumID: string | undefined
+    album?: string | undefined
 }
 
 interface AddEventFormProps {
@@ -16,43 +16,69 @@ interface AddEventFormProps {
     loadAlbumDetails?: () => void | undefined
 }
 
-const AddEventForm: React.FC<AddEventFormProps> = ({albumId, isAddEventFormVisible, loadAlbumDetails}) => {
+const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, isAddEventFormVisible, loadAlbumDetails }) => {
     const storedToken = localStorage.getItem("authToken");
     const navigate = useNavigate()
     const [formData, setFormData] = useState<Event>({
         category: "Other",
         title: "",
         date: new Date(),
-        description: "",
-        albumID: ""
+        description: ""
     })
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target
-        
+
         if (name === "date") {
             const date = new Date(value)
-            setFormData({...formData, [name]: date, albumID: albumId})
+            setFormData({ ...formData, [name]: date })
         } else {
-            setFormData({...formData, [name]: value, albumID: albumId})
+            setFormData({ ...formData, [name]: value})
         }
     }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        console.log(formData)
-
         axios
-            .post(`http://localhost:5005/api/albums/${albumId}/events`, formData, {
-            headers: { Authorization: `Bearer ${storedToken}` }
+            .get(`http://localhost:5005/api/albums/${albumId}`, {
+                headers: { Authorization: `Bearer ${storedToken}` }
             })
             .then((response: AxiosResponse) => {
-            console.log("Event created", albumId)
+                const album = response.data
+                if (!album) {
+                    throw new Error('Album was not found')
+                }
+                const newEventData = {
+                    ...formData,
+                    album: album._id
+                }
+                console.log(newEventData)
+
+                return axios.post(`http://localhost:5005/api/albums/${album}/events`, newEventData, {
+                    headers: { Authorization: `Bearer ${storedToken}` }
+                })
+            })
+            .then((response: AxiosResponse) => {
+                console.log("Event created")
             })
             .catch((error: AxiosError) => {
-            console.log(error)
-            })
+                console.log(error)
+            }) 
+
+        
+       
+
+        // axios
+        //     .post(`http://localhost:5005/api/albums/${albumId}/events`, formData, {
+        //         headers: { Authorization: `Bearer ${storedToken}` }
+        //     })
+        //     .then((response: AxiosResponse) => {
+        //         console.log("Event created", albumId)
+        //     })
+        //     .catch((error: AxiosError) => {
+        //         console.log(error)
+        //     })
     }
 
     return (
@@ -98,7 +124,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({albumId, isAddEventFormVisib
                         maxLength={1000}
                         value={formData.description}
                         onChange={handleInputChange}
-                        >
+                    >
                     </textarea>
                 </label>
                 <button type="submit">Submit</button>
