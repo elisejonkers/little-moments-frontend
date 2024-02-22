@@ -14,21 +14,6 @@ interface AuthResponseData {
     authToken: string
 }
 
-// interface AuthResponse {
-//     data: {
-//         authToken: string,
-//     },
-//     status: number,
-//     statusText: string,
-//     headers: AxiosHeaders
-// }
-
-// interface ImportMetaEnv {
-//     VITE_API_URL: string
-// }
-
-// type ExtendedImportMeta = ImportMeta & { env: ImportMetaEnv };
-
 const SignUp: React.FC = () => {
     const [signUp, setSignUp] = useState<SignUpState>({
         email: "",
@@ -53,20 +38,7 @@ const SignUp: React.FC = () => {
                 console.log("sign up approved")
                 navigate("/login")
             })
-            // .then((response) => {
-            //     console.log("Sign up approved")
-            //     return axios.post(`http://localhost:5005/auth/login`, {
-            //         email: signUp.email,
-            //         password: signUp.password
-            //     })
-            // })
-            // .then((response: AxiosResponse<AuthResponseData>) => {
-            //     console.log("this is login")
-            //     // storeToken(response.data.authToken)
-            //     // authenticateUser()
-            //     // navigate("/dashboard")
-            // })
-            .catch((error)  => {
+            .catch((error) => {
                 console.log(error)
                 const errorDescription = error.response.data.message
                 setErrorMessage(errorDescription)

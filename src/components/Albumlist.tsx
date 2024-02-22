@@ -3,10 +3,6 @@ import { useEffect, useState } from "react";
 import { ObjectId } from "mongodb"
 import { Link } from "react-router-dom";
 
-
-const storedToken = localStorage.getItem("authToken");
-//Go to the Ironhack explanation to set the token in the Headers
-
 interface Album {
     _id: ObjectId,
     name: string,
@@ -21,7 +17,6 @@ const AlbumList: React.FC = () => {
     const [albums, setAlbums] = useState<Album[]>([])
     
     const loadAlbums = () => {
-        //storedToken
         axios
             .get("http://localhost:5005/api/albums", 
             {headers: { Authorization: `Bearer ${storedToken}`},
@@ -50,8 +45,7 @@ const AlbumList: React.FC = () => {
             )
         })}
         </>
-    )
-   
+    ) 
 }
 
 export default AlbumList

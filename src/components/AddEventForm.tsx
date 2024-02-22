@@ -53,7 +53,6 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                     ...formData,
                     album: album._id
                 }
-                console.log(newEventData)
 
                 return axios.post(`http://localhost:5005/api/albums/${album}/events`, newEventData, {
                     headers: { Authorization: `Bearer ${storedToken}` }

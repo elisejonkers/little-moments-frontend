@@ -6,7 +6,6 @@ import EventsList from "./EventsList"
 import AlbumEdit from "./AlbumEdit"
 
 interface Album {
-    //_id: ObjectId,
     name: string,
     dateOfBirth: Date | string,
     place: string,
@@ -25,7 +24,6 @@ const initialAlbumDetails: Album = {
 const AlbumDetails: React.FC = () => {
     const storedToken = localStorage.getItem("authToken");
     const [albumDetails, setAlbumDetails] = useState<Album>(initialAlbumDetails)
-    // const [isAddEventFormVisible, setIsEventFormVisible] = useState<boolean>(false)
     const { albumId } = useParams()
     const navigate = useNavigate()
 
@@ -36,21 +34,12 @@ const AlbumDetails: React.FC = () => {
                     headers: { Authorization: `Bearer ${storedToken}` },
                 })
             .then((response: AxiosResponse<Album>) => {
-                //console.log(response.data)
                 setAlbumDetails(response.data)
             })
             .catch((error: AxiosError) => {
                 console.log(error)
             })
     }
-
-    // const handleButtonClick = () => {
-    //     navigate("/eventform")
-    // }
-
-    // const handleAddEventForm = () => {
-    //     setIsEventFormVisible(true)
-    // }
 
     const deleteAlbum = () => {
         const confirmDelete = window.confirm(
@@ -93,15 +82,6 @@ const AlbumDetails: React.FC = () => {
             <Link to={(`/albumedit/${albumId}`)}><button>Edit</button></Link>
             <button onClick={deleteAlbum}>Delete</button>
             </div>
-            {/* <div>
-                <button onClick={handleButtonClick}>Create new event</button>
-            </div> */}
-            {/* <div>
-                <button onClick={handleAddEventForm}>Add new event</button>
-                {isAddEventFormVisible && (
-                    <AddEventForm albumId={albumId} isAddEventFormVisible={isAddEventFormVisible}/>
-                )}
-            </div> */}
             <div>
                 <EventsList albumId={albumId}/>
             </div>

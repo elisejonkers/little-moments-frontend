@@ -11,10 +11,6 @@ interface Event {
     _id?: string
 }
 
-// interface EventEditProps {
-//     albumId?: string | undefined
-// }
-
 const EventEdit: React.FC = () => {
     const storedToken = localStorage.getItem("authToken");
     const navigate = useNavigate()

@@ -49,14 +49,14 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
         if (confirmDelete) {
             axios.delete(`http://localhost:5005/api/albums/${albumId}/events/${eventId}`, {
                 headers: { Authorization: `Bearer ${storedToken}` },
-              })
-              .then((response: AxiosResponse) => {
-                console.log("Event deleted succesfully")
-                loadEvents()
             })
-            .catch((error: AxiosError) => {
-                console.log("Error deleting event", error)
-            })
+                .then((response: AxiosResponse) => {
+                    console.log("Event deleted succesfully")
+                    loadEvents()
+                })
+                .catch((error: AxiosError) => {
+                    console.log("Error deleting event", error)
+                })
         }
     }
 
@@ -66,10 +66,10 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
 
     return (
         <>
-                        <div>
+            <div>
                 <button onClick={toggleAddEventForm}>Add new event</button>
                 {isAddEventFormVisible && (
-                    <AddEventForm albumId={albumId} toggleAddEventForm={toggleAddEventForm} loadEvents={loadEvents}/>
+                    <AddEventForm albumId={albumId} toggleAddEventForm={toggleAddEventForm} loadEvents={loadEvents} />
                 )}
             </div>
             {eventsList.map((event, index) => {
@@ -92,7 +92,6 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
                         <br />
                     </div>
                 )
-
             })}
         </>
     )
