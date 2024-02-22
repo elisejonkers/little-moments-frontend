@@ -52,6 +52,26 @@ const AlbumDetails: React.FC = () => {
         setIsEventFormVisible(true)
     }
 
+    const deleteAlbum = () => {
+        const confirmDelete = window.confirm(
+            "Are you sure you want to delete this album and the associated events?"
+        )
+
+        if (confirmDelete) {
+            axios
+                .delete(`http://localhost:5005/api/albums/${albumId}`, {
+                    headers: { Authorization: `Bearer ${storedToken}` },
+                  })
+                .then((response: AxiosResponse) => {
+                    console.log("Album deleted succesfully")
+                    navigate("/dashboard")
+                })
+                .catch((error: AxiosError) => {
+                    console.log("Error deleting album", error)
+                })
+        }
+    }
+
     useEffect(() => {
         loadAlbumDetails()
     }, [albumId])
@@ -71,6 +91,7 @@ const AlbumDetails: React.FC = () => {
             <p>{albumDetails.length}</p>
             <p>{albumDetails.weight}</p>
             <Link to={(`/albumedit/${albumId}`)}><button>Edit</button></Link>
+            <button onClick={deleteAlbum}>Delete</button>
             </div>
             {/* <div>
                 <button onClick={handleButtonClick}>Create new event</button>
