@@ -34,6 +34,26 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
             })
     }
 
+    const deleteEvent = (eventId: string) => {
+        console.log("Delete button invoked", eventId)
+        const confirmDelete = window.confirm(
+            "Are you sure you want to delete this album and the associated events?"
+        )
+
+        if (confirmDelete) {
+            axios.delete(`http://localhost:5005/api/albums/${albumId}/events/${eventId}`, {
+                headers: { Authorization: `Bearer ${storedToken}` },
+              })
+              .then((response: AxiosResponse) => {
+                console.log("Event deleted succesfully")
+                loadEvents()
+            })
+            .catch((error: AxiosError) => {
+                console.log("Error deleting event", error)
+            })
+        }
+    }
+
     useEffect(() => {
         loadEvents()
     }, [])
@@ -56,7 +76,7 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
                         <p>{event.description}</p>
                         <div>
                             <Link to={(`/albums/${albumId}/eventedit/${event._id}`)}><button>Edit</button></Link>
-                            <button>Delete</button>
+                            <button onClick={() => deleteEvent(event._id)}>Delete</button>
                         </div>
                         <br />
                     </div>
