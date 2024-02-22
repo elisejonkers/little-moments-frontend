@@ -1,6 +1,7 @@
 import axios, { AxiosResponse, AxiosError } from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import AddEventForm from "./AddEventForm"
 
 interface Event {
     category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other",
@@ -16,6 +17,7 @@ interface EventsListProps {
 }
 
 const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
+    const [isAddEventFormVisible, setIsEventFormVisible] = useState<boolean>(false)
     const [eventsList, setEventsList] = useState<Event[]>([])
     const storedToken = localStorage.getItem("authToken");
 
@@ -32,6 +34,10 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
             .catch((error: AxiosError) => {
                 console.log("Error loading events", error)
             })
+    }
+
+    const toggleAddEventForm = () => {
+        setIsEventFormVisible((prevIsToggled) => !prevIsToggled)
     }
 
     const deleteEvent = (eventId: string) => {
@@ -60,7 +66,12 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
 
     return (
         <>
-            <h3>This is events</h3>
+                        <div>
+                <button onClick={toggleAddEventForm}>Add new event</button>
+                {isAddEventFormVisible && (
+                    <AddEventForm albumId={albumId} toggleAddEventForm={toggleAddEventForm} loadEvents={loadEvents}/>
+                )}
+            </div>
             {eventsList.map((event, index) => {
                 return (
                     <div key={index}>

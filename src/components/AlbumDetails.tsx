@@ -25,7 +25,7 @@ const initialAlbumDetails: Album = {
 const AlbumDetails: React.FC = () => {
     const storedToken = localStorage.getItem("authToken");
     const [albumDetails, setAlbumDetails] = useState<Album>(initialAlbumDetails)
-    const [isAddEventFormVisible, setIsEventFormVisible] = useState<boolean>(false)
+    // const [isAddEventFormVisible, setIsEventFormVisible] = useState<boolean>(false)
     const { albumId } = useParams()
     const navigate = useNavigate()
 
@@ -48,9 +48,9 @@ const AlbumDetails: React.FC = () => {
     //     navigate("/eventform")
     // }
 
-    const handleAddEventForm = () => {
-        setIsEventFormVisible(true)
-    }
+    // const handleAddEventForm = () => {
+    //     setIsEventFormVisible(true)
+    // }
 
     const deleteAlbum = () => {
         const confirmDelete = window.confirm(
@@ -96,12 +96,12 @@ const AlbumDetails: React.FC = () => {
             {/* <div>
                 <button onClick={handleButtonClick}>Create new event</button>
             </div> */}
-            <div>
+            {/* <div>
                 <button onClick={handleAddEventForm}>Add new event</button>
                 {isAddEventFormVisible && (
-                    <AddEventForm albumId={albumId} isAddEventFormVisible={isAddEventFormVisible} loadAlbumDetails={loadAlbumDetails}/>
+                    <AddEventForm albumId={albumId} isAddEventFormVisible={isAddEventFormVisible}/>
                 )}
-            </div>
+            </div> */}
             <div>
                 <EventsList albumId={albumId}/>
             </div>

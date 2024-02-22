@@ -12,11 +12,11 @@ interface Event {
 
 interface AddEventFormProps {
     albumId?: string | undefined
-    isAddEventFormVisible?: boolean | undefined
-    loadAlbumDetails?: () => void | undefined
+    toggleAddEventForm?: () => void | undefined
+    loadEvents?: () => void | undefined
 }
 
-const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, isAddEventFormVisible, loadAlbumDetails }) => {
+const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm, loadEvents }) => {
     const storedToken = localStorage.getItem("authToken");
     const navigate = useNavigate()
     const [formData, setFormData] = useState<Event>({
@@ -61,24 +61,18 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, isAddEventFormVisi
             })
             .then((response: AxiosResponse) => {
                 console.log("Event created")
+                setFormData({
+                    category: "Other",
+                    title: "",
+                    date: new Date(),
+                    description: ""
+                })
+                loadEvents?.()
+                toggleAddEventForm?.()
             })
             .catch((error: AxiosError) => {
                 console.log(error)
             }) 
-
-        
-       
-
-        // axios
-        //     .post(`http://localhost:5005/api/albums/${albumId}/events`, formData, {
-        //         headers: { Authorization: `Bearer ${storedToken}` }
-        //     })
-        //     .then((response: AxiosResponse) => {
-        //         console.log("Event created", albumId)
-        //     })
-        //     .catch((error: AxiosError) => {
-        //         console.log(error)
-        //     })
     }
 
     return (
