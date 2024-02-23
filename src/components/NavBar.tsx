@@ -1,26 +1,43 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import "../styling/navbar.css"
+import logo from "../assets/logo.png"
 
-function NavBar() {
-  const { isLoggedIn, user, logOutUser } = useContext(AuthContext)
+const NavBar: React.FC = () => {
+  const { isLoggedIn, logOutUser } = useContext(AuthContext)
+
   return (
-    <div className="navbar-test">
-
+    <div className="navbar-custom">
       {isLoggedIn && (
-        <>
-          <Link to={"/dashboard"}>Little Moments</Link>
-          <p>My albums</p>
-          <button onClick={logOutUser}>Logout</button>
-        </>
+         <Navbar expand="sm" className="bg-body-primary">
+          <Container>
+           <Navbar.Brand href="/dashboard">LITTLE MOMENTS</Navbar.Brand>
+           <Navbar.Toggle aria-controls="basic-navbar-nav" />
+           <Navbar.Collapse id="basic-navbar-nav">
+             <Nav className="ms-auto">
+               <Nav.Link onClick={logOutUser}>Log out</Nav.Link>
+             </Nav>
+           </Navbar.Collapse>
+           </Container>
+       </Navbar>
       )}
 
       {!isLoggedIn && (
-        <>
-          <p>Little Moments</p>
-          <Link to={"/login"}>Log in</Link>
-          <Link to={"/signup"}>Sign up</Link>
-        </>
+            <Navbar expand="sm" className="bg-body-primary">
+            <Container>
+              <Navbar.Brand href="">LITTLE MOMENTS</Navbar.Brand>
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="ms-auto">
+                  <Nav.Link href="login">Login</Nav.Link>
+                  <Nav.Link href="signup">Sign up</Nav.Link>
+                </Nav>
+              </Navbar.Collapse>
+            </Container>
+          </Navbar>
       )}
     </div>
   );
