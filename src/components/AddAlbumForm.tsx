@@ -1,6 +1,11 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 interface Album {
     name: string,
@@ -49,50 +54,100 @@ const AddAlbumForm: React.FC = () => {
     }
 
     return (
-        <>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
+        <div className="album-form-container">
+            <Form onSubmit={handleSubmit}>
+                <h1>CREATE A NEW ALBUM</h1>
+                <br />
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Name"
+                    className="mb-3"
+                >
+                    <Form.Control 
+                    type="text" 
                     name="name"
                     placeholder="Name"
                     required={true}
                     value={formData.name}
-                    onChange={handleInputChange}
-                />
-                <input
-                    type="date"
+                    onChange={handleInputChange} 
+                    />
+                </FloatingLabel>
+
+                <br />
+
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Date of birth"
+                    className="mb-3"
+                >
+                    <Form.Control 
+                    type="date" 
+                    placeholder="Date of birth"
                     name="dateOfBirth"
                     required={true}
                     value={formData.dateOfBirth.toISOString().split('T')[0]}
                     onChange={handleInputChange}
-                />
-                <input
-                    type="text"
-                    name="place"
+                     />
+                </FloatingLabel>
+
+                <br />
+
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Place of birth"
+                    className="mb-3"
+                >
+                    <Form.Control 
+                    type="text" 
                     placeholder="Place of birth"
+                    name="place"
                     required={true}
                     value={formData.place}
                     onChange={handleInputChange}
-                />
-                <input
-                    type="number"
-                    name="length"
+                     />
+                </FloatingLabel>
+
+                <br />
+
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Length in cm"
+                    className="mb-3"
+                >
+                    <Form.Control 
+                    type="number" 
                     placeholder="Length in cm"
+                    name="length"
                     required={true}
                     value={formData.length}
                     onChange={handleInputChange}
-                />
-                <input
-                    type="number"
-                    name="weight"
+                     />
+                </FloatingLabel>
+
+                <br />
+
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Weight in gram"
+                    className="mb-3"
+                >
+                    <Form.Control 
+                    type="number" 
                     placeholder="Weight in gram"
+                    name="weight"
                     required={true}
                     value={formData.weight}
                     onChange={handleInputChange}
-                />
-                <button type="submit">Submit</button>
-            </form>
-        </>
+                     />
+                </FloatingLabel>
+
+                <br />
+          
+                <Button variant="secondary" type="submit">
+                    Save
+                </Button>
+            </Form>
+        </div>
     )
 }
 

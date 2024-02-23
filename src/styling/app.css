@@ -73,7 +73,6 @@
     font-variation-settings: "slnt" 0;
     margin-bottom: 3vh;
     margin-top: 3vh;
-
 }
 
 form {
@@ -90,6 +89,10 @@ form {
     grid-template-columns: 2fr 1fr;
     gap: 10px;
     margin-top: 8vh;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
 }
 
 .dashboard-container h1 {
@@ -110,6 +113,8 @@ form {
     position: absolute;
     top: 38%;
     right: 8%;
+    background-color: #aec0cd;
+    border: none;
 }
 
 

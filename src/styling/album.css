@@ -4,6 +4,7 @@
     font-style: normal;
     font-weight: light;
 }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 .albumlist-container {
     position: absolute;
@@ -30,4 +31,34 @@
 
 .albumlist-container-item {
     justify-self: center;
+}
+
+.album-form-container {
+    width: 50vw;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    margin-top: 10vh;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-variation-settings: "slnt" 0;
+}
+
+.album-form-container h1 {
+    margin-bottom: 10vh;
+    font-size: 400%;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-variation-settings: "slnt" 0;
+}
+
+.album-form-container button {
+    margin-bottom: 10vh;
+    background-color: #aec0cd;
+    width: 8vw;
+    border: none
 }
