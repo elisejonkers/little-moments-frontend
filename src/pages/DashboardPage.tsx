@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom"
 import AddAlbumForm from "../components/AddAlbumForm"
 import AlbumList from "../components/Albumlist"
+import { AuthContext } from "../context/auth.context"
+import { useContext } from "react"
 
 const DashBoardPage = () => {
+    const { user } = useContext(AuthContext)
     const navigate = useNavigate()
     const handleButtonClick = () => {
         navigate("/albumform")
@@ -10,7 +13,7 @@ const DashBoardPage = () => {
     
     return (
         <>
-        <h1>This is dashboard</h1>
+        <h1>Welcome {user ? user.firstName: "user"}</h1>
         <AlbumList/>
         <button onClick={handleButtonClick}>Add new album</button>
         </>

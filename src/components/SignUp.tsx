@@ -1,8 +1,12 @@
 import axios, { AxiosHeaders, AxiosResponse } from "axios"
 import { useContext, useState } from "react"
 import config from "../config"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { AuthContext } from "../context/auth.context"
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import signup_photo from "../assets/signup_photo.jpg"
+import "../styling/app.css"
 
 interface SignUpState {
     email: string,
@@ -46,45 +50,107 @@ const SignUp: React.FC = () => {
     }
 
     return (
-        <div>
-            <h1>Sign Up</h1>
-            <form onSubmit={handleSignUpSubmit}>
-                <label htmlFor="">
-                    Email
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Enter your email here"
-                        required={true}
-                        value={signUp.email}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <label htmlFor="">
-                    Password
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Enter your password here"
-                        required={true}
-                        value={signUp.password}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <label htmlFor="">
-                    First name
-                    <input
-                        type="text"
-                        name="firstName"
-                        placeholder="Enter your first nam here"
-                        required={true}
-                        value={signUp.firstName}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <button type="submit">Create an account</button>
-            </form>
+        <div className="login-container">
+            <div>
+                <img src={signup_photo} alt="login" className="login-photo" />
+            </div>
+            <div className="login">
+                <h3>CREAT NEW ACCOUNT</h3>
+                <Form onSubmit={handleSignUpSubmit}>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control
+                            type="email"
+                            placeholder="Enter email"
+                            name="email"
+                            required={true}
+                            value={signUp.email}
+                            onChange={handleInputChange}
+                        />
+                        <Form.Text className="text-muted">
+                            We'll never share your email with anyone else.
+                        </Form.Text>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                            type="password"
+                            placeholder="Password"
+                            name="password"
+                            required={true}
+                            value={signUp.password}
+                            onChange={handleInputChange}
+                        />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>First name</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="First name"
+                            name="firstName"
+                            required={true}
+                            value={signUp.firstName}
+                            onChange={handleInputChange}
+                        />
+                    </Form.Group>
+                    {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                        <Form.Check type="checkbox" label="Check me out" />
+                    </Form.Group> */}
+                    <Button variant="secondary" type="submit">
+                        Submit
+                    </Button>
+                </Form>
+                <div className="errormessage">
+                {errorMessage && <p>{errorMessage}</p>}
+                <p>Already have an account?</p>
+                <Link to={"/login"}>Click here to login</Link>
+            </div>
+            </div>
+
         </div>
+
+
+        // <div>
+        //     <h1>Sign Up</h1>
+        //     <form onSubmit={handleSignUpSubmit}>
+        //         <label htmlFor="">
+        //             Email
+        //             <input
+        //                 type="email"
+        //                 name="email"
+        //                 placeholder="Enter your email here"
+        //                 required={true}
+        //                 value={signUp.email}
+        //                 onChange={handleInputChange}
+        //             />
+        //         </label>
+        //         <label htmlFor="">
+        //             Password
+        //             <input
+        //                 type="password"
+        //                 name="password"
+        //                 placeholder="Enter your password here"
+        //                 required={true}
+        //                 value={signUp.password}
+        //                 onChange={handleInputChange}
+        //             />
+        //         </label>
+        //         <label htmlFor="">
+        //             First name
+        //             <input
+        //                 type="text"
+        //                 name="firstName"
+        //                 placeholder="Enter your first nam here"
+        //                 required={true}
+        //                 value={signUp.firstName}
+        //                 onChange={handleInputChange}
+        //             />
+        //         </label>
+        //         <button type="submit">Create an account</button>
+        //     </form>
+        // </div>
     )
 
 }

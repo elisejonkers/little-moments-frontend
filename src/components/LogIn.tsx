@@ -2,6 +2,12 @@ import axios, { AxiosError, AxiosHeaders, AxiosResponse } from "axios"
 import { useContext, useState } from "react"
 import { AuthContext } from "../context/auth.context"
 import { Link, useNavigate } from "react-router-dom"
+import login_photo from "../assets/login-photo.jpg"
+import login_photo2 from "../assets/login-photo2.jpg"
+import "../styling/app.css"
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+
 
 interface LoginState {
     email: string,
@@ -27,7 +33,7 @@ const LogIn: React.FC = () => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
-        setLogIn({...logIn, [name]: value})
+        setLogIn({ ...logIn, [name]: value })
     }
 
     const handleLoginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -52,40 +58,53 @@ const LogIn: React.FC = () => {
     }
 
     return (
-        <div>
-        <div>
-            <h1>Log In</h1>
-            <form onSubmit={handleLoginSubmit}>
-                <label htmlFor="">
-                    Email
-                    <input 
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email here"
-                    required={true}
-                    value={logIn.email}
-                    onChange={handleInputChange}
-                     />
-                </label>
-                <label htmlFor="">
-                    Password
-                    <input 
-                    type="password"
-                    name="password"
-                    placeholder="Enter your password here"
-                    required={true}
-                    value={logIn.password}
-                    onChange={handleInputChange}
-                     />
-                </label>
-                <button>Log in</button>
-            </form>
-        </div>
-        <div>
-            {errorMessage && <p>{errorMessage}</p>}
-            <p>Don't have an account yet?</p>
-            <Link to={"/signup"}>Click here to create an account</Link>
-        </div>
+        <div className="login-container">
+            <div>
+                <img src={login_photo2} alt="login" className="login-photo" />
+            </div>
+            <div className="login">
+                <h3>LOGIN</h3>
+                <Form onSubmit={handleLoginSubmit}>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control
+                            type="email"
+                            placeholder="Enter email"
+                            name="email"
+                            required={true}
+                            value={logIn.email}
+                            onChange={handleInputChange}
+                        />
+                        <Form.Text className="text-muted">
+                            We'll never share your email with anyone else.
+                        </Form.Text>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                            type="password"
+                            placeholder="Password"
+                            name="password"
+                            required={true}
+                            value={logIn.password}
+                            onChange={handleInputChange}
+                        />
+                    </Form.Group>
+                    {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                        <Form.Check type="checkbox" label="Check me out" />
+                    </Form.Group> */}
+                    <Button variant="secondary" type="submit">
+                        Submit
+                    </Button>
+                </Form>
+                <div className="errormessage">
+                {errorMessage && <p>{errorMessage}</p>}
+                <p>Don't have an account yet?</p>
+                <Link to={"/signup"}>Click here to create an account</Link>
+            </div>
+            </div>
+
         </div>
     )
 
