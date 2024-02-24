@@ -1,64 +1,198 @@
 @font-face {
-    font-family: 'Montstera Garden Regular';
-    src: url('../assets/MonsteraGarden.ttf') format('truetype');
-    font-style: normal;
-    font-weight: light;
+  font-family: "Montstera Garden Regular";
+  src: url("../assets/MonsteraGarden.ttf") format("truetype");
+  font-style: normal;
+  font-weight: light;
 }
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
 .albumlist-container {
-    position: absolute;
-    width: 60vw;
-    top: 38%;
-    left: 8%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15vw, 1fr));
-    gap: 5vw;
+  position: absolute;
+  width: 60vw;
+  top: 38%;
+  left: 8%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15vw, 1fr));
+  gap: 5vw;
 }
 
 .albumlist-container img {
-    width: 15vw;
-    border-radius: 50%;
+  width: 15vw;
+  border-radius: 50%;
 }
 
 .babyname {
-    font-family: 'Montstera Garden Regular', sans-serif;
-    color: black;
-    text-align: center;
-    font-size: 300%;
-    margin-top: 3vh;
+  font-family: "Montstera Garden Regular", sans-serif;
+  color: black;
+  text-align: center;
+  font-size: 300%;
+  margin-top: 3vh;
 }
 
 .albumlist-container-item {
-    justify-self: center;
+  justify-self: center;
 }
 
 .album-form-container {
-    width: 50vw;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-    margin-top: 10vh;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    font-variation-settings: "slnt" 0;
+  width: 50vw;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  margin-top: 10vh;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
 }
 
 .album-form-container h1 {
-    margin-bottom: 10vh;
-    font-size: 400%;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    font-variation-settings: "slnt" 0;
+  margin-bottom: 10vh;
+  font-size: 400%;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
 }
 
 .album-form-container button {
-    margin-bottom: 10vh;
-    background-color: #aec0cd;
-    width: 8vw;
-    border: none
+  margin-bottom: 10vh;
+  background-color: #aec0cd;
+  width: 8vw;
+  border: none;
+}
+
+.album-details-container {
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.album-details-container h1 {
+  text-align: center;
+  margin-top: 10vh;
+  font-size: 400%;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.albumdetails-overview {
+  display: grid;
+  grid-template-columns: 1fr, 2fr;
+  gap: 10px;
+}
+
+.albumdetails {
+  width: 25%;
+  grid-column: 1;
+  position: absolute;
+  top: 40%;
+  left: 5%;
+  font-size: 120%;
+}
+
+.albumdetails h2 {
+  text-align: center;
+  margin-bottom: 3vh;
+}
+
+.albumdetails-events {
+  grid-column: 2;
+}
+
+.album-details-container button {
+  background-color: #aec0cd;
+  width: 10vw;
+  border: none;
+}
+
+.albumdetails-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+}
+
+.albumdetails-buttons button {
+  margin: 3%;
+}
+
+.carousel-container {
+    max-width: 60vw;
+    position: absolute;
+    top: 40%;
+    right: 5%;
+    background-color: #f9f6f5;
+    border-radius: 20px;
+    z-index: -1;
+}
+
+.carousel-container img {
+    width: 30vw;
+    border-radius: 20px;
+    flex-shrink: 0;
+}
+
+.carousel-items {
+    display: flex;
+}
+
+.carousel-text {
+    width: 30vw;
+    height: 40vh;
+    margin: 4%;
+    overflow: auto;
+}
+
+.carousel-text h3 {
+    text-align: center;
+}
+
+.eventslist-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.different-font {
+  font-family: "Montstera Garden Regular", sans-serif; 
+  font-size: 150%;
+}
+
+.add-event-form-container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  z-index: 2;
+  position: absolute;
+  top: 20vh;
+  left: 30vw;
+  border-radius: 20px;
+  width: 40vw;
+  height: 80vh;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.add-event-form-container h1 {
+  font-size: 250%;
+}
+
+.add-event-form {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.add-event-button {
+  position: absolute;
+  top: 105%;
+  right: 5%; 
+  height: 8vh;
 }

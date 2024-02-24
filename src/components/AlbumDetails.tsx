@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import AddEventForm from "./AddEventForm"
 import EventsList from "./EventsList"
 import AlbumEdit from "./AlbumEdit"
+import Button from 'react-bootstrap/Button';
 
 interface Album {
     name: string,
@@ -50,7 +51,7 @@ const AlbumDetails: React.FC = () => {
             axios
                 .delete(`http://localhost:5005/api/albums/${albumId}`, {
                     headers: { Authorization: `Bearer ${storedToken}` },
-                  })
+                })
                 .then((response: AxiosResponse) => {
                     console.log("Album deleted succesfully")
                     navigate("/dashboard")
@@ -66,28 +67,32 @@ const AlbumDetails: React.FC = () => {
     }, [albumId])
 
     return (
-        <div>
-            <div>
-            <p>{albumDetails.name}</p>
-            <p>
-                {new Intl.DateTimeFormat('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                }).format(new Date(albumDetails.dateOfBirth))}
-            </p>
-            <p>{albumDetails.place}</p>
-            <p>{albumDetails.length}</p>
-            <p>{albumDetails.weight}</p>
-            <Link to={(`/albumedit/${albumId}`)}><button>Edit</button></Link>
-            <button onClick={deleteAlbum}>Delete</button>
-            </div>
-            <div>
-                <EventsList albumId={albumId}/>
+        <div className="album-details-container">
+            <h1>{albumDetails.name.toUpperCase()}</h1>
+            <div className="albumdetails-overview">
+                <div className="albumdetails">
+                    <h2>About me</h2>
+                    <p>My name is <span className="different-font">{albumDetails.name}</span></p>
+                    <p>I was born on <span className="different-font">
+                        {new Intl.DateTimeFormat('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        }).format(new Date(albumDetails.dateOfBirth))}</span>
+                    </p>
+                    <p>I was born in <span className="different-font">{albumDetails.place}</span></p>
+                    <p>I was <span className="different-font">{albumDetails.length}</span> cms when I was born</p>
+                    <p>I weighed <span className="different-font">{albumDetails.weight}</span> grams when I was born</p>
+                    <div className="albumdetails-buttons"><Link to={(`/albumedit/${albumId}`)}><Button>Edit</Button></Link>
+                        <Button onClick={deleteAlbum}>Delete</Button>
+                    </div>
+                </div>
+                <div className="albumdetails-events">
+                    <EventsList albumId={albumId} />
+                </div>
             </div>
         </div>
     )
-
 }
 
 export default AlbumDetails

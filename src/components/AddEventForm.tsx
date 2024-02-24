@@ -1,9 +1,14 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 interface Event {
-    category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other",
+    category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other" | "Open this select menu",
     title: string,
     date: Date,
     description: string,
@@ -20,7 +25,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
     const storedToken = localStorage.getItem("authToken");
     const navigate = useNavigate()
     const [formData, setFormData] = useState<Event>({
-        category: "Other",
+        category: "Open this select menu",
         title: "",
         date: new Date(),
         description: ""
@@ -33,7 +38,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
             const date = new Date(value)
             setFormData({ ...formData, [name]: date })
         } else {
-            setFormData({ ...formData, [name]: value})
+            setFormData({ ...formData, [name]: value })
         }
     }
 
@@ -71,57 +76,83 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
             })
             .catch((error: AxiosError) => {
                 console.log(error)
-            }) 
+            })
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <label>Category of event
-                    <select
+        <div className="add-event-form-container">
+               <h1>CREATE A NEW EVENT</h1>
+            <Form onSubmit={handleSubmit} className="add-event-form">
+             
+                <br />
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Category"
+                    className="mb-3"
+                >
+                    <Form.Select 
+                        aria-label="Default select example"
                         name="category"
                         required={true}
                         value={formData.category}
                         onChange={handleInputChange}
-                    >
-                        <option disabled selected value="">Select an option</option>
+                        >
+                        <option>Open this select menu</option>
                         <option value="Motor development">Motor development</option>
                         <option value="Social development">Social development</option>
                         <option value="Language development">Language development</option>
                         <option value="Sensory development">Sensory development</option>
                         <option value="Other">Other</option>
-                    </select>
-                </label>
-                <label>Title of event
-                    <input
-                        type="text"
-                        name="title"
-                        placeholder="Title"
-                        required={true}
-                        value={formData.title}
-                        onChange={handleInputChange}
+                    </Form.Select>
+                </FloatingLabel>
+
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Title"
+                    className="mb-3"
+                >
+                    <Form.Control 
+                    type="text" 
+                    name="title"
+                    placeholder="Title"
+                    required={true}
+                    value={formData.title}
+                    onChange={handleInputChange} 
                     />
-                </label>
-                <label>Date of event
-                    <input
-                        type="date"
-                        name="date"
-                        required={true}
-                        value={formData.date.toISOString().split('T')[0]}
-                        onChange={handleInputChange}
+                </FloatingLabel>
+
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Date"
+                    className="mb-3"
+                >
+                    <Form.Control 
+                    type="date" 
+                    name="date"
+                    placeholder="Date"
+                    required={true}
+                    value={formData.date.toISOString().split('T')[0]}
+                    onChange={handleInputChange} 
                     />
-                </label>
-                <label> Description of event
-                    <textarea
-                        name="description"
-                        maxLength={1000}
-                        value={formData.description}
-                        onChange={handleInputChange}
-                    >
-                    </textarea>
-                </label>
-                <button type="submit">Submit</button>
-            </form>
+                </FloatingLabel>
+
+                <FloatingLabel
+                    controlId="floatingTextarea"
+                    label="Description"
+                    className="mb-3"
+                >
+                    <Form.Control 
+                    as="textarea" 
+                    name="description"
+                    placeholder="Date"
+                    required={true}
+                    value={formData.description}
+                    onChange={handleInputChange} 
+                    />
+                </FloatingLabel>
+        
+                <Button type="submit">Submit</Button>
+            </Form>
         </div>
     )
 }

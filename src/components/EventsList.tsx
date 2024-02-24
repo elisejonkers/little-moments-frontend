@@ -2,6 +2,9 @@ import axios, { AxiosResponse, AxiosError } from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import AddEventForm from "./AddEventForm"
+import Button from 'react-bootstrap/Button';
+import Carousel from 'react-bootstrap/Carousel';
+import ExampleCarouselImage from "../assets/baby.jpg"
 
 interface Event {
     category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other",
@@ -14,12 +17,18 @@ interface Event {
 
 interface EventsListProps {
     albumId?: string | undefined
+    //text: string
 }
 
 const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
+    const [index, setIndex] = useState(0);
     const [isAddEventFormVisible, setIsEventFormVisible] = useState<boolean>(false)
     const [eventsList, setEventsList] = useState<Event[]>([])
     const storedToken = localStorage.getItem("authToken");
+
+    const handleSelect = (selectedIndex: number) => {
+        setIndex(selectedIndex);
+    };
 
     const loadEvents = () => {
         axios
@@ -41,7 +50,7 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
     }
 
     const deleteEvent = (eventId: string) => {
-        console.log("Delete button invoked", eventId)
+        console.log("Delete buttons invoked", eventId)
         const confirmDelete = window.confirm(
             "Are you sure you want to delete this album and the associated events?"
         )
@@ -65,35 +74,97 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
     }, [])
 
     return (
-        <>
-            <div>
-                <button onClick={toggleAddEventForm}>Add new event</button>
-                {isAddEventFormVisible && (
-                    <AddEventForm albumId={albumId} toggleAddEventForm={toggleAddEventForm} loadEvents={loadEvents} />
-                )}
-            </div>
-            {eventsList.map((event, index) => {
-                return (
-                    <div key={index}>
-                        <p>{event.title}</p>
-                        <p>{event.category}</p>
+        <div>
+            <Button onClick={toggleAddEventForm} className="add-event-button">Add event</Button>
+            {isAddEventFormVisible && (
+                <AddEventForm albumId={albumId} toggleAddEventForm={toggleAddEventForm} loadEvents={loadEvents} />
+            )}
+            <div className="carousel-container">
+
+                <Carousel>
+                    {eventsList.map((event, index) => {
+                        return (
+                            <Carousel.Item>
+                                <div className="carousel-items">
+                                    <img src={ExampleCarouselImage} alt="First Slide" />
+                                    <div className="carousel-text">
+                                        <h3>{event.title}</h3>
+                                        <p>
+                                            {new Intl.DateTimeFormat('en-US', {
+                                                year: 'numeric',
+                                                month: 'long',
+                                                day: 'numeric'
+                                            }).format(new Date(event.date))}
+                                        </p>
+                                        <p>{event.category}</p>
+                                        <p>{event.description}</p>
+                                        <div className="eventslist-buttons">
+                                            <Link to={(`/albums/${albumId}/eventedit/${event._id}`)}><Button>Edit</Button></Link>
+                                            <Button onClick={() => deleteEvent(event._id)}>Delete</Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Carousel.Item>
+
+                        )
+
+
+                    })}
+                    {/* <Carousel.Item>
+                    <img src={ExampleCarouselImage} alt="First Slide" />
+                    <Carousel.Caption>
+                        <h3>First slide label</h3>
+                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img src={ExampleCarouselImage} alt="Second Slide" />
+                    <Carousel.Caption>
+                        <h3>Second slide label</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img src={ExampleCarouselImage} alt="Third Slide" />
+                    <Carousel.Caption>
+                        <h3>Third slide label</h3>
                         <p>
-                            {new Intl.DateTimeFormat('en-US', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                            }).format(new Date(event.date))}
+                            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
                         </p>
-                        <p>{event.description}</p>
-                        <div>
-                            <Link to={(`/albums/${albumId}/eventedit/${event._id}`)}><button>Edit</button></Link>
-                            <button onClick={() => deleteEvent(event._id)}>Delete</button>
-                        </div>
-                        <br />
-                    </div>
-                )
-            })}
-        </>
+                    </Carousel.Caption>
+                </Carousel.Item> */}
+                </Carousel>
+            </div>
+        </div>
+        // <>
+        //     <div>
+        //         <Button onClick={toggleAddEventForm}>Add new event</Button>
+        //         {isAddEventFormVisible && (
+        //             <AddEventForm albumId={albumId} toggleAddEventForm={toggleAddEventForm} loadEvents={loadEvents} />
+        //         )}
+        //     </div>
+        //     {eventsList.map((event, index) => {
+        //         return (
+        //             <div key={index}>
+        //                 <p>{event.title}</p>
+        //                 <p>{event.category}</p>
+        //                 <p>
+        //                     {new Intl.DateTimeFormat('en-US', {
+        //                         year: 'numeric',
+        //                         month: 'long',
+        //                         day: 'numeric'
+        //                     }).format(new Date(event.date))}
+        //                 </p>
+        //                 <p>{event.description}</p>
+        //                 <div>
+        //                     <Link to={(`/albums/${albumId}/eventedit/${event._id}`)}><Button>Edit</Button></Link>
+        //                     <Button onClick={() => deleteEvent(event._id)}>Delete</Button>
+        //                 </div>
+        //                 <br />
+        //             </div>
+        //         )
+        //     })}
+        // </>
     )
 }
 
