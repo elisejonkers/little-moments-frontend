@@ -1,6 +1,11 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 interface Event {
     category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other",
@@ -71,51 +76,81 @@ const EventEdit: React.FC = () => {
     }, [eventId])
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <label>Category of event
-                    <select
+        <div className="edit-container">
+            <Form onSubmit={handleSubmit}>
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Category"
+                    className="mb-3"
+                >
+                    <Form.Select 
+                        aria-label="Default select example"
                         name="category"
                         required={true}
                         value={formData.category}
                         onChange={handleInputChange}
-                    >
+                        >
                         <option value="Motor development">Motor development</option>
                         <option value="Social development">Social development</option>
                         <option value="Language development">Language development</option>
                         <option value="Sensory development">Sensory development</option>
                         <option value="Other">Other</option>
-                    </select>
-                </label>
-                <label>Title of event
-                    <input
-                        type="text"
-                        name="title"
-                        required={true}
-                        value={formData.title}
-                        onChange={handleInputChange}
+                    </Form.Select>
+                </FloatingLabel>
+
+                <br/>
+
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Title"
+                    className="mb-3"
+                >
+                    <Form.Control 
+                    type="text" 
+                    name="title"
+                    placeholder="Title"
+                    required={true}
+                    value={formData.title}
+                    onChange={handleInputChange} 
                     />
-                </label>
-                <label>Date of event
-                    <input
-                        type="date"
-                        name="date"
-                        required={true}
-                        value={formData.date.toISOString().split('T')[0]}
-                        onChange={handleInputChange}                      
-                        />
-                </label>
-                <label>Description of event
-                    <textarea 
-                        name="description"
-                        maxLength={1000}
-                        value={formData.description}
-                        onChange={handleInputChange}
-                        >
-                        </textarea>
-                </label>
-                <button type="submit">Save</button>
-            </form>
+                </FloatingLabel>
+
+                <br/>
+
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Date"
+                    className="mb-3"
+                >
+                    <Form.Control 
+                    type="date" 
+                    name="date"
+                    placeholder="Date"
+                    required={true}
+                    value={formData.date.toISOString().split('T')[0]}
+                    onChange={handleInputChange} 
+                    />
+                </FloatingLabel>
+
+                <br/>
+
+                <FloatingLabel
+                    controlId="floatingTextarea"
+                    label="Description"
+                    className="mb-3"
+                >
+                    <Form.Control 
+                    as="textarea" 
+                    name="description"
+                    placeholder="Date"
+                    required={true}
+                    value={formData.description}
+                    onChange={handleInputChange} 
+                    />
+                </FloatingLabel>                                         
+                     
+                <Button type="submit">Save</Button>
+            </Form>
         </div>
     )
 }

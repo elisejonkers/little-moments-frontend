@@ -197,7 +197,7 @@
   height: 8vh;
 }
 
-.edit-album-container {
+.edit-container {
   display: flex;
   flex-direction: column;
   width: 50vw;
@@ -212,7 +212,7 @@
   font-variation-settings: "slnt" 0;
 }
 
-.edit-album-container button {
+.edit-container button {
   margin-bottom: 10vh;
   background-color: #aec0cd;
   width: 8vw;

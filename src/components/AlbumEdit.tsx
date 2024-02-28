@@ -74,7 +74,7 @@ const AlbumEdit: React.FC = () => {
     }, [albumId])
 
     return (
-        <div className="edit-album-container">
+        <div className="edit-container">
             <Form onSubmit={handleSubmit}>
             <FloatingLabel
                     controlId="floatingInput"
