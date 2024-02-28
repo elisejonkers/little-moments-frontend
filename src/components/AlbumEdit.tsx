@@ -1,6 +1,11 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 interface Album {
     name: string,
@@ -69,48 +74,91 @@ const AlbumEdit: React.FC = () => {
     }, [albumId])
 
     return (
-        <>
-            <form onSubmit={handleSubmit}>
-                <input
+        <div className="edit-album-container">
+            <Form onSubmit={handleSubmit}>
+            <FloatingLabel
+                    controlId="floatingInput"
+                    label="Name"
+                    className="mb-3"
+                >
+                <Form.Control
                     type="text"
                     name="name"
                     required={true}
                     value={formData.name}
                     onChange={handleInputChange}
                 />
-                <input
+                </FloatingLabel>
+
+                <br/>
+
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Date of birth"
+                    className="mb-3"
+                >
+                <Form.Control
                     type="date"
                     name="dateOfBirth"
                     required={true}
                     value={formData.dateOfBirth.toISOString().split('T')[0]}
                     onChange={handleInputChange}
                 />
-                <input
+                </FloatingLabel>
+
+                <br/>
+
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Place of birth"
+                    className="mb-3"
+                >
+                <Form.Control
                     type="text"
                     name="place"
                     required={true}
                     value={formData.place}
                     onChange={handleInputChange}
                 />
-                <input
+                </FloatingLabel>
+
+                <br/>
+
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Length in cm"
+                    className="mb-3"
+                >
+                <Form.Control
                     type="number"
                     name="length"
                     required={true}
                     value={formData.length}
                     onChange={handleInputChange}
                 />
-                <input
+                </FloatingLabel>
+
+                <br/>
+
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Weight in gram"
+                    className="mb-3"
+                >
+                <Form.Control
                     type="number"
                     name="weight"
                     required={true}
                     value={formData.weight}
                     onChange={handleInputChange}
                 />
-                <button>Save</button>
+                </FloatingLabel>
 
-            </form>
+                <Button variant="secondary" type="submit">Save</Button>
 
-        </>
+            </Form>
+
+        </div>
     )
 }
 

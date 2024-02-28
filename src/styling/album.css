@@ -196,3 +196,25 @@
   right: 5%; 
   height: 8vh;
 }
+
+.edit-album-container {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  margin-top: 10vh;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.edit-album-container button {
+  margin-bottom: 10vh;
+  background-color: #aec0cd;
+  width: 8vw;
+  border: none;
+}
