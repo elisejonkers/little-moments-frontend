@@ -21,14 +21,9 @@ interface EventsListProps {
 }
 
 const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
-    const [index, setIndex] = useState(0);
     const [isAddEventFormVisible, setIsEventFormVisible] = useState<boolean>(false)
     const [eventsList, setEventsList] = useState<Event[]>([])
     const storedToken = localStorage.getItem("authToken");
-
-    const handleSelect = (selectedIndex: number) => {
-        setIndex(selectedIndex);
-    };
 
     const loadEvents = () => {
         axios
@@ -80,9 +75,8 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
                 <AddEventForm albumId={albumId} toggleAddEventForm={toggleAddEventForm} loadEvents={loadEvents} />
             )}
             <div className="carousel-container">
-
                 <Carousel>
-                    {eventsList.map((event, index) => {
+                    {eventsList.map((event) => {
                         return (
                             <Carousel.Item>
                                 <div className="carousel-items">
@@ -105,34 +99,8 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
                                     </div>
                                 </div>
                             </Carousel.Item>
-
                         )
-
-
                     })}
-                    {/* <Carousel.Item>
-                    <img src={ExampleCarouselImage} alt="First Slide" />
-                    <Carousel.Caption>
-                        <h3>First slide label</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img src={ExampleCarouselImage} alt="Second Slide" />
-                    <Carousel.Caption>
-                        <h3>Second slide label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img src={ExampleCarouselImage} alt="Third Slide" />
-                    <Carousel.Caption>
-                        <h3>Third slide label</h3>
-                        <p>
-                            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                        </p>
-                    </Carousel.Caption>
-                </Carousel.Item> */}
                 </Carousel>
             </div>
         </div>

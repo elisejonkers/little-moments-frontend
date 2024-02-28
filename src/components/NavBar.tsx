@@ -28,7 +28,7 @@ const NavBar: React.FC = () => {
       {!isLoggedIn && (
             <Navbar expand="sm" className="bg-body-primary">
             <Container>
-              <Navbar.Brand href="">LITTLE MOMENTS</Navbar.Brand>
+              <Navbar.Brand href="/">LITTLE MOMENTS</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ms-auto">
