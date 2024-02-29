@@ -11,7 +11,8 @@ interface Album {
     dateOfBirth: Date,
     place: string,
     length: number,
-    weight: number
+    weight: number,
+    imageURL?: string
 }
 
 const AlbumList: React.FC = () => {
@@ -43,7 +44,9 @@ const AlbumList: React.FC = () => {
                 return (
                     <div className="albumlist-container-item">
                         <Link to={`/albums/${album._id}`} style={{ textDecoration: 'none' }}>
-                        <img src={baby} alt="baby" />
+                            <div className="profile-picture-wrapper">
+                        <img src={album.imageURL} alt="baby" />
+                        </div>
                         <h4 key={index} className="babyname">{album.name}</h4>
                         </Link>
                     </div>
