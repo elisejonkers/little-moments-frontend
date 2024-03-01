@@ -6,6 +6,8 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import service from "../services/file-upload.service"
+import default_picture from "../assets/default-picture.jpg"
 
 interface Event {
     category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other" | "Open this select menu",
@@ -13,6 +15,7 @@ interface Event {
     date: Date,
     description: string,
     album?: string | undefined
+    imageURL?: string | undefined
 }
 
 interface AddEventFormProps {
@@ -22,14 +25,44 @@ interface AddEventFormProps {
 }
 
 const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm, loadEvents }) => {
+    let handleFileUploadCalled = false
     const storedToken = localStorage.getItem("authToken");
     const navigate = useNavigate()
+    const [imageUrl, setImageUrl] = useState("")
     const [formData, setFormData] = useState<Event>({
         category: "Open this select menu",
         title: "",
         date: new Date(),
-        description: ""
+        description: "",
+        imageURL: default_picture
     })
+
+    type InputFormControlElement = HTMLInputElement & {
+        files: FileList | null
+    }
+
+    const handleFileUpload = async (e: React.ChangeEvent<InputFormControlElement>) => {
+        console.log("The file to be uploaded is: ", e.target)
+        const file = e.target.files && e.target.files[0]
+        
+        if (file) {
+            console.log("selected file: ", file)
+        }
+        
+        const uploadData = new FormData()
+        uploadData.append("imageURL", e.target.files![0])
+
+        try {
+            const response = await service.uploadImage(uploadData)
+            console.log("response is: ", response)
+            setImageUrl(response.fileURL)
+            console.log(imageUrl)
+        } catch (error) {
+            console.log("error while uploading file: ", error)
+        }
+
+        handleFileUploadCalled = true
+    }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target
@@ -45,6 +78,14 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
+        // let newRequestBody = {...formData}
+
+        // if (handleFileUploadCalled) {
+        //     newRequestBody = {...formData, imageURL: imageUrl}
+        // } else {
+        //     newRequestBody = {...formData}
+        // } 
+
         axios
             .get(`http://localhost:5005/api/albums/${albumId}`, {
                 headers: { Authorization: `Bearer ${storedToken}` }
@@ -54,10 +95,15 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                 if (!album) {
                     throw new Error('Album was not found')
                 }
-                const newEventData = {
+
+                let newEventData = {
                     ...formData,
                     album: album._id
                 }
+
+                if (handleFileUploadCalled) {
+                    newEventData = {...formData, album: album._id, imageURL: imageUrl}
+                } 
 
                 return axios.post(`http://localhost:5005/api/albums/${album}/events`, newEventData, {
                     headers: { Authorization: `Bearer ${storedToken}` }
@@ -85,6 +131,42 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
             <Form onSubmit={handleSubmit} className="add-event-form">
              
                 <br />
+
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Title"
+                    className="mb-3"
+                >
+                    <Form.Control 
+                    type="text" 
+                    name="title"
+                    placeholder="Title"
+                    required={true}
+                    value={formData.title}
+                    onChange={handleInputChange} 
+                    />
+                </FloatingLabel>
+
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Image"
+                    className="mb-3"
+                >
+                    <Form.Control 
+                    type="file" 
+                    name="imageURL"
+                    accept=".jpg, .jpeg, .png"
+                    //placeholder="Name"
+                    //required={true}
+                    //value={formData.imageURL}
+                    onChange={(e: React.ChangeEvent<InputFormControlElement>) => handleFileUpload(e)}
+                    />
+                    {/* {formData.imageURL && (
+                        <div>Selected file: {formData.imageURL}</div>
+                    )} */}
+
+                </FloatingLabel>
+
                 <FloatingLabel
                     controlId="floatingInput"
                     label="Category"
@@ -104,21 +186,6 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                         <option value="Sensory development">Sensory development</option>
                         <option value="Other">Other</option>
                     </Form.Select>
-                </FloatingLabel>
-
-                <FloatingLabel
-                    controlId="floatingInput"
-                    label="Title"
-                    className="mb-3"
-                >
-                    <Form.Control 
-                    type="text" 
-                    name="title"
-                    placeholder="Title"
-                    required={true}
-                    value={formData.title}
-                    onChange={handleInputChange} 
-                    />
                 </FloatingLabel>
 
                 <FloatingLabel

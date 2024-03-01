@@ -11,8 +11,9 @@ interface Event {
     title: string,
     date: Date,
     description: string,
-    albumID: string | undefined
-    _id: string
+    albumID: string | undefined,
+    _id: string,
+    imageURL?: string
 }
 
 interface EventsListProps {
@@ -80,7 +81,9 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
                         return (
                             <Carousel.Item>
                                 <div className="carousel-items">
-                                    <img src={ExampleCarouselImage} alt="First Slide" />
+                                    <div className="carousel-picture-wrapper">
+                                    <img src={event.imageURL} alt="First Slide" />
+                                    </div>
                                     <div className="carousel-text">
                                         <h3>{event.title}</h3>
                                         <p>

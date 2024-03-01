@@ -10,7 +10,6 @@ import service from "../services/file-upload.service"
 import sample_photo from "../assets/sample-photo.jpg"
 import default_profile from "../assets/baby.jpg"
 
-
 interface Album {
     name: string,
     dateOfBirth: Date,
