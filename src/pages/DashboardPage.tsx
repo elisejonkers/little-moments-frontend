@@ -4,6 +4,7 @@ import { AuthContext } from "../context/auth.context"
 import { useContext } from "react"
 import Button from 'react-bootstrap/Button';
 import "../styling/app.css"
+import logo_heart from "../assets/logo-symbol.png"
 
 const DashBoardPage = () => {
     const { user } = useContext(AuthContext)
@@ -14,9 +15,9 @@ const DashBoardPage = () => {
     
     return (
         <div className="dashboard-container">
-        <h1>Welcome {user ? user.firstName: "user"}</h1>
+        <h1><img src={logo_heart} alt="heart" className="heart" />Welcome {user ? user.firstName: "user"}</h1>
         <AlbumList/>
-        <Button variant="secondary" onClick={handleButtonClick}>Add new album</Button>
+        <Button variant="secondary" onClick={handleButtonClick}>New album</Button>
         </div>
     )
 

@@ -71,7 +71,7 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
 
     return (
         <div>
-            <Button onClick={toggleAddEventForm} className="add-event-button">Add event</Button>
+            <Button onClick={toggleAddEventForm} className="add-event-button">New event</Button>
             {isAddEventFormVisible && (
                 <AddEventForm albumId={albumId} toggleAddEventForm={toggleAddEventForm} loadEvents={loadEvents} />
             )}
