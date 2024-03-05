@@ -7,7 +7,10 @@ import login_photo2 from "../assets/login-photo2.jpg"
 import "../styling/app.css"
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
 
 interface LoginState {
     email: string,
@@ -28,6 +31,7 @@ const LogIn: React.FC = () => {
         password: ""
     })
     const [errorMessage, setErrorMessage] = useState<string | undefined>()
+    const [show, setShow] = useState<boolean>(false)
     const navigate = useNavigate()
     const { storeToken, authenticateUser } = useContext(AuthContext)
 
@@ -51,8 +55,10 @@ const LogIn: React.FC = () => {
                 console.log(error)
                 if (error.response) {
                     setErrorMessage("Invalid email and/or password. Please try again")
+                    setShow(true)
                 } else {
                     setErrorMessage("An error occured")
+                    setShow(true)
                 }
             })
     }
@@ -94,15 +100,25 @@ const LogIn: React.FC = () => {
                     {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="Check me out" />
                     </Form.Group> */}
-                    <Button variant="secondary" type="submit">
+                    <Button variant="secondary" type="submit" onClick={() => setShow(true)}>
                         Submit
                     </Button>
                 </Form>
                 <div className="errormessage">
-                {errorMessage && <p>{errorMessage}</p>}
-                <p>Don't have an account yet?</p>
-                <Link to={"/signup"}>Click here to create an account</Link>
-            </div>
+                    {errorMessage && <ToastContainer position="top-start">
+                    <Toast onClose={() => setShow(false)} show={show} delay={4000} autohide>
+                        <Toast.Header>
+                            <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+                            <strong className="me-auto"></strong>
+                            <small></small>
+                        </Toast.Header>
+                        <Toast.Body className="toast-message">{errorMessage}</Toast.Body>
+                    </Toast>
+                    </ToastContainer>
+                    }
+                    <p>Don't have an account yet?</p>
+                    <Link to={"/signup"}>Click here to create an account</Link>
+                </div>
             </div>
 
         </div>
