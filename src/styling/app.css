@@ -95,6 +95,10 @@ form {
     text-align: center;
 }
 
+.toast-message {
+    color: red;
+}
+
 .dashboard-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -187,4 +191,6 @@ form {
     color: black;
 }
 
-
+Toast {
+    color: red;
+}

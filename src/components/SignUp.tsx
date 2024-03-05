@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom"
 import { AuthContext } from "../context/auth.context"
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
 import signup_photo from "../assets/signup_photo.jpg"
 import "../styling/app.css"
 
@@ -25,6 +27,7 @@ const SignUp: React.FC = () => {
         firstName: ""
     })
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
+    const [show, setShow] = useState<boolean>(false)
     const navigate = useNavigate()
     const { storeToken, authenticateUser } = useContext(AuthContext)
 
@@ -98,12 +101,21 @@ const SignUp: React.FC = () => {
                     {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="Check me out" />
                     </Form.Group> */}
-                    <Button variant="secondary" type="submit">
+                    <Button variant="secondary" type="submit" onClick={() => setShow(true)}>
                         Submit
                     </Button>
                 </Form>
                 <div className="errormessage">
-                {errorMessage && <p>{errorMessage}</p>}
+                {errorMessage && <ToastContainer position="top-start">
+                    <Toast onClose={() => setShow(false)} show={show} delay={4000} autohide>
+                        <Toast.Header>
+                            <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+                            <strong className="me-auto"></strong>
+                            <small></small>
+                        </Toast.Header>
+                        <Toast.Body className="toast-message">{errorMessage}</Toast.Body>
+                    </Toast>
+                    </ToastContainer>}
                 <p>Already have an account?</p>
                 <Link to={"/login"}>Click here to login</Link>
             </div>
