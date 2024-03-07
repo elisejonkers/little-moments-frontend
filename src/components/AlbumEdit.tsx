@@ -6,26 +6,62 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import service from "../services/file-upload.service"
 
 interface Album {
     name: string,
     dateOfBirth: Date,
     place: string,
     length: number,
-    weight: number
+    weight: number,
+    imageURL?: string | undefined
 }
 
 const AlbumEdit: React.FC = () => {
     const storedToken = localStorage.getItem("authToken");
+    const [handleFileUploadCalled, setHandleFileUploadCalled] = useState<boolean>(false)
     const navigate = useNavigate()
     const { albumId } = useParams()
+    const [imageUrl, setImageUrl] = useState("")
     const [formData, setFormData] = useState<Album>({
         name: "",
         dateOfBirth: new Date(),
         place: "",
         length: 0,
-        weight: 0
+        weight: 0,
+        imageURL: ""
     })
+
+    type InputFormControlElement = HTMLInputElement & {
+        files: FileList | null
+    }
+
+    useEffect(() => {
+        console.log(imageUrl)
+    }, [imageUrl])
+
+    const handleFileUpload = async (e: React.ChangeEvent<InputFormControlElement>) => {
+        console.log("The file to be uploaded is: ", e.target)
+
+        const file = e.target.files && e.target.files[0]
+
+        if (file) {
+            console.log("selected file: ", file)
+        }
+
+        const uploadData = new FormData()
+        uploadData.append("imageURL", e.target.files![0])
+
+        try {
+            const response = await service.uploadImage(uploadData)
+            console.log("response is: ", response.fileURL)
+            setImageUrl(response.fileURL)
+            setHandleFileUploadCalled(true)
+            
+        } catch (error) {
+            console.log("error while uploading file: ", error)
+        }
+    }
 
     const getAlbumDetails = () => {
         axios
@@ -36,10 +72,12 @@ const AlbumEdit: React.FC = () => {
                 const { dateOfBirth, ...otherData } = response.data
                 const newDateOfBirth = new Date(dateOfBirth)
                 setFormData({...otherData, dateOfBirth: newDateOfBirth})
+                console.log(formData)
             })
             .catch((error: AxiosError) => {
                 console.log("error getting details album", error)
             })
+
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,8 +94,18 @@ const AlbumEdit: React.FC = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
+        let newRequestBody = {...formData}
+
+        if (handleFileUploadCalled) {
+            newRequestBody = {...formData, imageURL: imageUrl}
+        } else {
+            newRequestBody = {...formData}
+        }
+
+        console.log(newRequestBody)
+
         axios
-        .put(`http://localhost:5005/api/albums/${albumId}`, formData, {
+        .put(`http://localhost:5005/api/albums/${albumId}`, newRequestBody, {
             headers: { Authorization: `Bearer ${storedToken}` }
         })
         .then((response: AxiosResponse) => {
@@ -71,6 +119,7 @@ const AlbumEdit: React.FC = () => {
 
     useEffect(() => {
         getAlbumDetails()
+        console.log(imageUrl)
     }, [albumId])
 
     return (
@@ -91,6 +140,28 @@ const AlbumEdit: React.FC = () => {
                 </FloatingLabel>
 
                 <br/>
+
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="Image"
+                    className="mb-3"
+                >
+                    <Form.Control 
+                    type="file" 
+                    name="imageURL"
+                    accept=".jpg, .jpeg, .png"
+                    //placeholder="Name"
+                    //required={true}
+                    //value={formData.imageURL}
+                    onChange={(e: React.ChangeEvent<InputFormControlElement>) => handleFileUpload(e)}
+                    />
+                    {/* {formData.imageURL && (
+                        <div>Selected file: {formData.imageURL}</div>
+                    )} */}
+
+                </FloatingLabel>
+
+                <br />
 
                 <FloatingLabel
                     controlId="floatingInput"
