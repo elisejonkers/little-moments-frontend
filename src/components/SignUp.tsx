@@ -1,3 +1,5 @@
+import "../styling/app.css"
+
 import axios, { AxiosHeaders, AxiosResponse } from "axios"
 import { useContext, useState } from "react"
 import config from "../config"
@@ -8,7 +10,7 @@ import Button from 'react-bootstrap/Button';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import signup_photo from "../assets/signup_photo.jpg"
-import "../styling/app.css"
+
 
 interface SignUpState {
     email: string,
@@ -58,7 +60,7 @@ const SignUp: React.FC = () => {
                 <img src={signup_photo} alt="login" className="login-photo" />
             </div>
             <div className="login">
-                <h3>CREAT NEW ACCOUNT</h3>
+                <h3>CREATE NEW ACCOUNT</h3>
                 <Form onSubmit={handleSignUpSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>

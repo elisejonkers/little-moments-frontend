@@ -1,3 +1,5 @@
+import "../styling/app.css"
+
 import axios, { AxiosResponse, AxiosError } from "axios"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
@@ -5,6 +7,7 @@ import AddEventForm from "./AddEventForm"
 import EventsList from "./EventsList"
 import AlbumEdit from "./AlbumEdit"
 import Button from 'react-bootstrap/Button';
+import logo_heart from "../assets/logo-symbol.png"
 
 interface Album {
     name: string,
@@ -68,7 +71,7 @@ const AlbumDetails: React.FC = () => {
 
     return (
         <div className="album-details-container">
-            <h1>{albumDetails.name.toUpperCase()}</h1>
+            <h1><img src={logo_heart} alt="heart" className="heart" />{albumDetails.name.toUpperCase()}</h1>
             <div className="albumdetails-overview">
                 <div className="albumdetails">
                     <h2>About me</h2>

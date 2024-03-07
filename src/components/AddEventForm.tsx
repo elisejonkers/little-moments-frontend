@@ -1,3 +1,5 @@
+import "../styling/app.css"
+
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";

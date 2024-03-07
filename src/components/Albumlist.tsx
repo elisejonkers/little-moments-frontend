@@ -1,9 +1,9 @@
+import "../styling/app.css"
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { ObjectId } from "mongodb"
 import { Link } from "react-router-dom";
-import baby from "../assets/baby.jpg"
-import "../styling/album.css"
 
 interface Album {
     _id: ObjectId,
