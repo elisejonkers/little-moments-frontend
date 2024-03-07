@@ -35,8 +35,9 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
                     headers: { Authorization: `Bearer ${storedToken}` },
                 })
             .then((response: AxiosResponse) => {
-                console.log(response.data)
-                setEventsList(response.data)
+                const retrievedData = response.data
+                const sortedEvents = retrievedData.slice().sort((a: Event, b: Event) => new Date(a.date).getTime() - new Date(b.date).getTime())
+                setEventsList(sortedEvents)
             })
             .catch((error: AxiosError) => {
                 console.log("Error loading events", error)
