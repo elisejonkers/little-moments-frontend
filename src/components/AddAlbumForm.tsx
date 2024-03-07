@@ -3,13 +3,10 @@ import "../styling/app.css"
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import service from "../services/file-upload.service"
-import sample_photo from "../assets/sample-photo.jpg"
 import default_profile from "../assets/baby.jpg"
 
 interface Album {
@@ -47,11 +44,11 @@ const AddAlbumForm: React.FC = () => {
         console.log("The file to be uploaded is: ", e.target)
 
         const file = e.target.files && e.target.files[0]
-        
+
         if (file) {
             console.log("selected file: ", file)
         }
-        
+
         const uploadData = new FormData()
         uploadData.append("imageURL", e.target.files![0])
 
@@ -60,7 +57,7 @@ const AddAlbumForm: React.FC = () => {
             console.log("response is: ", response.fileURL)
             setImageUrl(response.fileURL)
             setHandleFileUploadCalled(true)
-            
+
         } catch (error) {
             console.log("error while uploading file: ", error)
         }
@@ -82,13 +79,13 @@ const AddAlbumForm: React.FC = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        let newRequestBody = {...formData}
+        let newRequestBody = { ...formData }
 
         if (handleFileUploadCalled) {
-            newRequestBody = {...formData, imageURL: imageUrl}
+            newRequestBody = { ...formData, imageURL: imageUrl }
         } else {
-            newRequestBody = {...formData}
-        }       
+            newRequestBody = { ...formData }
+        }
 
         console.log(newRequestBody)
 
@@ -115,13 +112,13 @@ const AddAlbumForm: React.FC = () => {
                     label="Name"
                     className="mb-3"
                 >
-                    <Form.Control 
-                    type="text" 
-                    name="name"
-                    placeholder="Name"
-                    required={true}
-                    value={formData.name}
-                    onChange={handleInputChange} 
+                    <Form.Control
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        required={true}
+                        value={formData.name}
+                        onChange={handleInputChange}
                     />
                 </FloatingLabel>
 
@@ -132,19 +129,12 @@ const AddAlbumForm: React.FC = () => {
                     label="Image"
                     className="mb-3"
                 >
-                    <Form.Control 
-                    type="file" 
-                    name="imageURL"
-                    accept=".jpg, .jpeg, .png"
-                    //placeholder="Name"
-                    //required={true}
-                    //value={formData.imageURL}
-                    onChange={(e: React.ChangeEvent<InputFormControlElement>) => handleFileUpload(e)}
+                    <Form.Control
+                        type="file"
+                        name="imageURL"
+                        accept=".jpg, .jpeg, .png"
+                        onChange={(e: React.ChangeEvent<InputFormControlElement>) => handleFileUpload(e)}
                     />
-                    {/* {formData.imageURL && (
-                        <div>Selected file: {formData.imageURL}</div>
-                    )} */}
-
                 </FloatingLabel>
 
                 <br />
@@ -154,14 +144,14 @@ const AddAlbumForm: React.FC = () => {
                     label="Date of birth"
                     className="mb-3"
                 >
-                    <Form.Control 
-                    type="date" 
-                    placeholder="Date of birth"
-                    name="dateOfBirth"
-                    required={true}
-                    value={formData.dateOfBirth.toISOString().split('T')[0]}
-                    onChange={handleInputChange}
-                     />
+                    <Form.Control
+                        type="date"
+                        placeholder="Date of birth"
+                        name="dateOfBirth"
+                        required={true}
+                        value={formData.dateOfBirth.toISOString().split('T')[0]}
+                        onChange={handleInputChange}
+                    />
                 </FloatingLabel>
 
                 <br />
@@ -171,14 +161,14 @@ const AddAlbumForm: React.FC = () => {
                     label="Place of birth"
                     className="mb-3"
                 >
-                    <Form.Control 
-                    type="text" 
-                    placeholder="Place of birth"
-                    name="place"
-                    required={true}
-                    value={formData.place}
-                    onChange={handleInputChange}
-                     />
+                    <Form.Control
+                        type="text"
+                        placeholder="Place of birth"
+                        name="place"
+                        required={true}
+                        value={formData.place}
+                        onChange={handleInputChange}
+                    />
                 </FloatingLabel>
 
                 <br />
@@ -188,14 +178,14 @@ const AddAlbumForm: React.FC = () => {
                     label="Length in cm"
                     className="mb-3"
                 >
-                    <Form.Control 
-                    type="number" 
-                    placeholder="Length in cm"
-                    name="length"
-                    required={true}
-                    value={formData.length}
-                    onChange={handleInputChange}
-                     />
+                    <Form.Control
+                        type="number"
+                        placeholder="Length in cm"
+                        name="length"
+                        required={true}
+                        value={formData.length}
+                        onChange={handleInputChange}
+                    />
                 </FloatingLabel>
 
                 <br />
@@ -205,18 +195,18 @@ const AddAlbumForm: React.FC = () => {
                     label="Weight in gram"
                     className="mb-3"
                 >
-                    <Form.Control 
-                    type="number" 
-                    placeholder="Weight in gram"
-                    name="weight"
-                    required={true}
-                    value={formData.weight}
-                    onChange={handleInputChange}
-                     />
+                    <Form.Control
+                        type="number"
+                        placeholder="Weight in gram"
+                        name="weight"
+                        required={true}
+                        value={formData.weight}
+                        onChange={handleInputChange}
+                    />
                 </FloatingLabel>
 
                 <br />
-          
+
                 <Button variant="secondary" type="submit">
                     Save
                 </Button>

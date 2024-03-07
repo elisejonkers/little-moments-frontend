@@ -84,7 +84,7 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
                             <Carousel.Item>
                                 <div className="carousel-items">
                                     <div className="carousel-picture-wrapper">
-                                    <img src={event.imageURL} alt="First Slide" />
+                                        <img src={event.imageURL} alt="First Slide" />
                                     </div>
                                     <div className="carousel-text">
                                         <h3>{event.title}</h3>
@@ -109,35 +109,6 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
                 </Carousel>
             </div>
         </div>
-        // <>
-        //     <div>
-        //         <Button onClick={toggleAddEventForm}>Add new event</Button>
-        //         {isAddEventFormVisible && (
-        //             <AddEventForm albumId={albumId} toggleAddEventForm={toggleAddEventForm} loadEvents={loadEvents} />
-        //         )}
-        //     </div>
-        //     {eventsList.map((event, index) => {
-        //         return (
-        //             <div key={index}>
-        //                 <p>{event.title}</p>
-        //                 <p>{event.category}</p>
-        //                 <p>
-        //                     {new Intl.DateTimeFormat('en-US', {
-        //                         year: 'numeric',
-        //                         month: 'long',
-        //                         day: 'numeric'
-        //                     }).format(new Date(event.date))}
-        //                 </p>
-        //                 <p>{event.description}</p>
-        //                 <div>
-        //                     <Link to={(`/albums/${albumId}/eventedit/${event._id}`)}><Button>Edit</Button></Link>
-        //                     <Button onClick={() => deleteEvent(event._id)}>Delete</Button>
-        //                 </div>
-        //                 <br />
-        //             </div>
-        //         )
-        //     })}
-        // </>
     )
 }
 

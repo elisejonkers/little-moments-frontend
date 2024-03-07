@@ -345,10 +345,20 @@ form {
   width: 30vw;
   height: 30vw;
   border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
 }
 
 .carousel-container img {
-    width: 30vw;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     flex-shrink: 0;
     border-radius: 20px;
 }
