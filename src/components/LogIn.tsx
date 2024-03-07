@@ -1,4 +1,4 @@
-import "../styling/app.css"
+//import "../styling/app.css"
 
 import axios, { AxiosError, AxiosHeaders, AxiosResponse } from "axios"
 import { useContext, useState } from "react"
@@ -67,7 +67,7 @@ const LogIn: React.FC = () => {
 
     return (
         <div className="login-container">
-            <div>
+            <div className="login-photo-item">
                 <img src={login_photo2} alt="login" className="login-photo" />
             </div>
             <div className="login">

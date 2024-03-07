@@ -13,6 +13,12 @@ import AddEventForm from './components/AddEventForm';
 import AlbumEdit from './components/AlbumEdit';
 import EventEdit from './components/EventEdit';
 
+import "./styling/appXS.css"
+import "./styling/appS.css"
+import "./styling/appM.css"
+import "./styling/appL.css"
+import "./styling/appXL.css"
+
 function App() {
   return (
     <>

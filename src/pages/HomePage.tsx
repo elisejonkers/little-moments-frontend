@@ -1,7 +1,7 @@
 import beach from "../assets/family-beach.jpg"
 import minion from "../assets/kid-minion.jpg"
 import album from "../assets/creating-album.jpg"
-import "../styling/app.css"
+//import "../styling/app.css"
 import { Link } from "react-router-dom"
 import Button from 'react-bootstrap/Button';
 

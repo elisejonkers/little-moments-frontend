@@ -34,7 +34,134 @@
 
 /* login & sign up */
 
-.login-container {
+@media (max-width: 576px) {
+  .login-container {
+    margin-top: 5vh;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    width: 80vw;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    align-items: center;  
+    background-color: white;
+  }
+
+  .login-photo {
+    width: 80vw;
+    height: auto;
+    border-radius: 20px;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+  order: 1;
+}
+
+.login-photo-item {
+  order: 2;
+}
+
+.login h3 {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+  margin-bottom: 3vh;
+  margin-top: 3vh;
+}
+
+form {
+  text-align: center;
+}
+
+.errormessage {
+  margin-top: 3vh;
+  text-align: center;
+}
+
+.toast-message {
+  color: red;
+}
+
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .login-container {
+    margin-top: 5vh;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    width: 80vw;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    align-items: center;  
+    background-color: white;
+  }
+
+  .login-photo {
+    width: 80vw;
+    height: auto;
+    border-radius: 20px;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+  order: 1;
+}
+
+.login-photo-item {
+  order: 2;
+}
+
+.login h3 {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+  margin-bottom: 3vh;
+  margin-top: 3vh;
+}
+
+form {
+  text-align: center;
+}
+
+.errormessage {
+  margin-top: 3vh;
+  text-align: center;
+}
+
+.toast-message {
+  color: red;
+}
+
+}
+
+@media (min-width: 1200px) {
+  .login-container {
     display: grid;
     height: 80vh;
     width: auto;
@@ -90,6 +217,10 @@ form {
 .toast-message {
     color: red;
 }
+
+}
+
+
 
 /* dashboard */
 

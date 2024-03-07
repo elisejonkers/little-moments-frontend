@@ -1,0 +1,61 @@
+@media (min-width: 992px) and (max-width: 1199px) {
+/* login & signup */
+
+    .login-container {
+        display: grid;
+        height: auto;
+        width: 80vw;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+        grid-template-columns: repeat(2, 1fr);
+        margin-top: 10vh;
+        /* border: 1px black solid; */
+        box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.2);
+        border-radius: 20px;
+        align-items: center;
+        background-color: white;
+      }
+    
+      .login-photo {
+        width: auto;
+        height: 80vh;
+        border-radius: 20px;
+      }
+    
+      .login {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 100;
+        font-style: normal;
+        font-variation-settings: "slnt" 0;
+      }
+    
+      .login h3 {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 300;
+        font-style: normal;
+        font-variation-settings: "slnt" 0;
+        margin-bottom: 3vh;
+        margin-top: 3vh;
+        text-align: center;
+      }
+    
+      form {
+        text-align: center;
+      }
+    
+      .errormessage {
+        margin-top: 3vh;
+        text-align: center;
+      }
+    
+      .toast-message {
+        color: red;
+      }
+  }

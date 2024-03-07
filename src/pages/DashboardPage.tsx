@@ -3,7 +3,7 @@ import AlbumList from "../components/Albumlist"
 import { AuthContext } from "../context/auth.context"
 import { useContext } from "react"
 import Button from 'react-bootstrap/Button';
-import "../styling/app.css"
+//import "../styling/app.css"
 import logo_heart from "../assets/logo-symbol.png"
 
 const DashBoardPage = () => {

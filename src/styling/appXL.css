@@ -1,0 +1,461 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@font-face {
+  font-family: "Montstera Garden Regular";
+  src: url("../assets/MonsteraGarden.ttf") format("truetype");
+  font-style: normal;
+  font-weight: light;
+}
+
+@font-face {
+  font-family: "Cup Cakes";
+  src: url("../assets/CupCakes\ 2.woff") format("woff2");
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 68%;
+  background-color: rgb(237, 230, 226);
+  z-index: -1;
+}
+
+@media (min-width: 1200px) {
+/* login & sign up */
+
+  .login-container {
+    display: grid;
+    height: 80vh;
+    width: auto;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    grid-template-columns: repeat(2, 32vw);
+    margin-top: 10vh;
+    /* border: 1px black solid; */
+    box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    align-items: center;
+    background-color: white;
+  }
+
+  .login-photo {
+    width: auto;
+    height: 80vh;
+    border-radius: 20px;
+  }
+
+  .login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+    font-variation-settings: "slnt" 0;
+  }
+
+  .login h3 {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-variation-settings: "slnt" 0;
+    margin-bottom: 3vh;
+    margin-top: 3vh;
+  }
+
+  form {
+    text-align: center;
+  }
+
+  .errormessage {
+    margin-top: 3vh;
+    text-align: center;
+  }
+
+  .toast-message {
+    color: red;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* dashboard */
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 10px;
+  margin-top: 8vh;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.dashboard-container h1 {
+  grid-column: 1 / 3;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-size: 500%;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.dashboard-container button {
+  justify-self: center;
+  width: 10vw;
+  height: 8vh;
+  position: absolute;
+  top: 38%;
+  right: 8%;
+  background-color: #aec0cd;
+  border: none;
+}
+
+/* homepage */
+
+.homepage-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 8vh;
+  margin-bottom: 8vh;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-size: 100%;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.homepage-container-picture {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.homepage-picture {
+  width: 18vw;
+  justify-self: center;
+}
+
+.homepage-container-text {
+  width: 40vw;
+  margin-top: 20vh;
+}
+
+.homepage-container-text h1 {
+  font-family: "Montstera Garden Regular", sans-serif;
+  color: black;
+  text-align: center;
+  font-size: 400%;
+}
+
+.homepage-container-text button {
+  background-color: #aec0cd;
+  border: none;
+}
+
+.create-account {
+  color: black;
+}
+
+/* default images  */
+
+#album-picture {
+  align-self: center;
+  justify-self: start;
+}
+
+#minion-picture {
+  align-self: end;
+}
+
+.heart {
+  width: 10%;
+  height: auto;
+}
+
+/* albumlist */
+
+.albumlist-container {
+  position: absolute;
+  width: 60vw;
+  top: 38%;
+  left: 8%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15vw, 1fr));
+  gap: 5vw;
+}
+
+.albumlist-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profile-picture-wrapper {
+  width: 15vw;
+  height: 15vw;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.babyname {
+  font-family: "Montstera Garden Regular", sans-serif;
+  color: black;
+  text-align: center;
+  font-size: 300%;
+  margin-top: 3vh;
+}
+
+.albumlist-container-item {
+  justify-self: center;
+}
+
+/* add album form */
+
+.album-form-container {
+  width: 50vw;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  margin-top: 10vh;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.album-form-container h1 {
+  margin-bottom: 10vh;
+  font-size: 400%;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.album-form-container button {
+  margin-bottom: 10vh;
+  background-color: #aec0cd;
+  width: 8vw;
+  border: none;
+}
+
+/* album details  */
+
+.album-details-container {
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.album-details-container h1 {
+  text-align: center;
+  margin-top: 10vh;
+  font-size: 400%;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.albumdetails-overview {
+  display: grid;
+  grid-template-columns: 1fr, 2fr;
+  gap: 10px;
+}
+
+.albumdetails {
+  width: 25%;
+  grid-column: 1;
+  position: absolute;
+  top: 40%;
+  left: 5%;
+  font-size: 120%;
+}
+
+.albumdetails h2 {
+  text-align: center;
+  margin-bottom: 3vh;
+}
+
+.albumdetails-events {
+  grid-column: 2;
+}
+
+.album-details-container button {
+  background-color: #aec0cd;
+  width: 10vw;
+  border: none;
+}
+
+.albumdetails-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+}
+
+.albumdetails-buttons button {
+  margin: 3%;
+}
+
+.different-font {
+  font-family: "Montstera Garden Regular", sans-serif;
+  font-size: 150%;
+}
+
+/* carousel */
+
+.carousel-container {
+  max-width: 60vw;
+  position: absolute;
+  top: 40%;
+  right: 5%;
+  background-color: #f9f6f5;
+  border-radius: 20px;
+  /* z-index: -1; */
+}
+
+.carousel-picture-wrapper {
+  width: 30vw;
+  height: 30vw;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-container img {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  flex-shrink: 0;
+  border-radius: 20px;
+}
+
+.carousel-items {
+  display: flex;
+}
+
+.carousel-text {
+  width: 30vw;
+  height: 40vh;
+  margin: 4%;
+  overflow: auto;
+}
+
+.carousel-text h3 {
+  text-align: center;
+}
+
+.eventslist-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* add event form  */
+
+.add-event-form-container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  z-index: 2;
+  position: absolute;
+  top: 20vh;
+  left: 30vw;
+  border-radius: 20px;
+  width: 40vw;
+  height: 80vh;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  overflow: auto;
+}
+
+.add-event-form-container h1 {
+  font-size: 250%;
+}
+
+.add-event-form {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.add-event-button {
+  position: absolute;
+  top: 105%;
+  right: 5%;
+  height: 8vh;
+}
+
+/* edit form */
+
+.edit-container {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  margin-top: 10vh;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.edit-container button {
+  margin-bottom: 10vh;
+  background-color: #aec0cd;
+  width: 8vw;
+  border: none;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}

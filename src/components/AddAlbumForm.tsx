@@ -1,4 +1,8 @@
-import "../styling/app.css"
+import "../styling/appXS.css"
+import "../styling/appS.css"
+import "../styling/appM.css"
+import "../styling/appL.css"
+import "../styling/appXL.css"
 
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useEffect, useState } from "react"

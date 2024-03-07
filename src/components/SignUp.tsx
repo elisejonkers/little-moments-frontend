@@ -1,4 +1,4 @@
-import "../styling/app.css"
+//import "../styling/app.css"
 
 import axios, { AxiosHeaders, AxiosResponse } from "axios"
 import { useContext, useState } from "react"
@@ -56,7 +56,7 @@ const SignUp: React.FC = () => {
 
     return (
         <div className="login-container">
-            <div>
+            <div className="login-photo-item">
                 <img src={signup_photo} alt="login" className="login-photo" />
             </div>
             <div className="login">
@@ -97,9 +97,6 @@ const SignUp: React.FC = () => {
                             onChange={handleInputChange}
                         />
                     </Form.Group>
-                    {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="Check me out" />
-                    </Form.Group> */}
                     <Button variant="secondary" type="submit" onClick={() => setShow(true)}>
                         Submit
                     </Button>
