@@ -194,6 +194,7 @@
   width: 40vw;
   height: 80vh;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  overflow: auto;
 }
 
 .add-event-form-container h1 {
