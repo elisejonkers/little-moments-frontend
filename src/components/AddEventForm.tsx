@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import service from "../services/file-upload.service"
 import default_picture from "../assets/default-picture.jpg"
+import CloseButton from 'react-bootstrap/CloseButton';
 
 interface Event {
     category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other" | "Open this select menu",
@@ -129,10 +130,16 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
             console.log(formData)
     }
 
+    const closeForm = () => {
+        toggleAddEventForm?.()
+    }
+
     return (
         <div className="add-event-form-container">
+            <CloseButton onClick={closeForm} className="close-button"/>
                <h1>CREATE A NEW EVENT</h1>
             <Form onSubmit={handleSubmit} className="add-event-form">
+            
              
                 <br />
 
