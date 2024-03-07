@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -25,7 +25,7 @@ interface AddEventFormProps {
 }
 
 const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm, loadEvents }) => {
-    let handleFileUploadCalled = false
+    const [handleFileUploadCalled, setHandleFileUploadCalled] = useState<boolean>(false)
     const storedToken = localStorage.getItem("authToken");
     const navigate = useNavigate()
     const [imageUrl, setImageUrl] = useState("")
@@ -40,6 +40,10 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
     type InputFormControlElement = HTMLInputElement & {
         files: FileList | null
     }
+
+    useEffect(() => {
+        console.log(imageUrl)
+    }, [imageUrl])
 
     const handleFileUpload = async (e: React.ChangeEvent<InputFormControlElement>) => {
         console.log("The file to be uploaded is: ", e.target)
@@ -56,12 +60,11 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
             const response = await service.uploadImage(uploadData)
             console.log("response is: ", response)
             setImageUrl(response.fileURL)
+            setHandleFileUploadCalled(true)
             console.log(imageUrl)
         } catch (error) {
             console.log("error while uploading file: ", error)
         }
-
-        handleFileUploadCalled = true
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -123,6 +126,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
             .catch((error: AxiosError) => {
                 console.log(error)
             })
+            console.log(formData)
     }
 
     return (
