@@ -1,40 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 @font-face {
-    font-family: "Montstera Garden Regular";
-    src: url("../assets/MonsteraGarden.ttf") format("truetype");
-    font-style: normal;
-    font-weight: light;
-  }
+  font-family: "Montstera Garden Regular";
+  src: url("../assets/MonsteraGarden.ttf") format("truetype");
+  font-style: normal;
+  font-weight: light;
+}
 
-  @font-face {
-    font-family: "Cup Cakes";
-    src: url("../assets/CupCakes\ 2.woff") format("woff2");
-  }
+@font-face {
+  font-family: "Cup Cakes";
+  src: url("../assets/CupCakes\ 2.woff") format("woff2");
+}
 
-  body {
-    position: relative;
-    min-height: 100vh;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body::before {
-    content: "";
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 68%;
-    background-color: rgb(237, 230, 226); 
-    z-index: -1; 
-  }
+body {
+  position: relative;
+  min-height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
 
-/* login & sign up */
+body::before {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 68%;
+  background-color: rgb(237, 230, 226);
+  z-index: -1;
+}
 
 @media (max-width: 576px) {
+  /* login & sign up */
+
   .login-container {
     margin-top: 5vh;
     display: grid;
@@ -45,7 +45,7 @@
     transform: translate(-50%);
     box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.2);
     border-radius: 20px;
-    align-items: center;  
+    align-items: center;
     background-color: white;
   }
 
@@ -53,137 +53,9 @@
     width: 80vw;
     height: auto;
     border-radius: 20px;
-}
-
-.login {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: "Inter", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 100;
-  font-style: normal;
-  font-variation-settings: "slnt" 0;
-  order: 1;
-}
-
-.login-photo-item {
-  order: 2;
-}
-
-.login h3 {
-  font-family: "Inter", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 300;
-  font-style: normal;
-  font-variation-settings: "slnt" 0;
-  margin-bottom: 3vh;
-  margin-top: 3vh;
-}
-
-form {
-  text-align: center;
-}
-
-.errormessage {
-  margin-top: 3vh;
-  text-align: center;
-}
-
-.toast-message {
-  color: red;
-}
-
-}
-
-@media (min-width: 576px) and (max-width: 767px) {
-  .login-container {
-    margin-top: 5vh;
-    display: grid;
-    grid-template-rows: repeat(2, 1fr);
-    width: 80vw;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-    box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.2);
-    border-radius: 20px;
-    align-items: center;  
-    background-color: white;
   }
 
-  .login-photo {
-    width: 80vw;
-    height: auto;
-    border-radius: 20px;
-}
-
-.login {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: "Inter", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 100;
-  font-style: normal;
-  font-variation-settings: "slnt" 0;
-  order: 1;
-}
-
-.login-photo-item {
-  order: 2;
-}
-
-.login h3 {
-  font-family: "Inter", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 300;
-  font-style: normal;
-  font-variation-settings: "slnt" 0;
-  margin-bottom: 3vh;
-  margin-top: 3vh;
-}
-
-form {
-  text-align: center;
-}
-
-.errormessage {
-  margin-top: 3vh;
-  text-align: center;
-}
-
-.toast-message {
-  color: red;
-}
-
-}
-
-@media (min-width: 1200px) {
-  .login-container {
-    display: grid;
-    height: 80vh;
-    width: auto;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-    grid-template-columns: repeat(2, 30vw);
-    margin-top: 10vh;
-    /* border: 1px black solid; */
-    box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.2);
-    border-radius: 20px;
-    align-items: center;  
-    background-color: white;
-}
-
-.login-photo {
-    width: auto;
-    height: 80vh;
-    border-radius: 20px;
-}
-
-.login {
+  .login {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -193,9 +65,14 @@ form {
     font-weight: 100;
     font-style: normal;
     font-variation-settings: "slnt" 0;
-}
+    order: 1;
+  }
 
-.login h3 {
+  .login-photo-item {
+    order: 2;
+  }
+
+  .login h3 {
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
     font-weight: 300;
@@ -203,377 +80,406 @@ form {
     font-variation-settings: "slnt" 0;
     margin-bottom: 3vh;
     margin-top: 3vh;
-}
+  }
 
-form {
+  form {
     text-align: center;
-}
+  }
 
-.errormessage {
+  .errormessage {
     margin-top: 3vh;
     text-align: center;
-}
+  }
 
-.toast-message {
+  .toast-message {
     color: red;
-}
+  }
 
-}
+  /* homepage */
 
-
-
-/* dashboard */
-
-.dashboard-container {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 10px;
-    margin-top: 8vh;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-}
-
-.dashboard-container h1 {
-    grid-column: 1 / 3;
+  .homepage-container {
+    display: flex;
+    justify-content: center;
     text-align: center;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 100;
-    font-size: 500%;
-    font-style: normal;
-    font-variation-settings: "slnt" 0;
-}
-
-.dashboard-container button {
-    justify-self: center;
-    width: 10vw;
-    height: 8vh;
-    position: absolute;
-    top: 38%;
-    right: 8%;
-    background-color: #aec0cd;
-    border: none;
-}
-
-/* homepage */
-
-.homepage-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    margin-top: 8vh;
-    margin-bottom: 8vh;
+    width: 100%;
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
     font-weight: 200;
     font-size: 100%;
     font-style: normal;
     font-variation-settings: "slnt" 0;
-}
 
-.homepage-container-picture{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-}
+  }
 
-.homepage-picture {
+  .homepage-container-picture {
+    display: none;
+  }
+
+  .homepage-picture {
     width: 18vw;
     justify-self: center;
-}
+    display: none;
+  }
 
-.homepage-container-text {
-    width: 40vw;
+  .homepage-container-text {
+    width: 80vw;
     margin-top: 20vh;
-}
+  }
 
-.homepage-container-text h1 {
+  .homepage-container-text h1 {
     font-family: "Montstera Garden Regular", sans-serif;
     color: black;
     text-align: center;
     font-size: 400%;
-}
+  }
 
-.homepage-container-text button {
+  .homepage-container-text button {
     background-color: #aec0cd;
     border: none;
+  }
+
+  .create-account {
+    color: black;
+  } 
+
+  /* dashboard */
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 10px;
+  margin-top: 8vh;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 
-.create-account {
-    color: black;
+.dashboard-container h1 {
+  grid-column: 1 / 3;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-size: 300%;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.dashboard-container button {
+  justify-self: center;
+  width: 25vw;
+  height: 8vh;
+  position: absolute;
+  top: 38%;
+  right: 8%;
+  background-color: #aec0cd;
+  border: none;
 }
 
 /* default images  */
 
 #album-picture {
-    align-self: center;
-    justify-self: start;
+  align-self: center;
+  justify-self: start;
 }
 
 #minion-picture {
-    align-self: end;
+  align-self: end;
 }
 
 .heart {
-    width: 10%;
-    height: auto;
-} 
+  width: 15%;
+  height: auto;
+}
 
 /* albumlist */
 
 .albumlist-container {
-    position: absolute;
-    width: 60vw;
-    top: 38%;
-    left: 8%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15vw, 1fr));
-    gap: 5vw;
-  }
-  
-  .albumlist-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-  
-  .profile-picture-wrapper {
-    width: 15vw;
-    height: 15vw;
-    overflow: hidden;
-    border-radius: 50%;
-  }
-  
-  .babyname {
-    font-family: "Montstera Garden Regular", sans-serif;
-    color: black;
-    text-align: center;
-    font-size: 300%;
-    margin-top: 3vh;
-  }
-  
-  .albumlist-container-item {
-    justify-self: center;
-  }
-
-  /* add album form */
-
-  .album-form-container {
-    width: 50vw;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-    margin-top: 10vh;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    font-variation-settings: "slnt" 0;
-  }
-  
-  .album-form-container h1 {
-    margin-bottom: 10vh;
-    font-size: 400%;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 100;
-    font-style: normal;
-    font-variation-settings: "slnt" 0;
-  }
-  
-  .album-form-container button {
-    margin-bottom: 10vh;
-    background-color: #aec0cd;
-    width: 8vw;
-    border: none;
-  }
-
-  /* album details  */
-
-  .album-details-container {
-    display: flex;
-    flex-direction: column;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    font-variation-settings: "slnt" 0;
-  }
-  
-  .album-details-container h1 {
-    text-align: center;
-    margin-top: 10vh;
-    font-size: 400%;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 100;
-    font-style: normal;
-    font-variation-settings: "slnt" 0;
-  }
-  
-  .albumdetails-overview {
-    display: grid;
-    grid-template-columns: 1fr, 2fr;
-    gap: 10px;
-  }
-  
-  .albumdetails {
-    width: 25%;
-    grid-column: 1;
-    position: absolute;
-    top: 40%;
-    left: 5%;
-    font-size: 120%;
-  }
-  
-  .albumdetails h2 {
-    text-align: center;
-    margin-bottom: 3vh;
-  }
-  
-  .albumdetails-events {
-    grid-column: 2;
-  }
-  
-  .album-details-container button {
-    background-color: #aec0cd;
-    width: 10vw;
-    border: none;
-  }
-  
-  .albumdetails-buttons {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10%;
-  }
-  
-  .albumdetails-buttons button {
-    margin: 3%;
-  }
-
-  .different-font {
-    font-family: "Montstera Garden Regular", sans-serif; 
-    font-size: 150%;
-  }
-
-  /* carousel */
-
-  .carousel-container {
-    max-width: 60vw;
-    position: absolute;
-    top: 40%;
-    right: 5%;
-    background-color: #f9f6f5;
-    border-radius: 20px;
-    /* z-index: -1; */
+  position: absolute;
+  width: 60vw;
+  top: 38%;
+  left: 8%;
+  display: flex;
+  flex-direction: column;
+  /* display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15vw, 1fr)); */
+  gap: 5vw;
 }
 
-.carousel-picture-wrapper{
-  width: 30vw;
-  height: 30vw;
-  border-radius: 20px;
+.albumlist-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profile-picture-wrapper {
+  width: 40vw;
+  height: 40vw;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.babyname {
+  font-family: "Montstera Garden Regular", sans-serif;
+  color: black;
+  text-align: center;
+  font-size: 300%;
+  margin-top: 3vh;
+}
+
+.albumlist-container-item {
+  justify-self: center;
+  align-items: center;
   display: flex;
+  flex-direction: column;
+}
+
+}
+
+/* add album form */
+
+.album-form-container {
+  width: 50vw;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  margin-top: 10vh;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.album-form-container h1 {
+  margin-bottom: 10vh;
+  font-size: 250%;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.album-form-container button {
+  margin-bottom: 10vh;
+  background-color: #aec0cd;
+  width: 20vw;
+  border: none;
+}
+
+/* album details  */
+
+.album-details-container {
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.album-details-container h1 {
+  text-align: center;
+  margin-top: 10vh;
+  font-size: 400%;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+/* .albumdetails-overview {
+  display: grid;
+  grid-template-columns: 1fr, 2fr;
+  gap: 10px; 
+  height: 10vh;
+} */
+
+.albumdetails {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  grid-column: 1;
+  position: absolute;
+  top: 40%;
+  left: 5%;
+  font-size: 120%;
+}
+
+.albumdetails h2 {
+  text-align: center;
+  margin-bottom: 3vh;
+}
+
+.albumdetails-events {
+  display: grid;
+}
+
+.album-details-container button {
+  background-color: #aec0cd;
+  width: 25vw;
+  border: none;
+}
+
+.albumdetails-buttons {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* margin-top: 4%; */
+  margin-bottom: 12%;
+}
+
+.albumdetails-buttons button {
+  margin: 3%;
+}
+
+.different-font {
+  font-family: "Montstera Garden Regular", sans-serif;
+  font-size: 150%;
+}
+
+/* carousel */
+
+.carousel-container {
+  /* justify-self: center;
+  align-self: center; */
+  order: 1;
+  max-width: 100vw;
+  height: 100vh;
+  /* position: absolute; */
+  /* top: 40%;
+  right: 5%; */
+  background-color: #f9f6f5;
+  border-radius: 20px;
+  /* z-index: -1; */
+}
+
+.carousel-picture-wrapper {
+  width: 50vw;
+  height: 50vw;
+  border-radius: 20px;
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
   overflow: hidden;
   position: relative;
+  margin-top: 5%;
 }
 
 .carousel-container img {
-    width: 100%;
-    height: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    flex-shrink: 0;
-    border-radius: 20px;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  flex-shrink: 0;
+  border-radius: 20px;
+
 }
 
 .carousel-items {
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
 }
 
 .carousel-text {
-    width: 30vw;
-    height: 40vh;
-    margin: 4%;
-    overflow: auto;
+  width: 50vw;
+  height: 50vh;
+  margin-top: 8%;
+  margin-bottom: 5%;
+  /* margin: 4%; */
+  overflow: auto;
 }
 
 .carousel-text h3 {
-    text-align: center;
+  text-align: center;
+  margin-bottom: 8%;
 }
 
 .eventslist-buttons {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 25%;
+  margin-bottom: 10%;
+}
+
+.eventslist-buttons button {
+  margin-bottom: 8%;
 }
 
 /* add event form  */
 
-
 .add-event-form-container {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    z-index: 2;
-    position: absolute;
-    top: 20vh;
-    left: 30vw;
-    border-radius: 20px;
-    width: 40vw;
-    height: 80vh;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
-    overflow: auto;
-  }
-  
-  .add-event-form-container h1 {
-    font-size: 250%;
-  }
-  
-  .add-event-form {
-    padding-left: 5%;
-    padding-right: 5%;
-  }
-  
-  .add-event-button {
-    position: absolute;
-    top: 105%;
-    right: 5%; 
-    height: 8vh;
-  }
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  z-index: 2;
+  position: absolute;
+  top: 60vh;
+  left: 0vw;
+  border-radius: 20px;
+  width: 90vw;
+  height: 80vh;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  overflow: auto;
+}
 
-  /* edit form */
+.add-event-form-container h1 {
+  font-size: 100%;
+}
 
-  .edit-container {
-    display: flex;
-    flex-direction: column;
-    width: 50vw;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-    margin-top: 10vh;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    font-variation-settings: "slnt" 0;
-  }
-  
-  .edit-container button {
-    margin-bottom: 10vh;
-    background-color: #aec0cd;
-    width: 8vw;
-    border: none;
-  }
-  
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
+.add-event-form {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.add-event-button {
+  /* position: absolute;
+  top: 105%;
+  right: 5%; */
+  margin-top: 5%;
+  width: 80%;
+  order: 2;
+  justify-self: center;
+}
+
+/* edit form */
+
+.edit-container {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  margin-top: 10vh;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.edit-container button {
+  margin-bottom: 10vh;
+  background-color: #aec0cd;
+  width: 20vw;
+  border: none;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}

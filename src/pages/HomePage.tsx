@@ -1,3 +1,5 @@
+import "../styling/appXS.css"
+
 import beach from "../assets/family-beach.jpg"
 import minion from "../assets/kid-minion.jpg"
 import album from "../assets/creating-album.jpg"

@@ -45,6 +45,10 @@ const AlbumDetails: React.FC = () => {
             })
     }
 
+    const handleEditClick = () => {
+        navigate(`/albumedit/${albumId}`)
+    }
+
     const deleteAlbum = () => {
         const confirmDelete = window.confirm(
             "Are you sure you want to delete this album and the associated events?"
@@ -72,7 +76,7 @@ const AlbumDetails: React.FC = () => {
     return (
         <div className="album-details-container">
             <h1><img src={logo_heart} alt="heart" className="heart" />{albumDetails.name.toUpperCase()}</h1>
-            <div className="albumdetails-overview">
+            {/* <div className="albumdetails-overview"> */}
                 <div className="albumdetails">
                     <h2>About me</h2>
                     <p>My name is <span className="different-font">{albumDetails.name}</span></p>
@@ -86,10 +90,10 @@ const AlbumDetails: React.FC = () => {
                     <p>I was born in <span className="different-font">{albumDetails.place}</span></p>
                     <p>I was <span className="different-font">{albumDetails.length}</span> cms when I was born</p>
                     <p>I weighed <span className="different-font">{albumDetails.weight}</span> grams when I was born</p>
-                    <div className="albumdetails-buttons"><Link to={(`/albumedit/${albumId}`)}><Button>Edit</Button></Link>
+                    <div className="albumdetails-buttons"><Button onClick={handleEditClick}>Edit</Button>
                         <Button onClick={deleteAlbum}>Delete</Button>
                     </div>
-                </div>
+                {/* </div> */}
                 <div className="albumdetails-events">
                     <EventsList albumId={albumId} />
                 </div>
