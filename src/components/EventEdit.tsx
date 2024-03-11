@@ -10,6 +10,8 @@ import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import service from "../services/file-upload.service"
 
+const apiURL = process.env.REACT_APP_API_URL
+
 interface Event {
     category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other",
     title: string,
@@ -68,7 +70,7 @@ const EventEdit: React.FC = () => {
 
     const getEventDetails = () => {
         axios
-            .get(`http://localhost:5005/api/albums/${albumId}/events/${eventId}`, {
+            .get(`${apiURL}/api/albums/${albumId}/events/${eventId}`, {
                 headers: { Authorization: `Bearer ${storedToken}` }
             })
             .then((response: AxiosResponse<Event>) => {
@@ -105,7 +107,7 @@ const EventEdit: React.FC = () => {
         }
 
         axios
-            .put(`http://localhost:5005/api/albums/${albumId}/events/${eventId}`, newRequestBody, {
+            .put(`${apiURL}/api/albums/${albumId}/events/${eventId}`, newRequestBody, {
             headers: { Authorization: `Bearer ${storedToken}` }
             })
             .then((response: AxiosResponse) => {

@@ -10,6 +10,8 @@ import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import service from "../services/file-upload.service"
 
+const apiURL = process.env.REACT_APP_API_URL
+
 interface Album {
     name: string,
     dateOfBirth: Date,
@@ -67,7 +69,7 @@ const AlbumEdit: React.FC = () => {
 
     const getAlbumDetails = () => {
         axios
-            .get(`http://localhost:5005/api/albums/${albumId}`, {
+            .get(`${apiURL}/api/albums/${albumId}`, {
             headers: { Authorization: `Bearer ${storedToken}` }
         })
             .then((response: AxiosResponse<Album>) => {
@@ -107,7 +109,7 @@ const AlbumEdit: React.FC = () => {
         console.log(newRequestBody)
 
         axios
-        .put(`http://localhost:5005/api/albums/${albumId}`, newRequestBody, {
+        .put(`${apiURL}/api/albums/${albumId}`, newRequestBody, {
             headers: { Authorization: `Bearer ${storedToken}` }
         })
         .then((response: AxiosResponse) => {

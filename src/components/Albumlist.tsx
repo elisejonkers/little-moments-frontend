@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { ObjectId } from "mongodb"
 import { Link } from "react-router-dom";
 
+const apiURL = process.env.REACT_APP_API_URL
+
 interface Album {
     _id: ObjectId,
     name: string,
@@ -21,7 +23,7 @@ const AlbumList: React.FC = () => {
 
     const loadAlbums = () => {
         axios
-            .get("http://localhost:5005/api/albums",
+            .get(`${apiURL}/api/albums`,
                 {
                     headers: { Authorization: `Bearer ${storedToken}` },
                 })

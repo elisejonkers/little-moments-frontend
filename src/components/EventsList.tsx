@@ -8,6 +8,8 @@ import Button from 'react-bootstrap/Button';
 import Carousel from 'react-bootstrap/Carousel';
 import ExampleCarouselImage from "../assets/baby.jpg"
 
+const apiURL = process.env.REACT_APP_API_URL
+
 interface Event {
     category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other",
     title: string,
@@ -30,7 +32,7 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
 
     const loadEvents = () => {
         axios
-            .get(`http://localhost:5005/api/albums/${albumId}/events`,
+            .get(`${apiURL}/api/albums/${albumId}/events`,
                 {
                     headers: { Authorization: `Bearer ${storedToken}` },
                 })
@@ -55,7 +57,7 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
         )
 
         if (confirmDelete) {
-            axios.delete(`http://localhost:5005/api/albums/${albumId}/events/${eventId}`, {
+            axios.delete(`${apiURL}/api/albums/${albumId}/events/${eventId}`, {
                 headers: { Authorization: `Bearer ${storedToken}` },
             })
                 .then((response: AxiosResponse) => {

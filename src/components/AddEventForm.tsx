@@ -12,6 +12,8 @@ import service from "../services/file-upload.service"
 import default_picture from "../assets/default-picture.jpg"
 import CloseButton from 'react-bootstrap/CloseButton';
 
+const apiURL = process.env.REACT_APP_API_URL
+
 interface Event {
     category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other" | "Open this select menu",
     title: string,
@@ -93,7 +95,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
         // } 
 
         axios
-            .get(`http://localhost:5005/api/albums/${albumId}`, {
+            .get(`${apiURL}/api/albums/${albumId}`, {
                 headers: { Authorization: `Bearer ${storedToken}` }
             })
             .then((response: AxiosResponse) => {
@@ -111,7 +113,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                     newEventData = {...formData, album: album._id, imageURL: imageUrl}
                 } 
 
-                return axios.post(`http://localhost:5005/api/albums/${album}/events`, newEventData, {
+                return axios.post(`${apiURL}/api/albums/${album}/events`, newEventData, {
                     headers: { Authorization: `Bearer ${storedToken}` }
                 })
             })

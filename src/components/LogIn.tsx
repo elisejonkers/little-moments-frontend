@@ -14,6 +14,8 @@ import Row from 'react-bootstrap/Row';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 
+const apiURL = process.env.REACT_APP_API_URL
+
 interface LoginState {
     email: string,
     password: string
@@ -46,7 +48,7 @@ const LogIn: React.FC = () => {
         e.preventDefault()
 
         axios
-            .post("http://localhost:5005/auth/login", logIn)
+            .post(`${apiURL}/auth/login`, logIn)
             .then((response: AxiosResponse<AuthResponseData>) => {
                 console.log("This is the JTW token", response.data.authToken)
                 storeToken(response.data.authToken)

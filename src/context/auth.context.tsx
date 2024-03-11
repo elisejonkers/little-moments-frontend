@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 import axios from "axios";
-const API_URL = "http://localhost:5005";
+
+const apiURL = process.env.REACT_APP_API_URL
 
 interface User {
     email: string,
@@ -44,7 +45,7 @@ const AuthProviderWrapper: React.FC<AuthProviderProps> = ({children}) => {
 
         if (storedToken) {
             axios.get(
-                `${API_URL}/auth/verify`,
+                `${apiURL}/auth/verify`,
                 { headers: { Authorization: `Bearer ${storedToken}` } }
             )
                 .then((response) => {

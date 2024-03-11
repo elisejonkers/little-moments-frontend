@@ -9,6 +9,8 @@ import AlbumEdit from "./AlbumEdit"
 import Button from 'react-bootstrap/Button';
 import logo_heart from "../assets/logo-symbol.png"
 
+const apiURL = process.env.REACT_APP_API_URL
+
 interface Album {
     name: string,
     dateOfBirth: Date | string,
@@ -33,7 +35,7 @@ const AlbumDetails: React.FC = () => {
 
     const loadAlbumDetails = () => {
         axios
-            .get(`http://localhost:5005/api/albums/${albumId}`,
+            .get(`${apiURL}/api/albums/${albumId}`,
                 {
                     headers: { Authorization: `Bearer ${storedToken}` },
                 })
@@ -56,7 +58,7 @@ const AlbumDetails: React.FC = () => {
 
         if (confirmDelete) {
             axios
-                .delete(`http://localhost:5005/api/albums/${albumId}`, {
+                .delete(`${apiURL}/api/albums/${albumId}`, {
                     headers: { Authorization: `Bearer ${storedToken}` },
                 })
                 .then((response: AxiosResponse) => {

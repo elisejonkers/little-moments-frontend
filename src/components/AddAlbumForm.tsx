@@ -13,6 +13,8 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import service from "../services/file-upload.service"
 import default_profile from "../assets/baby.jpg"
 
+const apiURL = process.env.REACT_APP_API_URL
+
 interface Album {
     name: string,
     dateOfBirth: Date,
@@ -94,7 +96,8 @@ const AddAlbumForm: React.FC = () => {
         console.log(newRequestBody)
 
         axios
-            .post(`http://localhost:5005/api/albums`, newRequestBody, {
+            .post(
+                `${apiURL}/api/albums`, newRequestBody, {
                 headers: { Authorization: `Bearer ${storedToken}` }
             })
             .then((response: AxiosResponse) => {

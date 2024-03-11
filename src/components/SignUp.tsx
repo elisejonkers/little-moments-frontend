@@ -11,6 +11,7 @@ import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import signup_photo from "../assets/signup_photo.jpg"
 
+const apiURL = process.env.REACT_APP_API_URL
 
 interface SignUpState {
     email: string,
@@ -42,7 +43,7 @@ const SignUp: React.FC = () => {
         e.preventDefault()
 
         axios
-            .post(`http://localhost:5005/auth/signup`, signUp)
+            .post(`${apiURL}/auth/signup`, signUp)
             .then((response) => {
                 console.log("sign up approved")
                 navigate("/login")
