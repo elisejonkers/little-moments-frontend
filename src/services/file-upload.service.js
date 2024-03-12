@@ -3,8 +3,10 @@ import axios from "axios";
 const storedToken = localStorage.getItem("authToken");
 
 const api = axios.create({
-  baseURL: "http://localhost:5005/api"
+  apiURL: process.env.REACT_APP_API_URL
 });
+
+//const apiURL = process.env.REACT_APP_API_URL
 
 const errorHandler = (err) => {
   throw err;
