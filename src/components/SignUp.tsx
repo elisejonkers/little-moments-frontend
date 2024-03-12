@@ -1,8 +1,7 @@
 //import "../styling/app.css"
 
-import axios, { AxiosHeaders, AxiosResponse } from "axios"
+import axios from "axios"
 import { useContext, useState } from "react"
-import config from "../config"
 import { Link, useNavigate } from "react-router-dom"
 import { AuthContext } from "../context/auth.context"
 import Form from 'react-bootstrap/Form';

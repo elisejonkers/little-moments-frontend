@@ -6,7 +6,6 @@ import { Link } from "react-router-dom"
 import AddEventForm from "./AddEventForm"
 import Button from 'react-bootstrap/Button';
 import Carousel from 'react-bootstrap/Carousel';
-import ExampleCarouselImage from "../assets/baby.jpg"
 
 const apiURL = process.env.REACT_APP_API_URL
 

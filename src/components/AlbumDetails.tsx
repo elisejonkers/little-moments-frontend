@@ -2,10 +2,8 @@
 
 import axios, { AxiosResponse, AxiosError } from "axios"
 import { useEffect, useState } from "react"
-import { Link, useNavigate, useParams } from "react-router-dom"
-import AddEventForm from "./AddEventForm"
+import { useNavigate, useParams } from "react-router-dom"
 import EventsList from "./EventsList"
-import AlbumEdit from "./AlbumEdit"
 import Button from 'react-bootstrap/Button';
 import logo_heart from "../assets/logo-symbol.png"
 

@@ -1,16 +1,13 @@
 //import "../styling/app.css"
 
-import axios, { AxiosError, AxiosHeaders, AxiosResponse } from "axios"
+import axios, { AxiosError, AxiosResponse } from "axios"
 import { useContext, useState } from "react"
 import { AuthContext } from "../context/auth.context"
 import { Link, useNavigate } from "react-router-dom"
-import login_photo from "../assets/login-photo.jpg"
 import login_photo2 from "../assets/login-photo2.jpg"
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 
