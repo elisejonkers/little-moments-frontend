@@ -18,7 +18,7 @@ const getAlbums = () => {
     .catch(errorHandler);
 };
 
-const uploadImage = (file) => {
+const uploadImage = (file, storedToken) => {
   //storedToken
   return api.post("/upload", file, {
     headers: { Authorization: `Bearer ${storedToken}` }
