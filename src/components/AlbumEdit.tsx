@@ -55,7 +55,7 @@ const AlbumEdit: React.FC = () => {
         uploadData.append("imageURL", e.target.files![0])
 
         try {
-            const response = await service.uploadImage(uploadData)
+            const response = await service.uploadImage(uploadData, storedToken)
             console.log("response is: ", response.fileURL)
             setImageUrl(response.fileURL)
             setHandleFileUploadCalled(true)
