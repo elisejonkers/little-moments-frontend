@@ -12,6 +12,7 @@ import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import service from "../services/file-upload.service"
 import default_profile from "../assets/baby.jpg"
+import albumService from "../services/album.service"
 
 const apiURL = process.env.REACT_APP_API_URL
 
@@ -22,6 +23,10 @@ interface Album {
     length: number,
     weight: number,
     imageURL?: string | undefined
+}
+
+type InputFormControlElement = HTMLInputElement & {
+    files: FileList | null
 }
 
 const AddAlbumForm: React.FC = () => {
@@ -37,14 +42,6 @@ const AddAlbumForm: React.FC = () => {
         weight: 0,
         imageURL: default_profile
     })
-
-    type InputFormControlElement = HTMLInputElement & {
-        files: FileList | null
-    }
-
-    useEffect(() => {
-        console.log(imageUrl)
-    }, [imageUrl])
 
     const handleFileUpload = async (e: React.ChangeEvent<InputFormControlElement>) => {
         console.log("The file to be uploaded is: ", e.target)
@@ -72,7 +69,7 @@ const AddAlbumForm: React.FC = () => {
         console.log(imageUrl)
     }
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const setAlbumInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
 
         if (name === "dateOfBirth") {
@@ -96,19 +93,30 @@ const AddAlbumForm: React.FC = () => {
 
         console.log(newRequestBody)
 
-        axios
-            .post(
-                `${apiURL}/api/albums`, newRequestBody, {
-                headers: { Authorization: `Bearer ${storedToken}` }
-            })
-            .then((response: AxiosResponse) => {
-                console.log("Album created")
-                navigate("/dashboard")
-            })
-            .catch((error: AxiosError) => {
-                console.log(error)
-            })
+        albumService.createAlbum(newRequestBody)
+        .then((response: AxiosResponse) => {
+            console.log("Album created")
+            navigate("/dashboard")
+        })
+        .catch((error: AxiosError) => {
+            console.log("Error creating an album", error)
+        })
+
+        // axios
+        //     .post(
+        //         `${apiURL}/api/albums`, newRequestBody, {
+        //         headers: { Authorization: `Bearer ${storedToken}` }
+        //     })
+        //     .then((_response: AxiosResponse) => {
+        //         console.log("Album created")
+        //         navigate("/dashboard")
+        //     })
+        //     .catch((error: AxiosError) => {
+        //         console.log(error)
+        //     })
     }
+
+    //TOO: moment or luxon for dates handling
 
     return (
         <div className="album-form-container">
@@ -126,7 +134,7 @@ const AddAlbumForm: React.FC = () => {
                         placeholder="Name"
                         required={true}
                         value={formData.name}
-                        onChange={handleInputChange}
+                        onChange={setAlbumInput}
                     />
                 </FloatingLabel>
 
@@ -158,7 +166,7 @@ const AddAlbumForm: React.FC = () => {
                         name="dateOfBirth"
                         required={true}
                         value={formData.dateOfBirth.toISOString().split('T')[0]}
-                        onChange={handleInputChange}
+                        onChange={setAlbumInput}
                     />
                 </FloatingLabel>
 
@@ -175,7 +183,7 @@ const AddAlbumForm: React.FC = () => {
                         name="place"
                         required={true}
                         value={formData.place}
-                        onChange={handleInputChange}
+                        onChange={setAlbumInput}
                     />
                 </FloatingLabel>
 
@@ -192,7 +200,7 @@ const AddAlbumForm: React.FC = () => {
                         name="length"
                         required={true}
                         value={formData.length}
-                        onChange={handleInputChange}
+                        onChange={setAlbumInput}
                     />
                 </FloatingLabel>
 
@@ -209,7 +217,7 @@ const AddAlbumForm: React.FC = () => {
                         name="weight"
                         required={true}
                         value={formData.weight}
-                        onChange={handleInputChange}
+                        onChange={setAlbumInput}
                     />
                 </FloatingLabel>
 

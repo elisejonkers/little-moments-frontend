@@ -102,6 +102,7 @@ const LogIn: React.FC = () => {
                         Submit
                     </Button>
                 </Form>
+                {/** make error toast a reusable component */}
                 <div className="errormessage">
                     {errorMessage && <ToastContainer position="top-start">
                     <Toast onClose={() => setShow(false)} show={show} delay={4000} autohide>

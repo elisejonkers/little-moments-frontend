@@ -9,6 +9,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import service from "../services/file-upload.service"
 import default_picture from "../assets/default-picture.jpg"
 import CloseButton from 'react-bootstrap/CloseButton';
+import albumService from "../services/album.service";
 
 const apiURL = process.env.REACT_APP_API_URL
 
@@ -30,7 +31,7 @@ interface AddEventFormProps {
 const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm, loadEvents }) => {
     const [handleFileUploadCalled, setHandleFileUploadCalled] = useState<boolean>(false)
     const storedToken = localStorage.getItem("authToken");
-    const navigate = useNavigate()
+   
     const [imageUrl, setImageUrl] = useState("")
     const [formData, setFormData] = useState<Event>({
         category: "Open this select menu",
@@ -40,14 +41,14 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
         imageURL: default_picture
     })
 
+    // TODO: Move it ut of function
     type InputFormControlElement = HTMLInputElement & {
         files: FileList | null
     }
 
-    useEffect(() => {
-        console.log(imageUrl)
-    }, [imageUrl])
+  
 
+    // TODO: Create a custom hook using useCallback and try to reuse this function whever you are uploading images
     const handleFileUpload = async (e: React.ChangeEvent<InputFormControlElement>) => {
         console.log("The file to be uploaded is: ", e.target)
         const file = e.target.files && e.target.files[0]
@@ -92,10 +93,11 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
         //     newRequestBody = {...formData}
         // } 
 
-        axios
-            .get(`${apiURL}/api/albums/${albumId}`, {
-                headers: { Authorization: `Bearer ${storedToken}` }
-            })
+        // axios
+        //     .get(`${apiURL}/api/albums/${albumId}`, {
+        //         headers: { Authorization: `Bearer ${storedToken}` }
+        //     })
+        albumService.getAlbum(albumId)
             .then((response: AxiosResponse) => {
                 const album = response.data
                 if (!album) {
@@ -111,9 +113,10 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                     newEventData = {...formData, album: album._id, imageURL: imageUrl}
                 } 
 
-                return axios.post(`${apiURL}/api/albums/${album}/events`, newEventData, {
-                    headers: { Authorization: `Bearer ${storedToken}` }
-                })
+                // return axios.post(`${apiURL}/api/albums/${album}/events`, newEventData, {
+                //     headers: { Authorization: `Bearer ${storedToken}` }
+                // })
+                return albumService.createEvent(albumId, newEventData)
             })
             .then((response: AxiosResponse) => {
                 console.log("Event created")
@@ -123,6 +126,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                     date: new Date(),
                     description: ""
                 })
+                console.log(formData)
                 loadEvents?.()
                 toggleAddEventForm?.()
             })
@@ -135,6 +139,10 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
     const closeForm = () => {
         toggleAddEventForm?.()
     }
+
+    // useEffect(() => {
+    //     console.log(imageUrl)
+    // }, [imageUrl])
 
     return (
         <div className="add-event-form-container">

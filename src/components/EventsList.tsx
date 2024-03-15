@@ -6,6 +6,7 @@ import { Link } from "react-router-dom"
 import AddEventForm from "./AddEventForm"
 import Button from 'react-bootstrap/Button';
 import Carousel from 'react-bootstrap/Carousel';
+import albumService from "../services/album.service";
 
 const apiURL = process.env.REACT_APP_API_URL
 
@@ -20,7 +21,7 @@ interface Event {
 }
 
 interface EventsListProps {
-    albumId?: string | undefined
+    albumId?: string
     //text: string
 }
 
@@ -30,15 +31,18 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
     const storedToken = localStorage.getItem("authToken");
 
     const loadEvents = () => {
-        axios
-            .get(`${apiURL}/api/albums/${albumId}/events`,
-                {
-                    headers: { Authorization: `Bearer ${storedToken}` },
-                })
+        // axios
+        //     .get(`${apiURL}/api/albums/${albumId}/events`,
+        //         {
+        //             headers: { Authorization: `Bearer ${storedToken}` },
+        //         })
+            albumService.getAllEvents(albumId)
             .then((response: AxiosResponse) => {
                 const retrievedData = response.data
+                //TODO: Move sorting to API
                 const sortedEvents = retrievedData.slice().sort((a: Event, b: Event) => new Date(a.date).getTime() - new Date(b.date).getTime())
                 setEventsList(sortedEvents)
+                console.log(eventsList)
             })
             .catch((error: AxiosError) => {
                 console.log("Error loading events", error)
@@ -56,9 +60,10 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
         )
 
         if (confirmDelete) {
-            axios.delete(`${apiURL}/api/albums/${albumId}/events/${eventId}`, {
-                headers: { Authorization: `Bearer ${storedToken}` },
-            })
+            // axios.delete(`${apiURL}/api/albums/${albumId}/events/${eventId}`, {
+            //     headers: { Authorization: `Bearer ${storedToken}` },
+            // })
+                albumService.deleteEvent(albumId, eventId)
                 .then((response: AxiosResponse) => {
                     console.log("Event deleted succesfully")
                     loadEvents()
@@ -83,6 +88,7 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
                 <Carousel>
                     {eventsList.map((event) => {
                         return (
+                            // TODO:Add list key otherwise react would throw error in console
                             <Carousel.Item>
                                 <div className="carousel-items">
                                     <div className="carousel-picture-wrapper">

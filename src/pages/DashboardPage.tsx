@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import AlbumList from "../components/Albumlist"
 import { AuthContext } from "../context/auth.context"
-import { useContext } from "react"
+import { useContext, useCallback } from "react"
 import Button from 'react-bootstrap/Button';
 //import "../styling/app.css"
 import logo_heart from "../assets/logo-symbol.png"
@@ -9,9 +9,9 @@ import logo_heart from "../assets/logo-symbol.png"
 const DashBoardPage = () => {
     const { user } = useContext(AuthContext)
     const navigate = useNavigate()
-    const handleButtonClick = () => {
+    const handleButtonClick = useCallback(() => {
         navigate("/albumform")
-    }
+    }, [])
     
     return (
         <div className="dashboard-container">

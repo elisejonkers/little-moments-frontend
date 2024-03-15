@@ -18,9 +18,7 @@ interface SignUpState {
     firstName: string
 }
 
-interface AuthResponseData {
-    authToken: string
-}
+
 
 const SignUp: React.FC = () => {
     const [signUp, setSignUp] = useState<SignUpState>({
@@ -31,8 +29,9 @@ const SignUp: React.FC = () => {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
     const [show, setShow] = useState<boolean>(false)
     const navigate = useNavigate()
-    const { storeToken, authenticateUser } = useContext(AuthContext)
 
+
+    // TODO: Rename it to handleSignupChange
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setSignUp({ ...signUp, [name]: value })
@@ -41,9 +40,10 @@ const SignUp: React.FC = () => {
     const handleSignUpSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
+        // TODO: Use react-query for api calls
         axios
             .post(`${apiURL}/auth/signup`, signUp)
-            .then((response) => {
+            .then((_response) => {
                 console.log("sign up approved")
                 navigate("/login")
             })
@@ -54,6 +54,7 @@ const SignUp: React.FC = () => {
             })
     }
 
+    //TODO: Try to use formik for handling forms & validations 
     return (
         <div className="login-container">
             <div className="login-photo-item">
@@ -118,49 +119,7 @@ const SignUp: React.FC = () => {
             </div>
 
         </div>
-
-
-        // <div>
-        //     <h1>Sign Up</h1>
-        //     <form onSubmit={handleSignUpSubmit}>
-        //         <label htmlFor="">
-        //             Email
-        //             <input
-        //                 type="email"
-        //                 name="email"
-        //                 placeholder="Enter your email here"
-        //                 required={true}
-        //                 value={signUp.email}
-        //                 onChange={handleInputChange}
-        //             />
-        //         </label>
-        //         <label htmlFor="">
-        //             Password
-        //             <input
-        //                 type="password"
-        //                 name="password"
-        //                 placeholder="Enter your password here"
-        //                 required={true}
-        //                 value={signUp.password}
-        //                 onChange={handleInputChange}
-        //             />
-        //         </label>
-        //         <label htmlFor="">
-        //             First name
-        //             <input
-        //                 type="text"
-        //                 name="firstName"
-        //                 placeholder="Enter your first nam here"
-        //                 required={true}
-        //                 value={signUp.firstName}
-        //                 onChange={handleInputChange}
-        //             />
-        //         </label>
-        //         <button type="submit">Create an account</button>
-        //     </form>
-        // </div>
     )
-
 }
 
 export default SignUp

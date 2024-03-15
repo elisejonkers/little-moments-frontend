@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import EventsList from "./EventsList"
 import Button from 'react-bootstrap/Button';
 import logo_heart from "../assets/logo-symbol.png"
+import albumService from "../services/album.service";
 
 const apiURL = process.env.REACT_APP_API_URL
 
@@ -27,50 +28,69 @@ const initialAlbumDetails: Album = {
 
 const AlbumDetails: React.FC = () => {
     const storedToken = localStorage.getItem("authToken");
+
+    //TODO: Instead of setting initial data, you could display a spinner or pageloader
     const [albumDetails, setAlbumDetails] = useState<Album>(initialAlbumDetails)
     const { albumId } = useParams()
     const navigate = useNavigate()
 
-    const loadAlbumDetails = () => {
-        axios
-            .get(`${apiURL}/api/albums/${albumId}`,
-                {
-                    headers: { Authorization: `Bearer ${storedToken}` },
-                })
-            .then((response: AxiosResponse<Album>) => {
-                setAlbumDetails(response.data)
-            })
-            .catch((error: AxiosError) => {
-                console.log(error)
-            })
-    }
+    // const loadAlbumDetails = () => {
+    //     axios
+    //         .get(`${apiURL}/api/albums/${albumId}`,
+    //             {
+    //                 headers: { Authorization: `Bearer ${storedToken}` },
+    //             })
+    //         .then((response: AxiosResponse<Album>) => {
+    //             setAlbumDetails(response.data)
+    //         })
+    //         .catch((error: AxiosError) => {
+    //             console.log(error)
+    //         })
+    // }
 
     const handleEditClick = () => {
         navigate(`/albumedit/${albumId}`)
     }
 
     const deleteAlbum = () => {
+
+        //TODO:Create a simple alert coomponent and show it on top of the page
         const confirmDelete = window.confirm(
             "Are you sure you want to delete this album and the associated events?"
         )
 
         if (confirmDelete) {
-            axios
-                .delete(`${apiURL}/api/albums/${albumId}`, {
-                    headers: { Authorization: `Bearer ${storedToken}` },
-                })
-                .then((response: AxiosResponse) => {
-                    console.log("Album deleted succesfully")
-                    navigate("/dashboard")
-                })
-                .catch((error: AxiosError) => {
-                    console.log("Error deleting album", error)
-                })
+            albumService.deleteAlbum(albumId)
+            .then((response: AxiosResponse) => {
+                console.log("Album deleted")
+                navigate("/dashboard")
+            })
+            .catch((error: AxiosError) => {
+                console.log("Error deleting album", error)
+            })
+            // axios
+            //     .delete(`${apiURL}/api/albums/${albumId}`, {
+            //         headers: { Authorization: `Bearer ${storedToken}` },
+            //     })
+            //     .then((response: AxiosResponse) => {
+            //         console.log("Album deleted succesfully")
+            //         navigate("/dashboard")
+            //     })
+            //     .catch((error: AxiosError) => {
+            //         console.log("Error deleting album", error)
+            //     })
         }
     }
-
+//TODO: This effect should not have dependency but you can check before removing it
     useEffect(() => {
-        loadAlbumDetails()
+        albumService.getAlbum(albumId)
+        .then((response: AxiosResponse) => {
+            //console.log(response.data)
+            setAlbumDetails(response.data)
+        })
+        .catch((error: AxiosError) => {
+            console.log("Error getting album details", error)
+        })
     }, [albumId])
 
     return (

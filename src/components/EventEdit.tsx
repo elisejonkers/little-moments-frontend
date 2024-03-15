@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import service from "../services/file-upload.service"
+import albumService from "../services/album.service";
 
 const apiURL = process.env.REACT_APP_API_URL
 
@@ -15,7 +16,7 @@ interface Event {
     title: string,
     date: Date,
     description: string,
-    albumID: string | undefined
+    album: string | undefined
     _id?: string,
     imageURL?: string | undefined
 }
@@ -31,17 +32,13 @@ const EventEdit: React.FC = () => {
         title: "",
         date: new Date(),
         description: "",
-        albumID: "",
+        album: "",
         imageURL: ""
     })
 
     type InputFormControlElement = HTMLInputElement & {
         files: FileList | null
     }
-
-    useEffect(() => {
-        console.log(imageUrl)
-    }, [imageUrl])
 
     const handleFileUpload = async (e: React.ChangeEvent<InputFormControlElement>) => {
         console.log("The file to be uploaded is: ", e.target)
@@ -67,15 +64,17 @@ const EventEdit: React.FC = () => {
     }
 
     const getEventDetails = () => {
-        axios
-            .get(`${apiURL}/api/albums/${albumId}/events/${eventId}`, {
-                headers: { Authorization: `Bearer ${storedToken}` }
-            })
+        // axios
+        //     .get(`${apiURL}/api/albums/${albumId}/events/${eventId}`, {
+        //         headers: { Authorization: `Bearer ${storedToken}` }
+        //     })
+        albumService.getEvent(albumId, eventId)
             .then((response: AxiosResponse<Event>) => {
                 console.log(response.data)
                 const { date, ...otherData } = response.data
                 const newDate = new Date(date)
                 setFormData({...otherData, date: newDate})
+                console.log(formData)
             })
             .catch((error: AxiosError) => {
                 console.log("error getting details album", error)
@@ -104,12 +103,13 @@ const EventEdit: React.FC = () => {
             newRequestBody = {...formData}
         }
 
-        axios
-            .put(`${apiURL}/api/albums/${albumId}/events/${eventId}`, newRequestBody, {
-            headers: { Authorization: `Bearer ${storedToken}` }
-            })
+        // axios
+        //     .put(`${apiURL}/api/albums/${albumId}/events/${eventId}`, newRequestBody, {
+        //     headers: { Authorization: `Bearer ${storedToken}` }
+        //     })
+        albumService.updateEvent(albumId, eventId, newRequestBody)
             .then((response: AxiosResponse) => {
-            console.log("Event updated")
+            console.log("Event updated", newRequestBody)
             navigate(`/albums/${albumId}`)
             })
             .catch((error: AxiosError) => {
@@ -119,7 +119,11 @@ const EventEdit: React.FC = () => {
 
     useEffect(() => {
         getEventDetails()
-    }, [eventId])
+    }, [albumId])
+
+    // useEffect(() => {
+    //     console.log(imageUrl)
+    // }, [imageUrl])
 
     return (
         <div className="edit-container">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import SignUp from './components/SignUp';
@@ -12,14 +12,41 @@ import AlbumDetails from './components/AlbumDetails';
 import AddEventForm from './components/AddEventForm';
 import AlbumEdit from './components/AlbumEdit';
 import EventEdit from './components/EventEdit';
-
+// TODO: Segregate styles into css modules to avoid maintenance issue
 import "./styling/appXS.css"
 import "./styling/appS.css"
 import "./styling/appM.css"
 import "./styling/appL.css"
 import "./styling/appXL.css"
+import albumService from './services/album.service';
+//import axiosClient from './services/album.service';
+
+// TODO: Add custom 404 page
+// Use Lazy to improve page speed.
 
 function App() {
+  // albumService.getAllAlbums()
+  //   .then((response) => {
+  //     console.log(response.data)
+  //   })
+  //   .catch((error) => {
+  //     console.log("this is error fetching albums", error)
+  //   })
+
+  // const client = axiosClient()
+
+  // useEffect(() => {
+  //   client  
+  //     .get("api/albums")
+  //     .then((response) => {
+  //       console.log(response.data)
+  //     })
+  //     .catch((error) => {
+  //       console.log("error fetching data", error)
+  //     })
+  // }, [])
+
+
   return (
     <>
     <NavBar/>

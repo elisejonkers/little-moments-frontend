@@ -1,9 +1,8 @@
-//import "../styling/app.css"
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { ObjectId } from "mongodb"
 import { Link } from "react-router-dom";
+import albumService from "../services/album.service";
 
 const apiURL = process.env.REACT_APP_API_URL
 
@@ -21,23 +20,31 @@ const AlbumList: React.FC = () => {
     const storedToken = localStorage.getItem("authToken");
     const [albums, setAlbums] = useState<Album[]>([])
 
-    const loadAlbums = () => {
-        axios
-            .get(`${apiURL}/api/albums`,
-                {
-                    headers: { Authorization: `Bearer ${storedToken}` },
-                })
-            .then((response) => {
-                console.log(response.data)
-                setAlbums(response.data)
-            })
-            .catch((error) => {
-                console.log("Error loading albums", error)
-            })
-    }
+    // const loadAlbums = () => {
+    //     axios
+    //         .get(`${apiURL}/api/albums`,
+    //             {
+    //                 headers: { Authorization: `Bearer ${storedToken}` },
+    //             })
+    //         .then((response) => {
+    //             console.log(response.data)
+    //             setAlbums(response.data)
+    //         })
+    //         .catch((error) => {
+    //             console.log("Error loading albums", error)
+    //         })
+    // }
 
     useEffect(() => {
-        loadAlbums()
+        //loadAlbums()
+        albumService.getAllAlbums()
+        .then((response) => {
+            console.log(response.data)
+            setAlbums(response.data)
+        })
+        .catch((error) => {
+            console.log("Error fetching all albums", error)
+        })
     }, [])
 
     return (

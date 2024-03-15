@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import service from "../services/file-upload.service"
+import albumService from "../services/album.service";
 
 const apiURL = process.env.REACT_APP_API_URL
 
@@ -38,9 +39,7 @@ const AlbumEdit: React.FC = () => {
         files: FileList | null
     }
 
-    useEffect(() => {
-        console.log(imageUrl)
-    }, [imageUrl])
+    
 
     const handleFileUpload = async (e: React.ChangeEvent<InputFormControlElement>) => {
         console.log("The file to be uploaded is: ", e.target)
@@ -66,10 +65,7 @@ const AlbumEdit: React.FC = () => {
     }
 
     const getAlbumDetails = () => {
-        axios
-            .get(`${apiURL}/api/albums/${albumId}`, {
-            headers: { Authorization: `Bearer ${storedToken}` }
-        })
+        albumService.getAlbum(albumId)
             .then((response: AxiosResponse<Album>) => {
                 const { dateOfBirth, ...otherData } = response.data
                 const newDateOfBirth = new Date(dateOfBirth)
@@ -79,7 +75,6 @@ const AlbumEdit: React.FC = () => {
             .catch((error: AxiosError) => {
                 console.log("error getting details album", error)
             })
-
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -106,11 +101,8 @@ const AlbumEdit: React.FC = () => {
 
         console.log(newRequestBody)
 
-        axios
-        .put(`${apiURL}/api/albums/${albumId}`, newRequestBody, {
-            headers: { Authorization: `Bearer ${storedToken}` }
-        })
-        .then((response: AxiosResponse) => {
+        albumService.updateAlbum(albumId, newRequestBody)
+        .then((_response: AxiosResponse) => {
             console.log("Album updated")
             navigate(`/albums/${albumId}`)
         })
@@ -119,6 +111,7 @@ const AlbumEdit: React.FC = () => {
         })
     }
 
+    //TODO: Check effect dependency
     useEffect(() => {
         getAlbumDetails()
         console.log(imageUrl)
