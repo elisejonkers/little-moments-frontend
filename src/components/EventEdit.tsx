@@ -1,6 +1,6 @@
 //import "../styling/app.css"
 
-import axios, { AxiosResponse, AxiosError } from "axios";
+import { AxiosResponse, AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import Form from 'react-bootstrap/Form';
@@ -8,18 +8,17 @@ import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import service from "../services/file-upload.service"
 import albumService from "../services/album.service";
+import { Event, InputFormControlElement } from "../types/album.types"
 
-const apiURL = process.env.REACT_APP_API_URL
-
-interface Event {
-    category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other",
-    title: string,
-    date: Date,
-    description: string,
-    album: string | undefined
-    _id?: string,
-    imageURL?: string | undefined
-}
+// interface Event {
+//     category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other",
+//     title: string,
+//     date: Date,
+//     description: string,
+//     album: string | undefined
+//     _id?: string,
+//     imageURL?: string | undefined
+// }
 
 const EventEdit: React.FC = () => {
     const storedToken = localStorage.getItem("authToken");
@@ -36,9 +35,9 @@ const EventEdit: React.FC = () => {
         imageURL: ""
     })
 
-    type InputFormControlElement = HTMLInputElement & {
-        files: FileList | null
-    }
+    // type InputFormControlElement = HTMLInputElement & {
+    //     files: FileList | null
+    // }
 
     const handleFileUpload = async (e: React.ChangeEvent<InputFormControlElement>) => {
         console.log("The file to be uploaded is: ", e.target)
@@ -108,7 +107,7 @@ const EventEdit: React.FC = () => {
         //     headers: { Authorization: `Bearer ${storedToken}` }
         //     })
         albumService.updateEvent(albumId, eventId, newRequestBody)
-            .then((response: AxiosResponse) => {
+            .then((_response: AxiosResponse) => {
             console.log("Event updated", newRequestBody)
             navigate(`/albums/${albumId}`)
             })

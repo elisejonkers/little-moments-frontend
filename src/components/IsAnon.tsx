@@ -1,12 +1,13 @@
 import { useContext, ReactNode } from "react";
 import { AuthContext } from "../context/auth.context";
 import { Navigate } from "react-router-dom";
+import { IsPrivateAnonProps } from "../types/album.types"
 
-type IsAnonProps = {
-    children: ReactNode
-}
+// type IsAnonProps = {
+//     children: ReactNode
+// }
 
-function IsAnon( { children }: IsAnonProps ) {
+function IsAnon( { children }: IsPrivateAnonProps ) {
   
   const { isLoggedIn, isLoading } = useContext(AuthContext);
 

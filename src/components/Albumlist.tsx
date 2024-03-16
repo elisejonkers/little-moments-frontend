@@ -1,23 +1,20 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { ObjectId } from "mongodb"
 import { Link } from "react-router-dom";
 import albumService from "../services/album.service";
-
-const apiURL = process.env.REACT_APP_API_URL
-
-interface Album {
-    _id: ObjectId,
-    name: string,
-    dateOfBirth: Date,
-    place: string,
-    length: number,
-    weight: number,
-    imageURL?: string
-}
+import { Album } from "../types/album.types"
+// interface Album {
+//     _id: ObjectId,
+//     name: string,
+//     dateOfBirth: Date,
+//     place: string,
+//     length: number,
+//     weight: number,
+//     imageURL?: string
+// }
 
 const AlbumList: React.FC = () => {
-    const storedToken = localStorage.getItem("authToken");
+    //const storedToken = localStorage.getItem("authToken");
     const [albums, setAlbums] = useState<Album[]>([])
 
     // const loadAlbums = () => {

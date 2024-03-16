@@ -1,6 +1,4 @@
-//import "../styling/app.css"
-
-import axios, { AxiosResponse, AxiosError } from "axios";
+import { AxiosResponse, AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import Form from 'react-bootstrap/Form';
@@ -8,17 +6,16 @@ import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import service from "../services/file-upload.service"
 import albumService from "../services/album.service";
+import { Album, InputFormControlElement } from "../types/album.types"
 
-const apiURL = process.env.REACT_APP_API_URL
-
-interface Album {
-    name: string,
-    dateOfBirth: Date,
-    place: string,
-    length: number,
-    weight: number,
-    imageURL?: string | undefined
-}
+// interface Album {
+//     name: string,
+//     dateOfBirth: Date,
+//     place: string,
+//     length: number,
+//     weight: number,
+//     imageURL?: string | undefined
+// }
 
 const AlbumEdit: React.FC = () => {
     const storedToken = localStorage.getItem("authToken");
@@ -35,9 +32,9 @@ const AlbumEdit: React.FC = () => {
         imageURL: ""
     })
 
-    type InputFormControlElement = HTMLInputElement & {
-        files: FileList | null
-    }
+    // type InputFormControlElement = HTMLInputElement & {
+    //     files: FileList | null
+    // }
 
     
 

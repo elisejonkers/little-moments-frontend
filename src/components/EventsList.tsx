@@ -1,34 +1,30 @@
 //import "../styling/app.css"
 
-import axios, { AxiosResponse, AxiosError } from "axios"
+import { AxiosResponse, AxiosError } from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import AddEventForm from "./AddEventForm"
 import Button from 'react-bootstrap/Button';
 import Carousel from 'react-bootstrap/Carousel';
 import albumService from "../services/album.service";
+import { Event, EventsListProps } from "../types/album.types"
 
-const apiURL = process.env.REACT_APP_API_URL
+// interface Event {
+//     category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other",
+//     title: string,
+//     date: Date,
+//     description: string,
+//     album: string | undefined,
+//     _id: string,
+//     imageURL?: string
+// }
 
-interface Event {
-    category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other",
-    title: string,
-    date: Date,
-    description: string,
-    albumID: string | undefined,
-    _id: string,
-    imageURL?: string
-}
 
-interface EventsListProps {
-    albumId?: string
-    //text: string
-}
 
 const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
     const [isAddEventFormVisible, setIsEventFormVisible] = useState<boolean>(false)
     const [eventsList, setEventsList] = useState<Event[]>([])
-    const storedToken = localStorage.getItem("authToken");
+    //const storedToken = localStorage.getItem("authToken");
 
     const loadEvents = () => {
         // axios
@@ -53,7 +49,7 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
         setIsEventFormVisible((prevIsToggled) => !prevIsToggled)
     }
 
-    const deleteEvent = (eventId: string) => {
+    const deleteEvent = (eventId: string | undefined) => {
         console.log("Delete buttons invoked", eventId)
         const confirmDelete = window.confirm(
             "Are you sure you want to delete this album and the associated events?"

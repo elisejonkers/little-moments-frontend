@@ -1,22 +1,19 @@
-//import "../styling/app.css"
-
-import axios, { AxiosResponse, AxiosError } from "axios"
+import { AxiosResponse, AxiosError } from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import EventsList from "./EventsList"
 import Button from 'react-bootstrap/Button';
 import logo_heart from "../assets/logo-symbol.png"
 import albumService from "../services/album.service";
+import { Album } from "../types/album.types"
 
-const apiURL = process.env.REACT_APP_API_URL
-
-interface Album {
-    name: string,
-    dateOfBirth: Date | string,
-    place: string,
-    length: number,
-    weight: number
-}
+// interface Album {
+//     name: string,
+//     dateOfBirth: Date | string,
+//     place: string,
+//     length: number,
+//     weight: number
+// }
 
 const initialAlbumDetails: Album = {
     name: 'Initial name',
@@ -27,8 +24,6 @@ const initialAlbumDetails: Album = {
 }
 
 const AlbumDetails: React.FC = () => {
-    const storedToken = localStorage.getItem("authToken");
-
     //TODO: Instead of setting initial data, you could display a spinner or pageloader
     const [albumDetails, setAlbumDetails] = useState<Album>(initialAlbumDetails)
     const { albumId } = useParams()

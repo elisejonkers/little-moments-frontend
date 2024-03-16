@@ -11,20 +11,22 @@ import Button from 'react-bootstrap/Button';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 
+import { LoginState, AuthResponseData, ErrorResponse } from "../types/album.types"
+
 const apiURL = process.env.REACT_APP_API_URL
 
-interface LoginState {
-    email: string,
-    password: string
-}
+// interface LoginState {
+//     email: string,
+//     password: string
+// }
 
-interface AuthResponseData {
-    authToken: string
-}
+// interface AuthResponseData {
+//     authToken: string
+// }
 
-interface ErrorResponse {
-    message: string
-}
+// interface ErrorResponse {
+//     message: string
+// }
 
 const LogIn: React.FC = () => {
     const [logIn, setLogIn] = useState<LoginState>({

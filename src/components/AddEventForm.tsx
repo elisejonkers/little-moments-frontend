@@ -1,8 +1,5 @@
-//import "../styling/app.css"
-
-import axios, { AxiosResponse, AxiosError } from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { AxiosResponse, AxiosError } from "axios";
+import { useState } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
@@ -10,23 +7,22 @@ import service from "../services/file-upload.service"
 import default_picture from "../assets/default-picture.jpg"
 import CloseButton from 'react-bootstrap/CloseButton';
 import albumService from "../services/album.service";
+import { Event, AddEventFormProps, InputFormControlElement } from "../types/album.types" 
 
-const apiURL = process.env.REACT_APP_API_URL
+// interface Event {
+//     category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other" | "Open this select menu",
+//     title: string,
+//     date: Date,
+//     description: string,
+//     album?: string | undefined
+//     imageURL?: string | undefined
+// }
 
-interface Event {
-    category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other" | "Open this select menu",
-    title: string,
-    date: Date,
-    description: string,
-    album?: string | undefined
-    imageURL?: string | undefined
-}
-
-interface AddEventFormProps {
-    albumId?: string | undefined
-    toggleAddEventForm?: () => void | undefined
-    loadEvents?: () => void | undefined
-}
+// interface AddEventFormProps {
+//     albumId?: string | undefined
+//     toggleAddEventForm?: () => void | undefined
+//     loadEvents?: () => void | undefined
+// }
 
 const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm, loadEvents }) => {
     const [handleFileUploadCalled, setHandleFileUploadCalled] = useState<boolean>(false)
@@ -42,9 +38,9 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
     })
 
     // TODO: Move it ut of function
-    type InputFormControlElement = HTMLInputElement & {
-        files: FileList | null
-    }
+    // type InputFormControlElement = HTMLInputElement & {
+    //     files: FileList | null
+    // }
 
   
 

@@ -4,8 +4,8 @@ import "../styling/appM.css"
 import "../styling/appL.css"
 import "../styling/appXL.css"
 
-import axios, { AxiosResponse, AxiosError } from "axios";
-import { useEffect, useState } from "react"
+import { AxiosResponse, AxiosError } from "axios";
+import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -13,21 +13,20 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import service from "../services/file-upload.service"
 import default_profile from "../assets/baby.jpg"
 import albumService from "../services/album.service"
+import { Album, InputFormControlElement } from "../types/album.types"
 
-const apiURL = process.env.REACT_APP_API_URL
+// interface Album {
+//     name: string,
+//     dateOfBirth: Date,
+//     place: string,
+//     length: number,
+//     weight: number,
+//     imageURL?: string | undefined
+// }
 
-interface Album {
-    name: string,
-    dateOfBirth: Date,
-    place: string,
-    length: number,
-    weight: number,
-    imageURL?: string | undefined
-}
-
-type InputFormControlElement = HTMLInputElement & {
-    files: FileList | null
-}
+// type InputFormControlElement = HTMLInputElement & {
+//     files: FileList | null
+// }
 
 const AddAlbumForm: React.FC = () => {
     const [handleFileUploadCalled, setHandleFileUploadCalled] = useState<boolean>(false)

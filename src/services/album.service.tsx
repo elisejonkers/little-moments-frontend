@@ -1,31 +1,22 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
-
-interface Album {
-    name: string,
-    dateOfBirth: Date,
-    place: string,
-    length: number,
-    weight: number,
-    imageURL?: string | undefined
-}
-
-interface Event {
-    category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other" | "Open this select menu",
-    title: string,
-    date: Date,
-    description: string,
-    album: string | undefined,
-    _id?: string,
-    imageURL?: string
-}
+import { Album, Event} from "../types/album.types"
+// interface Album {
+//     name: string,
+//     dateOfBirth: Date,
+//     place: string,
+//     length: number,
+//     weight: number,
+//     imageURL?: string | undefined
+// }
 
 // interface Event {
 //     category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other" | "Open this select menu",
 //     title: string,
 //     date: Date,
 //     description: string,
-//     album?: string | undefined
-//     imageURL?: string | undefined
+//     album: string | undefined,
+//     _id?: string,
+//     imageURL?: string
 // }
 
 class AlbumService {

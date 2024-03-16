@@ -9,14 +9,15 @@ import Button from 'react-bootstrap/Button';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import signup_photo from "../assets/signup_photo.jpg"
+import { SignUpState } from "../types/album.types";
 
 const apiURL = process.env.REACT_APP_API_URL
 
-interface SignUpState {
-    email: string,
-    password: string,
-    firstName: string
-}
+// interface SignUpState {
+//     email: string,
+//     password: string,
+//     firstName: string
+// }
 
 
 
@@ -54,7 +55,7 @@ const SignUp: React.FC = () => {
             })
     }
 
-    //TODO: Try to use formik for handling forms & validations 
+    //TODO: Try to use formik for handling forms & validations
     return (
         <div className="login-container">
             <div className="login-photo-item">
