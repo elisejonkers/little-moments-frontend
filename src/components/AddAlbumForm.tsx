@@ -5,11 +5,12 @@ import "../styling/appL.css"
 import "../styling/appXL.css"
 
 import { AxiosResponse, AxiosError } from "axios";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Spinner from 'react-bootstrap/Spinner'
 import service from "../services/file-upload.service"
 import default_profile from "../assets/baby.jpg"
 import albumService from "../services/album.service"
@@ -30,6 +31,7 @@ import { Album, InputFormControlElement } from "../types/album.types"
 
 const AddAlbumForm: React.FC = () => {
     const [handleFileUploadCalled, setHandleFileUploadCalled] = useState<boolean>(false)
+    const [showSpinner, setShowSpinner] = useState<boolean>(false)
     const storedToken = localStorage.getItem("authToken");
     const navigate = useNavigate()
     const [imageUrl, setImageUrl] = useState("")
@@ -42,7 +44,14 @@ const AddAlbumForm: React.FC = () => {
         imageURL: default_profile
     })
 
+    useEffect(() => {
+        if (imageUrl) {
+            setShowSpinner(false)
+        }
+    }, [imageUrl])
+
     const handleFileUpload = async (e: React.ChangeEvent<InputFormControlElement>) => {
+        setShowSpinner(true)
         console.log("The file to be uploaded is: ", e.target)
 
         const file = e.target.files && e.target.files[0]
@@ -150,6 +159,7 @@ const AddAlbumForm: React.FC = () => {
                         accept=".jpg, .jpeg, .png"
                         onChange={(e: React.ChangeEvent<InputFormControlElement>) => handleFileUpload(e)}
                     />
+                    {showSpinner && <Spinner animation="border"/>}
                 </FloatingLabel>
 
                 <br />

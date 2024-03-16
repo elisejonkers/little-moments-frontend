@@ -1,11 +1,12 @@
 import { AxiosResponse, AxiosError } from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import service from "../services/file-upload.service"
 import default_picture from "../assets/default-picture.jpg"
 import CloseButton from 'react-bootstrap/CloseButton';
+import Spinner from 'react-bootstrap/Spinner'
 import albumService from "../services/album.service";
 import { Event, AddEventFormProps, InputFormControlElement } from "../types/album.types" 
 
@@ -26,6 +27,7 @@ import { Event, AddEventFormProps, InputFormControlElement } from "../types/albu
 
 const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm, loadEvents }) => {
     const [handleFileUploadCalled, setHandleFileUploadCalled] = useState<boolean>(false)
+    const [showSpinner, setShowSpinner] = useState<boolean>(false)
     const storedToken = localStorage.getItem("authToken");
    
     const [imageUrl, setImageUrl] = useState("")
@@ -46,6 +48,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
 
     // TODO: Create a custom hook using useCallback and try to reuse this function whever you are uploading images
     const handleFileUpload = async (e: React.ChangeEvent<InputFormControlElement>) => {
+        setShowSpinner(true)
         console.log("The file to be uploaded is: ", e.target)
         const file = e.target.files && e.target.files[0]
         
@@ -66,6 +69,18 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
             console.log("error while uploading file: ", error)
         }
     }
+
+    useEffect(() => {
+        if (imageUrl) {
+            setShowSpinner(false)
+        }
+    }, [imageUrl])
+
+    // const spinnerLoadImages = () => {
+        
+    //     //Activeren wanneer upload image is getriggerd
+    //     //Stoppen wanneer image daadwerkelijk is geupload
+    // }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target
@@ -181,6 +196,8 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                     {/* {formData.imageURL && (
                         <div>Selected file: {formData.imageURL}</div>
                     )} */}
+                    {showSpinner && <Spinner animation="border"/>}
+                    
 
                 </FloatingLabel>
 

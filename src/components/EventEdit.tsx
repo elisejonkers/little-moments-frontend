@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Spinner from 'react-bootstrap/Spinner'
 import service from "../services/file-upload.service"
 import albumService from "../services/album.service";
 import { Event, InputFormControlElement } from "../types/album.types"
@@ -23,6 +24,7 @@ import { Event, InputFormControlElement } from "../types/album.types"
 const EventEdit: React.FC = () => {
     const storedToken = localStorage.getItem("authToken");
     const [handleFileUploadCalled, setHandleFileUploadCalled] = useState<boolean>(false)
+    const [showSpinner, setShowSpinner] = useState<boolean>(false)
     const navigate = useNavigate()
     const { eventId, albumId } = useParams()
     const [imageUrl, setImageUrl] = useState("")
@@ -40,6 +42,7 @@ const EventEdit: React.FC = () => {
     // }
 
     const handleFileUpload = async (e: React.ChangeEvent<InputFormControlElement>) => {
+        setShowSpinner(true)
         console.log("The file to be uploaded is: ", e.target)
 
         const file = e.target.files && e.target.files[0]
@@ -61,6 +64,11 @@ const EventEdit: React.FC = () => {
             console.log("error while uploading file: ", error)
         }
     }
+    useEffect(() => {
+        if (imageUrl) {
+            setShowSpinner(false)
+        }
+    }, [imageUrl])
 
     const getEventDetails = () => {
         // axios
@@ -183,6 +191,7 @@ const EventEdit: React.FC = () => {
                     {/* {formData.imageURL && (
                         <div>Selected file: {formData.imageURL}</div>
                     )} */}
+                     {showSpinner && <Spinner animation="border"/>}
 
                 </FloatingLabel>
 

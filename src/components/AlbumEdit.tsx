@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import service from "../services/file-upload.service"
 import albumService from "../services/album.service";
+import Spinner from 'react-bootstrap/Spinner'
 import { Album, InputFormControlElement } from "../types/album.types"
 
 // interface Album {
@@ -20,6 +21,7 @@ import { Album, InputFormControlElement } from "../types/album.types"
 const AlbumEdit: React.FC = () => {
     const storedToken = localStorage.getItem("authToken");
     const [handleFileUploadCalled, setHandleFileUploadCalled] = useState<boolean>(false)
+    const [showSpinner, setShowSpinner] = useState<boolean>(false)
     const navigate = useNavigate()
     const { albumId } = useParams()
     const [imageUrl, setImageUrl] = useState("")
@@ -39,6 +41,7 @@ const AlbumEdit: React.FC = () => {
     
 
     const handleFileUpload = async (e: React.ChangeEvent<InputFormControlElement>) => {
+        setShowSpinner(true)
         console.log("The file to be uploaded is: ", e.target)
 
         const file = e.target.files && e.target.files[0]
@@ -60,6 +63,12 @@ const AlbumEdit: React.FC = () => {
             console.log("error while uploading file: ", error)
         }
     }
+
+  useEffect(() => {
+    if (imageUrl) {
+        setShowSpinner(false)
+    }
+  }, [imageUrl])
 
     const getAlbumDetails = () => {
         albumService.getAlbum(albumId)
@@ -150,7 +159,7 @@ const AlbumEdit: React.FC = () => {
                     {/* {formData.imageURL && (
                         <div>Selected file: {formData.imageURL}</div>
                     )} */}
-
+                    {showSpinner && <Spinner animation="border"/>}
                 </FloatingLabel>
 
                 <br />
