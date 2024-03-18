@@ -1,5 +1,3 @@
-//import "../styling/app.css"
-
 import { AxiosResponse, AxiosError } from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
@@ -9,36 +7,14 @@ import Carousel from 'react-bootstrap/Carousel';
 import albumService from "../services/album.service";
 import { Event, EventsListProps } from "../types/album.types"
 
-// interface Event {
-//     category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other",
-//     title: string,
-//     date: Date,
-//     description: string,
-//     album: string | undefined,
-//     _id: string,
-//     imageURL?: string
-// }
-
-
-
 const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
     const [isAddEventFormVisible, setIsEventFormVisible] = useState<boolean>(false)
     const [eventsList, setEventsList] = useState<Event[]>([])
-    //const storedToken = localStorage.getItem("authToken");
 
     const loadEvents = () => {
-        // axios
-        //     .get(`${apiURL}/api/albums/${albumId}/events`,
-        //         {
-        //             headers: { Authorization: `Bearer ${storedToken}` },
-        //         })
-            albumService.getAllEvents(albumId)
+        albumService.getAllEvents(albumId)
             .then((response: AxiosResponse) => {
-                const retrievedData = response.data
-                //TODO: Move sorting to API
-                const sortedEvents = retrievedData.slice().sort((a: Event, b: Event) => new Date(a.date).getTime() - new Date(b.date).getTime())
-                setEventsList(sortedEvents)
-                console.log(eventsList)
+                setEventsList(response.data)
             })
             .catch((error: AxiosError) => {
                 console.log("Error loading events", error)
@@ -56,11 +32,8 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
         )
 
         if (confirmDelete) {
-            // axios.delete(`${apiURL}/api/albums/${albumId}/events/${eventId}`, {
-            //     headers: { Authorization: `Bearer ${storedToken}` },
-            // })
-                albumService.deleteEvent(albumId, eventId)
-                .then((response: AxiosResponse) => {
+            albumService.deleteEvent(albumId, eventId)
+                .then((_response: AxiosResponse) => {
                     console.log("Event deleted succesfully")
                     loadEvents()
                 })
