@@ -14,33 +14,32 @@ const NavBar: React.FC = () => {
   return (
     <div className="navbar-custom">
       {isLoggedIn && (
-         <Navbar expand="sm" className="bg-body-primary">
+        <Navbar expand="sm" className="bg-body-primary">
           <Container>
-           <Navbar.Brand href="/dashboard"><img src={logo} alt="logo" className="logo"/></Navbar.Brand>
-           {/* <img src={logo} alt="logo" className="logo"/> */}
-           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-           <Navbar.Collapse id="basic-navbar-nav">
-             <Nav className="ms-auto">
-               <Nav.Link onClick={logOutUser}>Log out</Nav.Link>
-             </Nav>
-           </Navbar.Collapse>
-           </Container>
-       </Navbar>
+            <Navbar.Brand href="/dashboard"><img src={logo} alt="logo" className="logo" /></Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="ms-auto">
+                <Nav.Link onClick={logOutUser}>Log out</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
       )}
 
       {!isLoggedIn && (
-            <Navbar expand="sm" className="bg-body-primary">
-            <Container>
-              <Navbar.Brand href="/"><img src={logo} alt="logo" className="logo" /></Navbar.Brand>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="ms-auto">
-                  <Nav.Link href="login">Login</Nav.Link>
-                  <Nav.Link href="signup">Sign up</Nav.Link>
-                </Nav>
-              </Navbar.Collapse>
-            </Container>
-          </Navbar>
+        <Navbar expand="sm" className="bg-body-primary">
+          <Container>
+            <Navbar.Brand href="/"><img src={logo} alt="logo" className="logo" /></Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="ms-auto">
+                <Nav.Link href="login">Login</Nav.Link>
+                <Nav.Link href="signup">Sign up</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
       )}
     </div>
   );

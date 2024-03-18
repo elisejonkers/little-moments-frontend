@@ -1,5 +1,3 @@
-//import "../styling/app.css"
-
 import axios, { AxiosError, AxiosResponse } from "axios"
 import { useContext, useState } from "react"
 import { AuthContext } from "../context/auth.context"
@@ -14,19 +12,6 @@ import ToastContainer from 'react-bootstrap/ToastContainer';
 import { LoginState, AuthResponseData, ErrorResponse } from "../types/album.types"
 
 const apiURL = process.env.REACT_APP_API_URL
-
-// interface LoginState {
-//     email: string,
-//     password: string
-// }
-
-// interface AuthResponseData {
-//     authToken: string
-// }
-
-// interface ErrorResponse {
-//     message: string
-// }
 
 const LogIn: React.FC = () => {
     const [logIn, setLogIn] = useState<LoginState>({
@@ -97,9 +82,6 @@ const LogIn: React.FC = () => {
                             onChange={handleInputChange}
                         />
                     </Form.Group>
-                    {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="Check me out" />
-                    </Form.Group> */}
                     <Button variant="secondary" type="submit" onClick={() => setShow(true)}>
                         Submit
                     </Button>
@@ -107,21 +89,20 @@ const LogIn: React.FC = () => {
                 {/** make error toast a reusable component */}
                 <div className="errormessage">
                     {errorMessage && <ToastContainer position="top-start">
-                    <Toast onClose={() => setShow(false)} show={show} delay={4000} autohide>
-                        <Toast.Header>
-                            <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-                            <strong className="me-auto"></strong>
-                            <small></small>
-                        </Toast.Header>
-                        <Toast.Body className="toast-message">{errorMessage}</Toast.Body>
-                    </Toast>
+                        <Toast onClose={() => setShow(false)} show={show} delay={4000} autohide>
+                            <Toast.Header>
+                                <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+                                <strong className="me-auto"></strong>
+                                <small></small>
+                            </Toast.Header>
+                            <Toast.Body className="toast-message">{errorMessage}</Toast.Body>
+                        </Toast>
                     </ToastContainer>
                     }
                     <p>Don't have an account yet?</p>
                     <Link to={"/signup"}>Click here to create an account</Link>
                 </div>
             </div>
-
         </div>
     )
 

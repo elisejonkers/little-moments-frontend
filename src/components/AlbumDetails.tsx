@@ -7,14 +7,6 @@ import logo_heart from "../assets/logo-symbol.png"
 import albumService from "../services/album.service";
 import { Album } from "../types/album.types"
 
-// interface Album {
-//     name: string,
-//     dateOfBirth: Date | string,
-//     place: string,
-//     length: number,
-//     weight: number
-// }
-
 const initialAlbumDetails: Album = {
     name: 'Initial name',
     dateOfBirth: new Date(),
@@ -29,20 +21,6 @@ const AlbumDetails: React.FC = () => {
     const { albumId } = useParams()
     const navigate = useNavigate()
 
-    // const loadAlbumDetails = () => {
-    //     axios
-    //         .get(`${apiURL}/api/albums/${albumId}`,
-    //             {
-    //                 headers: { Authorization: `Bearer ${storedToken}` },
-    //             })
-    //         .then((response: AxiosResponse<Album>) => {
-    //             setAlbumDetails(response.data)
-    //         })
-    //         .catch((error: AxiosError) => {
-    //             console.log(error)
-    //         })
-    // }
-
     const handleEditClick = () => {
         navigate(`/albumedit/${albumId}`)
     }
@@ -56,59 +34,46 @@ const AlbumDetails: React.FC = () => {
 
         if (confirmDelete) {
             albumService.deleteAlbum(albumId)
-            .then((response: AxiosResponse) => {
-                console.log("Album deleted")
-                navigate("/dashboard")
-            })
-            .catch((error: AxiosError) => {
-                console.log("Error deleting album", error)
-            })
-            // axios
-            //     .delete(`${apiURL}/api/albums/${albumId}`, {
-            //         headers: { Authorization: `Bearer ${storedToken}` },
-            //     })
-            //     .then((response: AxiosResponse) => {
-            //         console.log("Album deleted succesfully")
-            //         navigate("/dashboard")
-            //     })
-            //     .catch((error: AxiosError) => {
-            //         console.log("Error deleting album", error)
-            //     })
+                .then((_response: AxiosResponse) => {
+                    console.log("Album deleted")
+                    navigate("/dashboard")
+                })
+                .catch((error: AxiosError) => {
+                    console.log("Error deleting album", error)
+                })
         }
     }
-//TODO: This effect should not have dependency but you can check before removing it
+    //TODO: This effect should not have dependency but you can check before removing it
     useEffect(() => {
         albumService.getAlbum(albumId)
-        .then((response: AxiosResponse) => {
-            //console.log(response.data)
-            setAlbumDetails(response.data)
-        })
-        .catch((error: AxiosError) => {
-            console.log("Error getting album details", error)
-        })
+            .then((response: AxiosResponse) => {
+                //console.log(response.data)
+                setAlbumDetails(response.data)
+            })
+            .catch((error: AxiosError) => {
+                console.log("Error getting album details", error)
+            })
     }, [albumId])
 
     return (
         <div className="album-details-container">
             <h1><img src={logo_heart} alt="heart" className="heart" />{albumDetails.name.toUpperCase()}</h1>
-            {/* <div className="albumdetails-overview"> */}
-                <div className="albumdetails">
-                    <h2>About me</h2>
-                    <p>My name is <span className="different-font">{albumDetails.name}</span></p>
-                    <p>I was born on <span className="different-font">
-                        {new Intl.DateTimeFormat('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        }).format(new Date(albumDetails.dateOfBirth))}</span>
-                    </p>
-                    <p>I was born in <span className="different-font">{albumDetails.place}</span></p>
-                    <p>I was <span className="different-font">{albumDetails.length}</span> cms when I was born</p>
-                    <p>I weighed <span className="different-font">{albumDetails.weight}</span> grams when I was born</p>
-                    <div className="albumdetails-buttons"><Button onClick={handleEditClick}>Edit</Button>
-                        <Button onClick={deleteAlbum}>Delete</Button>
-                    </div>
-                {/* </div> */}
+            <div className="albumdetails">
+                <h2>About me</h2>
+                <p>My name is <span className="different-font">{albumDetails.name}</span></p>
+                <p>I was born on <span className="different-font">
+                    {new Intl.DateTimeFormat('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    }).format(new Date(albumDetails.dateOfBirth))}</span>
+                </p>
+                <p>I was born in <span className="different-font">{albumDetails.place}</span></p>
+                <p>I was <span className="different-font">{albumDetails.length}</span> cms when I was born</p>
+                <p>I weighed <span className="different-font">{albumDetails.weight}</span> grams when I was born</p>
+                <div className="albumdetails-buttons"><Button onClick={handleEditClick}>Edit</Button>
+                    <Button onClick={deleteAlbum}>Delete</Button>
+                </div>
                 <div className="albumdetails-events">
                     <EventsList albumId={albumId} />
                 </div>

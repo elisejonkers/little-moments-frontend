@@ -33,7 +33,6 @@ export type InputFormControlElement = HTMLInputElement & {
 
 export interface EventsListProps {
     albumId?: string
-    //text: string
 }
 
 export type IsPrivateAnonProps = {
@@ -59,4 +58,3 @@ export interface SignUpState {
     firstName: string
 }
 
-//export default Album

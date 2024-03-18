@@ -8,15 +8,7 @@ import service from "../services/file-upload.service"
 import albumService from "../services/album.service";
 import Spinner from 'react-bootstrap/Spinner'
 import { Album, InputFormControlElement } from "../types/album.types"
-
-// interface Album {
-//     name: string,
-//     dateOfBirth: Date,
-//     place: string,
-//     length: number,
-//     weight: number,
-//     imageURL?: string | undefined
-// }
+import moment from "moment";
 
 const AlbumEdit: React.FC = () => {
     const storedToken = localStorage.getItem("authToken");
@@ -33,12 +25,6 @@ const AlbumEdit: React.FC = () => {
         weight: 0,
         imageURL: ""
     })
-
-    // type InputFormControlElement = HTMLInputElement & {
-    //     files: FileList | null
-    // }
-
-    
 
     const handleFileUpload = async (e: React.ChangeEvent<InputFormControlElement>) => {
         setShowSpinner(true)
@@ -58,25 +44,25 @@ const AlbumEdit: React.FC = () => {
             console.log("response is: ", response.fileURL)
             setImageUrl(response.fileURL)
             setHandleFileUploadCalled(true)
-            
+
         } catch (error) {
             console.log("error while uploading file: ", error)
         }
     }
 
-  useEffect(() => {
-    if (imageUrl) {
-        setShowSpinner(false)
-    }
-  }, [imageUrl])
+    useEffect(() => {
+        if (imageUrl) {
+            setShowSpinner(false)
+        }
+    }, [imageUrl])
 
     const getAlbumDetails = () => {
         albumService.getAlbum(albumId)
             .then((response: AxiosResponse<Album>) => {
                 const { dateOfBirth, ...otherData } = response.data
                 const newDateOfBirth = new Date(dateOfBirth)
-                setFormData({...otherData, dateOfBirth: newDateOfBirth})
-                console.log(formData)
+                setFormData({ ...otherData, dateOfBirth: newDateOfBirth })
+                //console.log(formData)
             })
             .catch((error: AxiosError) => {
                 console.log("error getting details album", error)
@@ -87,34 +73,34 @@ const AlbumEdit: React.FC = () => {
         const { name, value } = e.target
 
         if (name === "dateOfBirth") {
-            const date = new Date(value)
-            setFormData({...formData, [name]: date})
+            const date = moment(value, 'YYYY-MM-DD').toDate()
+            setFormData({ ...formData, [name]: date })
         } else {
-            setFormData({...formData, [name]: value})
+            setFormData({ ...formData, [name]: value })
         }
     }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        let newRequestBody = {...formData}
+        let newRequestBody = { ...formData }
 
         if (handleFileUploadCalled) {
-            newRequestBody = {...formData, imageURL: imageUrl}
+            newRequestBody = { ...formData, imageURL: imageUrl }
         } else {
-            newRequestBody = {...formData}
+            newRequestBody = { ...formData }
         }
 
-        console.log(newRequestBody)
+        //console.log(newRequestBody)
 
         albumService.updateAlbum(albumId, newRequestBody)
-        .then((_response: AxiosResponse) => {
-            console.log("Album updated")
-            navigate(`/albums/${albumId}`)
-        })
-        .catch((error: AxiosError) => {
-            console.log(error)
-        })
+            .then((_response: AxiosResponse) => {
+                console.log("Album updated")
+                navigate(`/albums/${albumId}`)
+            })
+            .catch((error: AxiosError) => {
+                console.log(error)
+            })
     }
 
     //TODO: Check effect dependency
@@ -126,40 +112,34 @@ const AlbumEdit: React.FC = () => {
     return (
         <div className="edit-container">
             <Form onSubmit={handleSubmit}>
-            <FloatingLabel
+                <FloatingLabel
                     controlId="floatingInput"
                     label="Name"
                     className="mb-3"
                 >
-                <Form.Control
-                    type="text"
-                    name="name"
-                    required={true}
-                    value={formData.name}
-                    onChange={handleInputChange}
-                />
+                    <Form.Control
+                        type="text"
+                        name="name"
+                        required={true}
+                        value={formData.name}
+                        onChange={handleInputChange}
+                    />
                 </FloatingLabel>
 
-                <br/>
+                <br />
 
                 <FloatingLabel
                     controlId="floatingInput"
                     label="Image"
                     className="mb-3"
                 >
-                    <Form.Control 
-                    type="file" 
-                    name="imageURL"
-                    accept=".jpg, .jpeg, .png"
-                    //placeholder="Name"
-                    //required={true}
-                    //value={formData.imageURL}
-                    onChange={(e: React.ChangeEvent<InputFormControlElement>) => handleFileUpload(e)}
+                    <Form.Control
+                        type="file"
+                        name="imageURL"
+                        accept=".jpg, .jpeg, .png"
+                        onChange={(e: React.ChangeEvent<InputFormControlElement>) => handleFileUpload(e)}
                     />
-                    {/* {formData.imageURL && (
-                        <div>Selected file: {formData.imageURL}</div>
-                    )} */}
-                    {showSpinner && <Spinner animation="border"/>}
+                    {showSpinner && <Spinner animation="border" />}
                 </FloatingLabel>
 
                 <br />
@@ -169,67 +149,65 @@ const AlbumEdit: React.FC = () => {
                     label="Date of birth"
                     className="mb-3"
                 >
-                <Form.Control
-                    type="date"
-                    name="dateOfBirth"
-                    required={true}
-                    value={formData.dateOfBirth.toISOString().split('T')[0]}
-                    onChange={handleInputChange}
-                />
+                    <Form.Control
+                        type="date"
+                        name="dateOfBirth"
+                        required={true}
+                        value={moment(formData.dateOfBirth).format('YYYY-MM-DD')}
+                        //value={formData.dateOfBirth.toISOString().split('T')[0]}
+                        onChange={handleInputChange}
+                    />
                 </FloatingLabel>
 
-                <br/>
+                <br />
 
                 <FloatingLabel
                     controlId="floatingInput"
                     label="Place of birth"
                     className="mb-3"
                 >
-                <Form.Control
-                    type="text"
-                    name="place"
-                    required={true}
-                    value={formData.place}
-                    onChange={handleInputChange}
-                />
+                    <Form.Control
+                        type="text"
+                        name="place"
+                        required={true}
+                        value={formData.place}
+                        onChange={handleInputChange}
+                    />
                 </FloatingLabel>
 
-                <br/>
+                <br />
 
                 <FloatingLabel
                     controlId="floatingInput"
                     label="Length in cm"
                     className="mb-3"
                 >
-                <Form.Control
-                    type="number"
-                    name="length"
-                    required={true}
-                    value={formData.length}
-                    onChange={handleInputChange}
-                />
+                    <Form.Control
+                        type="number"
+                        name="length"
+                        required={true}
+                        value={formData.length}
+                        onChange={handleInputChange}
+                    />
                 </FloatingLabel>
 
-                <br/>
+                <br />
 
                 <FloatingLabel
                     controlId="floatingInput"
                     label="Weight in gram"
                     className="mb-3"
                 >
-                <Form.Control
-                    type="number"
-                    name="weight"
-                    required={true}
-                    value={formData.weight}
-                    onChange={handleInputChange}
-                />
+                    <Form.Control
+                        type="number"
+                        name="weight"
+                        required={true}
+                        value={formData.weight}
+                        onChange={handleInputChange}
+                    />
                 </FloatingLabel>
-
                 <Button variant="secondary" type="submit">Save</Button>
-
             </Form>
-
         </div>
     )
 }

@@ -1,23 +1,5 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
-import { Album, Event} from "../types/album.types"
-// interface Album {
-//     name: string,
-//     dateOfBirth: Date,
-//     place: string,
-//     length: number,
-//     weight: number,
-//     imageURL?: string | undefined
-// }
-
-// interface Event {
-//     category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other" | "Open this select menu",
-//     title: string,
-//     date: Date,
-//     description: string,
-//     album: string | undefined,
-//     _id?: string,
-//     imageURL?: string
-// }
+import { Album, Event } from "../types/album.types"
 
 class AlbumService {
     private readonly api: AxiosInstance
@@ -27,10 +9,8 @@ class AlbumService {
             baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5005'
         });
 
-        // Automatically set JWT token in the headers for every request
         this.api.interceptors.request.use(
             (config: InternalAxiosRequestConfig) => {
-                // Retrieve the JWT token from the local storage
                 const storedToken = localStorage.getItem('authToken');
 
                 if (storedToken) {
@@ -91,7 +71,6 @@ class AlbumService {
     }
 }
 
-// Create one instance object
 const albumService = new AlbumService();
 
 export default albumService;

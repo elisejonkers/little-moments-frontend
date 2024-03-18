@@ -10,16 +10,7 @@ import Spinner from 'react-bootstrap/Spinner'
 import service from "../services/file-upload.service"
 import albumService from "../services/album.service";
 import { Event, InputFormControlElement } from "../types/album.types"
-
-// interface Event {
-//     category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other",
-//     title: string,
-//     date: Date,
-//     description: string,
-//     album: string | undefined
-//     _id?: string,
-//     imageURL?: string | undefined
-// }
+import moment from "moment";
 
 const EventEdit: React.FC = () => {
     const storedToken = localStorage.getItem("authToken");
@@ -36,10 +27,6 @@ const EventEdit: React.FC = () => {
         album: "",
         imageURL: ""
     })
-
-    // type InputFormControlElement = HTMLInputElement & {
-    //     files: FileList | null
-    // }
 
     const handleFileUpload = async (e: React.ChangeEvent<InputFormControlElement>) => {
         setShowSpinner(true)
@@ -59,7 +46,6 @@ const EventEdit: React.FC = () => {
             console.log("response is: ", response.fileURL)
             setImageUrl(response.fileURL)
             setHandleFileUploadCalled(true)
-            
         } catch (error) {
             console.log("error while uploading file: ", error)
         }
@@ -71,17 +57,13 @@ const EventEdit: React.FC = () => {
     }, [imageUrl])
 
     const getEventDetails = () => {
-        // axios
-        //     .get(`${apiURL}/api/albums/${albumId}/events/${eventId}`, {
-        //         headers: { Authorization: `Bearer ${storedToken}` }
-        //     })
         albumService.getEvent(albumId, eventId)
             .then((response: AxiosResponse<Event>) => {
-                console.log(response.data)
+                //console.log(response.data)
                 const { date, ...otherData } = response.data
                 const newDate = new Date(date)
-                setFormData({...otherData, date: newDate})
-                console.log(formData)
+                setFormData({ ...otherData, date: newDate })
+                //console.log(formData)
             })
             .catch((error: AxiosError) => {
                 console.log("error getting details album", error)
@@ -92,35 +74,31 @@ const EventEdit: React.FC = () => {
         const { name, value } = e.target
 
         if (name === "date") {
-            const correctDate = new Date(value)
-            setFormData({...formData, [name]: correctDate})
+            const correctDate = moment(value, 'YYYY-MM-DD').toDate()
+            setFormData({ ...formData, [name]: correctDate })
         } else {
-            setFormData({...formData, [name]: value})
+            setFormData({ ...formData, [name]: value })
         }
     }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        let newRequestBody = {...formData}
+        let newRequestBody = { ...formData }
 
         if (handleFileUploadCalled) {
-            newRequestBody = {...formData, imageURL: imageUrl}
+            newRequestBody = { ...formData, imageURL: imageUrl }
         } else {
-            newRequestBody = {...formData}
+            newRequestBody = { ...formData }
         }
 
-        // axios
-        //     .put(`${apiURL}/api/albums/${albumId}/events/${eventId}`, newRequestBody, {
-        //     headers: { Authorization: `Bearer ${storedToken}` }
-        //     })
         albumService.updateEvent(albumId, eventId, newRequestBody)
             .then((_response: AxiosResponse) => {
-            console.log("Event updated", newRequestBody)
-            navigate(`/albums/${albumId}`)
+                console.log("Event updated", newRequestBody)
+                navigate(`/albums/${albumId}`)
             })
             .catch((error: AxiosError) => {
-            console.log(error)
+                console.log(error)
             })
     }
 
@@ -140,13 +118,13 @@ const EventEdit: React.FC = () => {
                     label="Category"
                     className="mb-3"
                 >
-                    <Form.Select 
+                    <Form.Select
                         aria-label="Default select example"
                         name="category"
                         required={true}
                         value={formData.category}
                         onChange={handleInputChange}
-                        >
+                    >
                         <option value="Motor development">Motor development</option>
                         <option value="Social development">Social development</option>
                         <option value="Language development">Language development</option>
@@ -155,43 +133,37 @@ const EventEdit: React.FC = () => {
                     </Form.Select>
                 </FloatingLabel>
 
-                <br/>
+                <br />
 
                 <FloatingLabel
                     controlId="floatingInput"
                     label="Title"
                     className="mb-3"
                 >
-                    <Form.Control 
-                    type="text" 
-                    name="title"
-                    placeholder="Title"
-                    required={true}
-                    value={formData.title}
-                    onChange={handleInputChange} 
+                    <Form.Control
+                        type="text"
+                        name="title"
+                        placeholder="Title"
+                        required={true}
+                        value={formData.title}
+                        onChange={handleInputChange}
                     />
                 </FloatingLabel>
 
-                <br/>
+                <br />
 
                 <FloatingLabel
                     controlId="floatingInput"
                     label="Image"
                     className="mb-3"
                 >
-                    <Form.Control 
-                    type="file" 
-                    name="imageURL"
-                    accept=".jpg, .jpeg, .png"
-                    //placeholder="Name"
-                    //required={true}
-                    //value={formData.imageURL}
-                    onChange={(e: React.ChangeEvent<InputFormControlElement>) => handleFileUpload(e)}
+                    <Form.Control
+                        type="file"
+                        name="imageURL"
+                        accept=".jpg, .jpeg, .png"
+                        onChange={(e: React.ChangeEvent<InputFormControlElement>) => handleFileUpload(e)}
                     />
-                    {/* {formData.imageURL && (
-                        <div>Selected file: {formData.imageURL}</div>
-                    )} */}
-                     {showSpinner && <Spinner animation="border"/>}
+                    {showSpinner && <Spinner animation="border" />}
 
                 </FloatingLabel>
 
@@ -202,33 +174,33 @@ const EventEdit: React.FC = () => {
                     label="Date"
                     className="mb-3"
                 >
-                    <Form.Control 
-                    type="date" 
-                    name="date"
-                    placeholder="Date"
-                    required={true}
-                    value={formData.date.toISOString().split('T')[0]}
-                    onChange={handleInputChange} 
+                    <Form.Control
+                        type="date"
+                        name="date"
+                        placeholder="Date"
+                        required={true}
+                        value={moment(formData.date).format('YYYY-MM-DD')}
+                        //value={formData.date.toISOString().split('T')[0]}
+                        onChange={handleInputChange}
                     />
                 </FloatingLabel>
 
-                <br/>
+                <br />
 
                 <FloatingLabel
                     controlId="floatingTextarea"
                     label="Description"
                     className="mb-3"
                 >
-                    <Form.Control 
-                    as="textarea" 
-                    name="description"
-                    placeholder="Date"
-                    required={true}
-                    value={formData.description}
-                    onChange={handleInputChange} 
+                    <Form.Control
+                        as="textarea"
+                        name="description"
+                        placeholder="Date"
+                        required={true}
+                        value={formData.description}
+                        onChange={handleInputChange}
                     />
-                </FloatingLabel>                                         
-                     
+                </FloatingLabel>
                 <Button type="submit">Save</Button>
             </Form>
         </div>

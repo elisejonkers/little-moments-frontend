@@ -1,9 +1,8 @@
 //import "../styling/app.css"
 
 import axios from "axios"
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { AuthContext } from "../context/auth.context"
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Toast from 'react-bootstrap/Toast';
@@ -12,14 +11,6 @@ import signup_photo from "../assets/signup_photo.jpg"
 import { SignUpState } from "../types/album.types";
 
 const apiURL = process.env.REACT_APP_API_URL
-
-// interface SignUpState {
-//     email: string,
-//     password: string,
-//     firstName: string
-// }
-
-
 
 const SignUp: React.FC = () => {
     const [signUp, setSignUp] = useState<SignUpState>({
@@ -30,7 +21,6 @@ const SignUp: React.FC = () => {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
     const [show, setShow] = useState<boolean>(false)
     const navigate = useNavigate()
-
 
     // TODO: Rename it to handleSignupChange
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,19 +94,19 @@ const SignUp: React.FC = () => {
                     </Button>
                 </Form>
                 <div className="errormessage">
-                {errorMessage && <ToastContainer position="top-start">
-                    <Toast onClose={() => setShow(false)} show={show} delay={4000} autohide>
-                        <Toast.Header>
-                            <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-                            <strong className="me-auto"></strong>
-                            <small></small>
-                        </Toast.Header>
-                        <Toast.Body className="toast-message">{errorMessage}</Toast.Body>
-                    </Toast>
+                    {errorMessage && <ToastContainer position="top-start">
+                        <Toast onClose={() => setShow(false)} show={show} delay={4000} autohide>
+                            <Toast.Header>
+                                <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+                                <strong className="me-auto"></strong>
+                                <small></small>
+                            </Toast.Header>
+                            <Toast.Body className="toast-message">{errorMessage}</Toast.Body>
+                        </Toast>
                     </ToastContainer>}
-                <p>Already have an account?</p>
-                <Link to={"/login"}>Click here to login</Link>
-            </div>
+                    <p>Already have an account?</p>
+                    <Link to={"/login"}>Click here to login</Link>
+                </div>
             </div>
 
         </div>

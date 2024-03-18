@@ -8,28 +8,13 @@ import default_picture from "../assets/default-picture.jpg"
 import CloseButton from 'react-bootstrap/CloseButton';
 import Spinner from 'react-bootstrap/Spinner'
 import albumService from "../services/album.service";
-import { Event, AddEventFormProps, InputFormControlElement } from "../types/album.types" 
-
-// interface Event {
-//     category: "Motor development" | "Social development" | "Language development" | "Sensory development" | "Other" | "Open this select menu",
-//     title: string,
-//     date: Date,
-//     description: string,
-//     album?: string | undefined
-//     imageURL?: string | undefined
-// }
-
-// interface AddEventFormProps {
-//     albumId?: string | undefined
-//     toggleAddEventForm?: () => void | undefined
-//     loadEvents?: () => void | undefined
-// }
+import { Event, AddEventFormProps, InputFormControlElement } from "../types/album.types"
+import moment from "moment";
 
 const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm, loadEvents }) => {
     const [handleFileUploadCalled, setHandleFileUploadCalled] = useState<boolean>(false)
     const [showSpinner, setShowSpinner] = useState<boolean>(false)
     const storedToken = localStorage.getItem("authToken");
-   
     const [imageUrl, setImageUrl] = useState("")
     const [formData, setFormData] = useState<Event>({
         category: "Open this select menu",
@@ -39,32 +24,25 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
         imageURL: default_picture
     })
 
-    // TODO: Move it ut of function
-    // type InputFormControlElement = HTMLInputElement & {
-    //     files: FileList | null
-    // }
-
-  
-
     // TODO: Create a custom hook using useCallback and try to reuse this function whever you are uploading images
     const handleFileUpload = async (e: React.ChangeEvent<InputFormControlElement>) => {
         setShowSpinner(true)
         console.log("The file to be uploaded is: ", e.target)
         const file = e.target.files && e.target.files[0]
-        
+
         if (file) {
             console.log("selected file: ", file)
         }
-        
+
         const uploadData = new FormData()
         uploadData.append("imageURL", e.target.files![0])
 
         try {
             const response = await service.uploadImage(uploadData, storedToken)
-            console.log("response is: ", response)
+            //console.log("response is: ", response)
             setImageUrl(response.fileURL)
             setHandleFileUploadCalled(true)
-            console.log(imageUrl)
+            //console.log(imageUrl)
         } catch (error) {
             console.log("error while uploading file: ", error)
         }
@@ -76,17 +54,11 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
         }
     }, [imageUrl])
 
-    // const spinnerLoadImages = () => {
-        
-    //     //Activeren wanneer upload image is getriggerd
-    //     //Stoppen wanneer image daadwerkelijk is geupload
-    // }
-
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target
 
         if (name === "date") {
-            const date = new Date(value)
+            const date = moment(value, 'YYYY-MM-DD').toDate()
             setFormData({ ...formData, [name]: date })
         } else {
             setFormData({ ...formData, [name]: value })
@@ -96,18 +68,6 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        // let newRequestBody = {...formData}
-
-        // if (handleFileUploadCalled) {
-        //     newRequestBody = {...formData, imageURL: imageUrl}
-        // } else {
-        //     newRequestBody = {...formData}
-        // } 
-
-        // axios
-        //     .get(`${apiURL}/api/albums/${albumId}`, {
-        //         headers: { Authorization: `Bearer ${storedToken}` }
-        //     })
         albumService.getAlbum(albumId)
             .then((response: AxiosResponse) => {
                 const album = response.data
@@ -121,15 +81,11 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                 }
 
                 if (handleFileUploadCalled) {
-                    newEventData = {...formData, album: album._id, imageURL: imageUrl}
-                } 
-
-                // return axios.post(`${apiURL}/api/albums/${album}/events`, newEventData, {
-                //     headers: { Authorization: `Bearer ${storedToken}` }
-                // })
+                    newEventData = { ...formData, album: album._id, imageURL: imageUrl }
+                }
                 return albumService.createEvent(albumId, newEventData)
             })
-            .then((response: AxiosResponse) => {
+            .then((_response: AxiosResponse) => {
                 console.log("Event created")
                 setFormData({
                     category: "Other",
@@ -137,31 +93,26 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                     date: new Date(),
                     description: ""
                 })
-                console.log(formData)
+                //console.log(formData)
                 loadEvents?.()
                 toggleAddEventForm?.()
             })
             .catch((error: AxiosError) => {
                 console.log(error)
             })
-            console.log(formData)
+        //console.log(formData)
     }
 
     const closeForm = () => {
         toggleAddEventForm?.()
     }
 
-    // useEffect(() => {
-    //     console.log(imageUrl)
-    // }, [imageUrl])
-
     return (
         <div className="add-event-form-container">
-            <CloseButton onClick={closeForm} className="close-button"/>
-               <h1>CREATE A NEW EVENT</h1>
+            <CloseButton onClick={closeForm} className="close-button" />
+            <h1>CREATE A NEW EVENT</h1>
             <Form onSubmit={handleSubmit} className="add-event-form">
-            
-             
+
                 <br />
 
                 <FloatingLabel
@@ -169,13 +120,13 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                     label="Title"
                     className="mb-3"
                 >
-                    <Form.Control 
-                    type="text" 
-                    name="title"
-                    placeholder="Title"
-                    required={true}
-                    value={formData.title}
-                    onChange={handleInputChange} 
+                    <Form.Control
+                        type="text"
+                        name="title"
+                        placeholder="Title"
+                        required={true}
+                        value={formData.title}
+                        onChange={handleInputChange}
                     />
                 </FloatingLabel>
 
@@ -184,21 +135,13 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                     label="Image"
                     className="mb-3"
                 >
-                    <Form.Control 
-                    type="file" 
-                    name="imageURL"
-                    accept=".jpg, .jpeg, .png"
-                    //placeholder="Name"
-                    //required={true}
-                    //value={formData.imageURL}
-                    onChange={(e: React.ChangeEvent<InputFormControlElement>) => handleFileUpload(e)}
+                    <Form.Control
+                        type="file"
+                        name="imageURL"
+                        accept=".jpg, .jpeg, .png"
+                        onChange={(e: React.ChangeEvent<InputFormControlElement>) => handleFileUpload(e)}
                     />
-                    {/* {formData.imageURL && (
-                        <div>Selected file: {formData.imageURL}</div>
-                    )} */}
-                    {showSpinner && <Spinner animation="border"/>}
-                    
-
+                    {showSpinner && <Spinner animation="border" />}
                 </FloatingLabel>
 
                 <FloatingLabel
@@ -206,13 +149,13 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                     label="Category"
                     className="mb-3"
                 >
-                    <Form.Select 
+                    <Form.Select
                         aria-label="Default select example"
                         name="category"
                         required={true}
                         value={formData.category}
                         onChange={handleInputChange}
-                        >
+                    >
                         <option>Open this select menu</option>
                         <option value="Motor development">Motor development</option>
                         <option value="Social development">Social development</option>
@@ -227,13 +170,14 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                     label="Date"
                     className="mb-3"
                 >
-                    <Form.Control 
-                    type="date" 
-                    name="date"
-                    placeholder="Date"
-                    required={true}
-                    value={formData.date.toISOString().split('T')[0]}
-                    onChange={handleInputChange} 
+                    <Form.Control
+                        type="date"
+                        name="date"
+                        placeholder="Date"
+                        required={true}
+                        value={moment(formData.date).format('YYYY-MM-DD')}
+                        //value={formData.date.toISOString().split('T')[0]}
+                        onChange={handleInputChange}
                     />
                 </FloatingLabel>
 
@@ -242,16 +186,16 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                     label="Description"
                     className="mb-3"
                 >
-                    <Form.Control 
-                    as="textarea" 
-                    name="description"
-                    placeholder="Date"
-                    required={true}
-                    value={formData.description}
-                    onChange={handleInputChange} 
+                    <Form.Control
+                        as="textarea"
+                        name="description"
+                        placeholder="Date"
+                        required={true}
+                        value={formData.description}
+                        onChange={handleInputChange}
                     />
                 </FloatingLabel>
-        
+
                 <Button type="submit">Submit</Button>
             </Form>
         </div>

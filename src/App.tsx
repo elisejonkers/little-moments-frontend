@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import SignUp from './components/SignUp';
@@ -18,49 +17,25 @@ import "./styling/appS.css"
 import "./styling/appM.css"
 import "./styling/appL.css"
 import "./styling/appXL.css"
-import albumService from './services/album.service';
-//import axiosClient from './services/album.service';
 
 // TODO: Add custom 404 page
 // Use Lazy to improve page speed.
 
 function App() {
-  // albumService.getAllAlbums()
-  //   .then((response) => {
-  //     console.log(response.data)
-  //   })
-  //   .catch((error) => {
-  //     console.log("this is error fetching albums", error)
-  //   })
-
-  // const client = axiosClient()
-
-  // useEffect(() => {
-  //   client  
-  //     .get("api/albums")
-  //     .then((response) => {
-  //       console.log(response.data)
-  //     })
-  //     .catch((error) => {
-  //       console.log("error fetching data", error)
-  //     })
-  // }, [])
-
-
   return (
     <>
-    <NavBar/>
-    <Routes>
-      <Route path="/" element={<HomePage/>}/>
-      <Route path="/signup" element={<IsAnon><SignUp/></IsAnon>}/>
-      <Route path="/login" element={<IsAnon><LogIn/></IsAnon>}/>
-      <Route path="/dashboard" element={<IsPrivate><DashBoardPage/></IsPrivate>}/>
-      <Route path="/albumform" element={<IsPrivate><AddAlbumForm/></IsPrivate>}/>
-      <Route path="/albums/:albumId" element={<IsPrivate><AlbumDetails/></IsPrivate>}/>
-      <Route path="/eventform" element={<IsPrivate><AddEventForm/></IsPrivate>}/>
-      <Route path="/albumedit/:albumId" element={<IsPrivate><AlbumEdit/></IsPrivate>}/>
-      <Route path="/albums/:albumId/eventedit/:eventId" element={<IsPrivate><EventEdit/></IsPrivate>}/>
-    </Routes>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/signup" element={<IsAnon><SignUp /></IsAnon>} />
+        <Route path="/login" element={<IsAnon><LogIn /></IsAnon>} />
+        <Route path="/dashboard" element={<IsPrivate><DashBoardPage /></IsPrivate>} />
+        <Route path="/albumform" element={<IsPrivate><AddAlbumForm /></IsPrivate>} />
+        <Route path="/albums/:albumId" element={<IsPrivate><AlbumDetails /></IsPrivate>} />
+        <Route path="/eventform" element={<IsPrivate><AddEventForm /></IsPrivate>} />
+        <Route path="/albumedit/:albumId" element={<IsPrivate><AlbumEdit /></IsPrivate>} />
+        <Route path="/albums/:albumId/eventedit/:eventId" element={<IsPrivate><EventEdit /></IsPrivate>} />
+      </Routes>
     </>
   );
 }
