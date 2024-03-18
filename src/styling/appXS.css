@@ -236,7 +236,7 @@ body::before {
   flex-direction: column;
 }
 
-}
+
 
 /* add album form */
 
@@ -292,13 +292,6 @@ body::before {
   font-style: normal;
   font-variation-settings: "slnt" 0;
 }
-
-/* .albumdetails-overview {
-  display: grid;
-  grid-template-columns: 1fr, 2fr;
-  gap: 10px; 
-  height: 10vh;
-} */
 
 .albumdetails {
   display: flex;
@@ -482,4 +475,25 @@ body::before {
   position: absolute;
   top: 10px;
   right: 10px;
+}
+
+.delete-window {
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  border-radius: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(55, 55, 55);
+  color: white;
+  width: 50%;
+  height: 30%;
+}
+
+.delete-window button {
+  margin-top: 1%;
+}
 }

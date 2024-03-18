@@ -24,7 +24,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
         imageURL: default_picture
     })
 
-    // TODO: Create a custom hook using useCallback and try to reuse this function whever you are uploading images
+    // FEEDBACK: Create a custom hook using useCallback and try to reuse this function whever you are uploading images
     const handleFileUpload = async (e: React.ChangeEvent<InputFormControlElement>) => {
         setShowSpinner(true)
         console.log("The file to be uploaded is: ", e.target)
@@ -39,10 +39,9 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
 
         try {
             const response = await service.uploadImage(uploadData, storedToken)
-            //console.log("response is: ", response)
+            console.log("response is: ", response)
             setImageUrl(response.fileURL)
             setHandleFileUploadCalled(true)
-            //console.log(imageUrl)
         } catch (error) {
             console.log("error while uploading file: ", error)
         }
@@ -54,7 +53,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
         }
     }, [imageUrl])
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const setEventInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target
 
         if (name === "date") {
@@ -93,14 +92,12 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                     date: new Date(),
                     description: ""
                 })
-                //console.log(formData)
                 loadEvents?.()
                 toggleAddEventForm?.()
             })
             .catch((error: AxiosError) => {
                 console.log(error)
             })
-        //console.log(formData)
     }
 
     const closeForm = () => {
@@ -126,7 +123,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                         placeholder="Title"
                         required={true}
                         value={formData.title}
-                        onChange={handleInputChange}
+                        onChange={setEventInput}
                     />
                 </FloatingLabel>
 
@@ -154,7 +151,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                         name="category"
                         required={true}
                         value={formData.category}
-                        onChange={handleInputChange}
+                        onChange={setEventInput}
                     >
                         <option>Open this select menu</option>
                         <option value="Motor development">Motor development</option>
@@ -176,8 +173,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                         placeholder="Date"
                         required={true}
                         value={moment(formData.date).format('YYYY-MM-DD')}
-                        //value={formData.date.toISOString().split('T')[0]}
-                        onChange={handleInputChange}
+                        onChange={setEventInput}
                     />
                 </FloatingLabel>
 
@@ -192,7 +188,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ albumId, toggleAddEventForm
                         placeholder="Date"
                         required={true}
                         value={formData.description}
-                        onChange={handleInputChange}
+                        onChange={setEventInput}
                     />
                 </FloatingLabel>
 

@@ -9,7 +9,6 @@ const AlbumList: React.FC = () => {
     useEffect(() => {
         albumService.getAllAlbums()
             .then((response) => {
-                //console.log(response.data)
                 setAlbums(response.data)
             })
             .catch((error) => {
@@ -21,12 +20,12 @@ const AlbumList: React.FC = () => {
         <div className="albumlist-container">
             {albums.map((album, index) => {
                 return (
-                    <div className="albumlist-container-item">
+                    <div className="albumlist-container-item" key={index}>
                         <Link to={`/albums/${album._id}`} style={{ textDecoration: 'none' }}>
                             <div className="profile-picture-wrapper">
                                 <img src={album.imageURL} alt="baby" />
                             </div>
-                            <h4 key={index} className="babyname">{album.name}</h4>
+                            <h4 className="babyname">{album.name}</h4>
                         </Link>
                     </div>
                 )

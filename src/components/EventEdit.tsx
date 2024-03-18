@@ -59,18 +59,16 @@ const EventEdit: React.FC = () => {
     const getEventDetails = () => {
         albumService.getEvent(albumId, eventId)
             .then((response: AxiosResponse<Event>) => {
-                //console.log(response.data)
                 const { date, ...otherData } = response.data
                 const newDate = new Date(date)
                 setFormData({ ...otherData, date: newDate })
-                //console.log(formData)
             })
             .catch((error: AxiosError) => {
                 console.log("error getting details album", error)
             })
     }
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const setEventInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target
 
         if (name === "date") {
@@ -106,10 +104,6 @@ const EventEdit: React.FC = () => {
         getEventDetails()
     }, [albumId])
 
-    // useEffect(() => {
-    //     console.log(imageUrl)
-    // }, [imageUrl])
-
     return (
         <div className="edit-container">
             <Form onSubmit={handleSubmit}>
@@ -123,7 +117,7 @@ const EventEdit: React.FC = () => {
                         name="category"
                         required={true}
                         value={formData.category}
-                        onChange={handleInputChange}
+                        onChange={setEventInput}
                     >
                         <option value="Motor development">Motor development</option>
                         <option value="Social development">Social development</option>
@@ -146,7 +140,7 @@ const EventEdit: React.FC = () => {
                         placeholder="Title"
                         required={true}
                         value={formData.title}
-                        onChange={handleInputChange}
+                        onChange={setEventInput}
                     />
                 </FloatingLabel>
 
@@ -180,8 +174,7 @@ const EventEdit: React.FC = () => {
                         placeholder="Date"
                         required={true}
                         value={moment(formData.date).format('YYYY-MM-DD')}
-                        //value={formData.date.toISOString().split('T')[0]}
-                        onChange={handleInputChange}
+                        onChange={setEventInput}
                     />
                 </FloatingLabel>
 
@@ -198,7 +191,7 @@ const EventEdit: React.FC = () => {
                         placeholder="Date"
                         required={true}
                         value={formData.description}
-                        onChange={handleInputChange}
+                        onChange={setEventInput}
                     />
                 </FloatingLabel>
                 <Button type="submit">Save</Button>

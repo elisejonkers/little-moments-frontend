@@ -23,7 +23,7 @@ const LogIn: React.FC = () => {
     const navigate = useNavigate()
     const { storeToken, authenticateUser } = useContext(AuthContext)
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const setLoginInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setLogIn({ ...logIn, [name]: value })
     }
@@ -67,7 +67,7 @@ const LogIn: React.FC = () => {
                             name="email"
                             required={true}
                             value={logIn.email}
-                            onChange={handleInputChange}
+                            onChange={setLoginInput}
                         />
                     </Form.Group>
 
@@ -79,14 +79,13 @@ const LogIn: React.FC = () => {
                             name="password"
                             required={true}
                             value={logIn.password}
-                            onChange={handleInputChange}
+                            onChange={setLoginInput}
                         />
                     </Form.Group>
                     <Button variant="secondary" type="submit" onClick={() => setShow(true)}>
                         Submit
                     </Button>
                 </Form>
-                {/** make error toast a reusable component */}
                 <div className="errormessage">
                     {errorMessage && <ToastContainer position="top-start">
                         <Toast onClose={() => setShow(false)} show={show} delay={4000} autohide>

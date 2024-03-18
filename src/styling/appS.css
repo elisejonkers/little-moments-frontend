@@ -437,4 +437,24 @@
     top: 10px;
     right: 10px;
   }
+
+  .delete-window {
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(55, 55, 55);
+    color: white;
+    width: 50%;
+    height: 30%;
+  }
+
+  .delete-window button {
+    margin-top: 1%;
+  }
 }

@@ -35,6 +35,13 @@ export interface EventsListProps {
     albumId?: string
 }
 
+export interface ConfirmDeleteProps {
+    onConfirmAlbum?: () => void
+    onConfirmEvent?: (eventId: string | undefined) => void
+    onCancel?: () => void
+    eventID?: string | undefined
+}
+
 export type IsPrivateAnonProps = {
     children: ReactNode
 }

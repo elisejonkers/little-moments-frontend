@@ -23,7 +23,7 @@ const SignUp: React.FC = () => {
     const navigate = useNavigate()
 
     // TODO: Rename it to handleSignupChange
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const setSignUpInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setSignUp({ ...signUp, [name]: value })
     }
@@ -31,7 +31,7 @@ const SignUp: React.FC = () => {
     const handleSignUpSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        // TODO: Use react-query for api calls
+        // TIP: Use react-query for api calls
         axios
             .post(`${apiURL}/auth/signup`, signUp)
             .then((_response) => {
@@ -45,7 +45,7 @@ const SignUp: React.FC = () => {
             })
     }
 
-    //TODO: Try to use formik for handling forms & validations
+    //TIP: Try to use formik for handling forms & validations
     return (
         <div className="login-container">
             <div className="login-photo-item">
@@ -62,7 +62,7 @@ const SignUp: React.FC = () => {
                             name="email"
                             required={true}
                             value={signUp.email}
-                            onChange={handleInputChange}
+                            onChange={setSignUpInput}
                         />
                     </Form.Group>
 
@@ -74,7 +74,7 @@ const SignUp: React.FC = () => {
                             name="password"
                             required={true}
                             value={signUp.password}
-                            onChange={handleInputChange}
+                            onChange={setSignUpInput}
                         />
                     </Form.Group>
 
@@ -86,7 +86,7 @@ const SignUp: React.FC = () => {
                             name="firstName"
                             required={true}
                             value={signUp.firstName}
-                            onChange={handleInputChange}
+                            onChange={setSignUpInput}
                         />
                     </Form.Group>
                     <Button variant="secondary" type="submit" onClick={() => setShow(true)}>

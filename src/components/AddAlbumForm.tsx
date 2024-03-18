@@ -53,15 +53,13 @@ const AddAlbumForm: React.FC = () => {
 
         try {
             const response = await service.uploadImage(uploadData, storedToken)
-            //console.log(response)
-            //console.log("response is: ", response.fileURL)
+            console.log("response is: ", response.fileURL)
             setImageUrl(response.fileURL)
             setHandleFileUploadCalled(true)
 
         } catch (error) {
             console.log("error while uploading file: ", error)
         }
-        //console.log(imageUrl)
     }
 
     const setAlbumInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,8 +84,6 @@ const AddAlbumForm: React.FC = () => {
             newRequestBody = { ...formData }
         }
 
-        //console.log(newRequestBody)
-
         albumService.createAlbum(newRequestBody)
             .then((_response: AxiosResponse) => {
                 console.log("Album created")
@@ -97,8 +93,6 @@ const AddAlbumForm: React.FC = () => {
                 console.log("Error creating an album", error)
             })
     }
-
-    //TOO: moment or luxon for dates handling
 
     return (
         <div className="album-form-container">
@@ -148,7 +142,6 @@ const AddAlbumForm: React.FC = () => {
                         placeholder="Date of birth"
                         name="dateOfBirth"
                         required={true}
-                        //value={formData.dateOfBirth.toISOString().split('T')[0]}
                         value={moment(formData.dateOfBirth).format('YYYY-MM-DD')}
                         onChange={setAlbumInput}
                     />

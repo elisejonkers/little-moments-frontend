@@ -62,14 +62,13 @@ const AlbumEdit: React.FC = () => {
                 const { dateOfBirth, ...otherData } = response.data
                 const newDateOfBirth = new Date(dateOfBirth)
                 setFormData({ ...otherData, dateOfBirth: newDateOfBirth })
-                //console.log(formData)
             })
             .catch((error: AxiosError) => {
                 console.log("error getting details album", error)
             })
     }
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const setAlbumForm = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
 
         if (name === "dateOfBirth") {
@@ -91,8 +90,6 @@ const AlbumEdit: React.FC = () => {
             newRequestBody = { ...formData }
         }
 
-        //console.log(newRequestBody)
-
         albumService.updateAlbum(albumId, newRequestBody)
             .then((_response: AxiosResponse) => {
                 console.log("Album updated")
@@ -103,7 +100,6 @@ const AlbumEdit: React.FC = () => {
             })
     }
 
-    //TODO: Check effect dependency
     useEffect(() => {
         getAlbumDetails()
         console.log(imageUrl)
@@ -122,7 +118,7 @@ const AlbumEdit: React.FC = () => {
                         name="name"
                         required={true}
                         value={formData.name}
-                        onChange={handleInputChange}
+                        onChange={setAlbumForm}
                     />
                 </FloatingLabel>
 
@@ -154,8 +150,7 @@ const AlbumEdit: React.FC = () => {
                         name="dateOfBirth"
                         required={true}
                         value={moment(formData.dateOfBirth).format('YYYY-MM-DD')}
-                        //value={formData.dateOfBirth.toISOString().split('T')[0]}
-                        onChange={handleInputChange}
+                        onChange={setAlbumForm}
                     />
                 </FloatingLabel>
 
@@ -171,7 +166,7 @@ const AlbumEdit: React.FC = () => {
                         name="place"
                         required={true}
                         value={formData.place}
-                        onChange={handleInputChange}
+                        onChange={setAlbumForm}
                     />
                 </FloatingLabel>
 
@@ -187,7 +182,7 @@ const AlbumEdit: React.FC = () => {
                         name="length"
                         required={true}
                         value={formData.length}
-                        onChange={handleInputChange}
+                        onChange={setAlbumForm}
                     />
                 </FloatingLabel>
 
@@ -203,7 +198,7 @@ const AlbumEdit: React.FC = () => {
                         name="weight"
                         required={true}
                         value={formData.weight}
-                        onChange={handleInputChange}
+                        onChange={setAlbumForm}
                     />
                 </FloatingLabel>
                 <Button variant="secondary" type="submit">Save</Button>

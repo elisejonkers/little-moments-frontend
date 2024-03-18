@@ -6,10 +6,12 @@ import Button from 'react-bootstrap/Button';
 import Carousel from 'react-bootstrap/Carousel';
 import albumService from "../services/album.service";
 import { Event, EventsListProps } from "../types/album.types"
+import ConfirmDelete from "./ConfirmDelete";
 
 const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
     const [isAddEventFormVisible, setIsEventFormVisible] = useState<boolean>(false)
     const [eventsList, setEventsList] = useState<Event[]>([])
+    const [showConfirmation, setShowConfirmation] = useState<boolean>(false)
 
     const loadEvents = () => {
         albumService.getAllEvents(albumId)
@@ -25,22 +27,25 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
         setIsEventFormVisible((prevIsToggled) => !prevIsToggled)
     }
 
-    const deleteEvent = (eventId: string | undefined) => {
-        console.log("Delete buttons invoked", eventId)
-        const confirmDelete = window.confirm(
-            "Are you sure you want to delete this album and the associated events?"
-        )
+    const deleteEvent = () => {
+        setShowConfirmation(true)
+    }
 
-        if (confirmDelete) {
-            albumService.deleteEvent(albumId, eventId)
-                .then((_response: AxiosResponse) => {
-                    console.log("Event deleted succesfully")
-                    loadEvents()
-                })
-                .catch((error: AxiosError) => {
-                    console.log("Error deleting event", error)
-                })
-        }
+    const handleConfirmDelete = (eventId: string | undefined) => {
+        setShowConfirmation(false)
+
+        albumService.deleteEvent(albumId, eventId)
+        .then((_response: AxiosResponse) => {
+            console.log(`Event ${eventId} deleted succesfully`)
+            loadEvents()
+        })
+        .catch((error: AxiosError) => {
+            console.log("Error deleting event", error)
+        })
+    }
+
+    const handleCancelDelete = () => {
+        setShowConfirmation(false)
     }
 
     useEffect(() => {
@@ -57,8 +62,7 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
                 <Carousel>
                     {eventsList.map((event) => {
                         return (
-                            // TODO:Add list key otherwise react would throw error in console
-                            <Carousel.Item>
+                            <Carousel.Item key={event._id}>
                                 <div className="carousel-items">
                                     <div className="carousel-picture-wrapper">
                                         <img src={event.imageURL} alt="First Slide" />
@@ -76,9 +80,15 @@ const EventsList: React.FC<EventsListProps> = ({ albumId }) => {
                                         <p>{event.description}</p>
                                         <div className="eventslist-buttons">
                                             <Link to={(`/albums/${albumId}/eventedit/${event._id}`)}><Button>Edit</Button></Link>
-                                            <Button onClick={() => deleteEvent(event._id)}>Delete</Button>
+                                            <Button onClick={deleteEvent}>Delete</Button>
                                         </div>
                                     </div>
+                                    {showConfirmation && (<ConfirmDelete
+                                    onConfirmEvent={handleConfirmDelete}
+                                    onCancel={handleCancelDelete}
+                                    eventID={event._id}
+                                    />
+                                    )}
                                 </div>
                             </Carousel.Item>
                         )

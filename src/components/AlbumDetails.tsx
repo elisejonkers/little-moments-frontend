@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import logo_heart from "../assets/logo-symbol.png"
 import albumService from "../services/album.service";
 import { Album } from "../types/album.types"
+import ConfirmDelete from "./ConfirmDelete";
 
 const initialAlbumDetails: Album = {
     name: 'Initial name',
@@ -16,7 +17,8 @@ const initialAlbumDetails: Album = {
 }
 
 const AlbumDetails: React.FC = () => {
-    //TODO: Instead of setting initial data, you could display a spinner or pageloader
+    //TIP: Instead of setting initial data, you could display a spinner or pageloader
+    const [showConfirmation, setShowConfirmation] = useState<boolean>(false)
     const [albumDetails, setAlbumDetails] = useState<Album>(initialAlbumDetails)
     const { albumId } = useParams()
     const navigate = useNavigate()
@@ -26,28 +28,29 @@ const AlbumDetails: React.FC = () => {
     }
 
     const deleteAlbum = () => {
-
-        //TODO:Create a simple alert coomponent and show it on top of the page
-        const confirmDelete = window.confirm(
-            "Are you sure you want to delete this album and the associated events?"
-        )
-
-        if (confirmDelete) {
-            albumService.deleteAlbum(albumId)
-                .then((_response: AxiosResponse) => {
-                    console.log("Album deleted")
-                    navigate("/dashboard")
-                })
-                .catch((error: AxiosError) => {
-                    console.log("Error deleting album", error)
-                })
-        }
+        setShowConfirmation(true)
     }
-    //TODO: This effect should not have dependency but you can check before removing it
+
+    const handleConfirmDelete = () => {
+        setShowConfirmation(false)
+
+        albumService.deleteAlbum(albumId)
+            .then((_response: AxiosResponse) => {
+                console.log("Album deleted")
+                navigate("/dashboard")
+            })
+            .catch((error: AxiosError) => {
+                console.log("Error deleting album", error)
+            })
+    }
+
+    const handleCancelDelete = () => {
+        setShowConfirmation(false)
+    }
+
     useEffect(() => {
         albumService.getAlbum(albumId)
             .then((response: AxiosResponse) => {
-                //console.log(response.data)
                 setAlbumDetails(response.data)
             })
             .catch((error: AxiosError) => {
@@ -78,6 +81,12 @@ const AlbumDetails: React.FC = () => {
                     <EventsList albumId={albumId} />
                 </div>
             </div>
+            {showConfirmation && (
+                <ConfirmDelete
+                    onConfirmAlbum={handleConfirmDelete}
+                    onCancel={handleCancelDelete}
+                />
+            )}
         </div>
     )
 }
